@@ -5,6 +5,7 @@ public class main {
 
 		System.out.println("bit : check");
 		System.out.println("현석  : check ");
+		System.out.println("현석 2차 확인 : check");
 	}
 
 }
