@@ -4,8 +4,9 @@ public class main {
 	public static void main(String[] args) {
 
 		System.out.println("bit : check");
-		System.out.println("Çö¼®  : check ");
-		System.out.println("Çö¼® 2Â÷ È®ÀÎ : check");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½  : check ");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ È®ï¿½ï¿½ : check");
+		System.out.println("í˜„ìš°1ì°¨í…ŒìŠ¤íŠ¸");
 	}
 
 }
