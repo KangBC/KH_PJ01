@@ -8,8 +8,11 @@ public class main {
 		System.out.println("현석 2차 테스트 : check");
 		System.out.println("현우 1차 테스트");
 		System.out.println("DEV 3차 현석 TEST");
+<<<<<<< .merge_file_a05856
 		System.out.println("DEV 4차 현석 TEST");
 
+=======
+>>>>>>> .merge_file_a11508
 	}
 
 }
