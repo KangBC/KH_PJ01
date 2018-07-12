@@ -9,8 +9,6 @@ import View.ControlView;
 public class MainClass {
 
 	public static void main(String[] args) {
-<<<<<<< HEAD
-=======
 
 		try {
 			UIManager.setLookAndFeel("ch.randelshofer.quaqua.QuaquaLookAndFeel");
@@ -32,5 +30,4 @@ public class MainClass {
 			ControlView frame = new ControlView();
 			frame.setVisible(true);
 		}
->>>>>>> KH_MiniProject/Hyeonseok
 	}
