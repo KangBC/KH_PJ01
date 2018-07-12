@@ -9,9 +9,6 @@ import View.ControlView;
 public class MainClass {
 
 	public static void main(String[] args) {
-<<<<<<< HEAD
-=======
-
 		try {
 			UIManager.setLookAndFeel("ch.randelshofer.quaqua.QuaquaLookAndFeel");
 		} catch (ClassNotFoundException e1) {
@@ -29,8 +26,7 @@ public class MainClass {
 		}
 		JFrame.setDefaultLookAndFeelDecorated(true);
 
-			ControlView frame = new ControlView();
-			frame.setVisible(true);
-		}
->>>>>>> KH_MiniProject/Hyeonseok
+		ControlView frame = new ControlView();
+		frame.setVisible(true);
 	}
+}
