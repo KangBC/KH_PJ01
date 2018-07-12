@@ -25,7 +25,8 @@ public class MemberDao {
 		this.dto = dto;
 	}
 	
-	public MemberDto login(String id, String pw) {			// 반환값이 null일경우 로그인 실패하도록 해줘야함. 이 dto는 singleton이 계속 갖고있도록 할것.
+	// 반환값이 null일경우 로그인 실패하도록 해줘야함. 이 dto는 singleton이 계속 갖고있도록 할것.
+	public MemberDto login(String id, String pw) {			
 		sql = "SELECT SEQ_MEMBER, MEMBER_MINUTE, MEMBER_ID FROM PC_MEMBER WHERE MEMBER_ID = " + id + ", MEMBER_PW = " + pw;
 		
 		try {
@@ -43,7 +44,8 @@ public class MemberDao {
 		return dto;
 	}
 	
-	public boolean signUp(MemberDto dto) {					// 회원가입을 위한 메서드
+	// 회원가입을 위한 메서드
+	public boolean signUp(MemberDto dto) {					
 		int count = 0;
 		
 		sql = "INSERT INTO PC_MEMBER(SEQ_MEMBER, MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_MINUTE, ENTRY_DATE, PHONE_NUMBER) "
@@ -69,7 +71,8 @@ public class MemberDao {
 		return count > 0 ? true : false;
 	}
 	
-	public boolean updateEntryTime(MemberDto dto) {			// 남은 시간을 업데이트 하기 위한 메서드. 로그아웃 될 때 호출할 것인지?
+	// 남은 시간을 업데이트 하기 위한 메서드. 로그아웃 될 때 호출할 것인지?
+	public boolean updateEntryTime(MemberDto dto) {			
 		int count = 0;
 		
 		sql = "UPDATE PC_MEMBER SET ENTRY_DATE = ? WHERE MEMBER_ID = ?";
