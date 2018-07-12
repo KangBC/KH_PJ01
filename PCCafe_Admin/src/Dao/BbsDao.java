@@ -49,6 +49,9 @@ public class BbsDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		finally {
+			DBClose.close(psmt, conn, rs);
+		}
 		
 		
 		return dtoList;
