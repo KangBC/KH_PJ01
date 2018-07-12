@@ -1,31 +1,36 @@
 package View;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.JButton;
-import java.awt.Color;
-import javax.swing.JComboBox;
-import javax.swing.JTextPane;
-import javax.swing.SwingConstants;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 public class ChatView extends JFrame implements ActionListener {
-
+	
+	List<Socket> list = new ArrayList<Socket>();	// server 생성 List 선언
+	
+	// 소켓생성 
+	ServerSocket serSock;
+	
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JButton btnNewButton;
 
+
 	public ChatView() {
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 596, 700);// 전체틀
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -56,8 +61,13 @@ public class ChatView extends JFrame implements ActionListener {
 		btnNewButton.setBounds(418, 526, 105, 27);
 		panel.add(btnNewButton);
 		btnNewButton.addActionListener(this);
-		
 
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 596, 700);// 전체틀
+		
+		
+		
+		
 	}
 
 	@Override

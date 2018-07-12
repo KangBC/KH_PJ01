@@ -2,9 +2,9 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Program Files/Java/driver/TestLookAndFeel/lib/idw-gpl.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Java/driver/TestLookAndFeel/lib/JTattoo.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Java/driver/TestLookAndFeel/lib/liquidlnf.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Java/driver/TestLookAndFeel/lib/quaqua.jar"/>
+	<classpathentry kind="lib" path="D:/tmp/PCCafe_Admin/idw-gpl.jar"/>
+	<classpathentry kind="lib" path="D:/tmp/PCCafe_Admin/JTattoo.jar"/>
+	<classpathentry kind="lib" path="D:/tmp/PCCafe_Admin/liquidlnf.jar"/>
+	<classpathentry kind="lib" path="D:/tmp/PCCafe_Admin/quaqua.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
