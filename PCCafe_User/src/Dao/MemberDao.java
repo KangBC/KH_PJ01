@@ -1,11 +1,22 @@
 package Dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import DB.DBClose;
+import DB.DBConnection;
 import Dto.MemberDto;
 
 public class MemberDao {
 
 	private MemberDto dto = null;
 	private String sql;
+	
+	Connection conn = null;
+	PreparedStatement psmt = null;
+	ResultSet rs = null;
 	
 	public MemberDao() {
 	}
@@ -14,7 +25,69 @@ public class MemberDao {
 		this.dto = dto;
 	}
 	
+	public MemberDto login(String id, String pw) {			// 반환값이 null일경우 로그인 실패하도록 해줘야함. 이 dto는 singleton이 계속 갖고있도록 할것.
+		sql = "SELECT SEQ_MEMBER, MEMBER_MINUTE, MEMBER_ID FROM PC_MEMBER WHERE MEMBER_ID = " + id + ", MEMBER_PW = " + pw;
+		
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			dto = new MemberDto(rs.getInt(1),rs.getInt(2),rs.getString(3));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally { DBClose.close(psmt, conn, rs);	}
+		
+		return dto;
+	}
 	
+	public boolean signUp(MemberDto dto) {					// 회원가입을 위한 메서드
+		int count = 0;
+		
+		sql = "INSERT INTO PC_MEMBER(SEQ_MEMBER, MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_MINUTE, ENTRY_DATE, PHONE_NUMBER) "
+							+ "VALUES (SEQ_MEMBER.NEXTVAL, ?, ?, ?, ?, SYSDATE, ?)";
+		
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, dto.getId());
+			psmt.setString(2, dto.getPass());
+			psmt.setString(3, dto.getName());
+			psmt.setInt(4, dto.getR_time());
+			psmt.setString(5, dto.getPhone());
+			
+			count = psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		finally { DBClose.close(psmt, conn, rs); }
+		
+		return count > 0 ? true : false;
+	}
 	
-	
+	public boolean updateEntryTime(MemberDto dto) {			// 남은 시간을 업데이트 하기 위한 메서드. 로그아웃 될 때 호출할 것인지?
+		int count = 0;
+		
+		sql = "UPDATE PC_MEMBER SET ENTRY_DATE = ? WHERE MEMBER_ID = ?";
+		
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setInt(1, dto.getR_time());
+			psmt.setString(2, dto.getId());
+			
+			count = psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		finally { DBClose.close(psmt, conn, rs); }
+		
+		return count > 0 ? true : false;
+	}
 }

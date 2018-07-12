@@ -13,6 +13,10 @@ public class MemberDao {
 	private MemberDto dto = null;
 	private String sql;
 	
+	private Connection conn = null;
+	private PreparedStatement psmt = null;
+	private ResultSet rs = null;
+	
 	public MemberDao() {
 	}
 	
@@ -21,10 +25,6 @@ public class MemberDao {
 	}
 
 	public MemberDto getDto(int seq) {
-		Connection conn = null;
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
-		
 		sql = " SELECT MEMBER_ID, MEMBER_MINUTE FROM PC_MEMBER WHERE SEQ_MEMBER = " + seq;
 		
 		try {
@@ -43,9 +43,6 @@ public class MemberDao {
 	}
 	
 	public boolean changePw(String id, String pw) {
-		Connection conn = null;
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
 		int count = 0;
 		
 		sql = " UPDATE PC_MEMBER SET MEMBER_PW = " + pw + " WHERE MEMBER_ID = " + id;

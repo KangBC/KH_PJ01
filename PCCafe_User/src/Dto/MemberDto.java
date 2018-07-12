@@ -20,6 +20,13 @@ public class MemberDto {
 		this.pass = pass;
 	}
 	
+	public MemberDto(int userNum, int r_time, String id) {
+		super();
+		this.userNum = userNum;
+		this.r_time = r_time;
+		this.id = id;
+	}
+
 	public MemberDto(String id, String pass, String name, String phone) {
 		super();
 		this.id = id;
@@ -47,6 +54,10 @@ public class MemberDto {
 		return id;
 	}
 
+	public String getPass() {
+		return pass;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -57,5 +68,9 @@ public class MemberDto {
 	
 	public void setR_time(int r_time) {
 		this.r_time = r_time;
+	}
+
+	public String getPhone() {
+		return phone;
 	}
 }

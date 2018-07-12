@@ -17,12 +17,11 @@ public class BbsDao {
 	
 	private List<BbsDto> dtoList = null;
 	
+	private Connection conn = null;
+	private PreparedStatement psmt = null;
+	private ResultSet rs = null;
+	
 	public List<BbsDto> getList(){
-
-		Connection conn = null;
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
-		
 		sql = " SELECT SEQ_BBS, SEQ_MEMBER, BBS_DEL, BBS_ADMIN, BBS_TITLE, BBS_CONTENT, BBS_COUNT, BBS_DATE "
 				+ " FROM BBS " + " WHERE BBS_DEL = 0" 
 				+ " ORDER BY BBS_DATE DESC " ;
@@ -45,10 +44,6 @@ public class BbsDao {
 	}
 	
 	public BbsDto getPost(int seq) {
-		Connection conn = null;
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
-		
 		sql = " SELECT SEQ_BBS, SEQ_MEMBER, BBS_DEL, BBS_ADMIN, BBS_TITLE, BBS_CONTENT, BBS_COUNT, BBS_DATE "
 				+ " FROM BBS " + " WHERE BBS_DEL = 0 AND SEQ_BBS = " + seq;
 		
@@ -71,9 +66,6 @@ public class BbsDao {
 	}
 	
 	public boolean addPost() {
-		Connection conn = null;
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
 		int count = 0;
 		
 		sql = " INSERT INTO BBS(SEQ_BBS, SEQ_MEMBER, BBS_DEL, BBS_ADMIN, BBS_TITLE, BBS_CONTENT, BBS_COUNT, BBS_DATE) "
@@ -100,9 +92,6 @@ public class BbsDao {
 	}
 	
 	public boolean updatePost(int seq) {
-		Connection conn = null;
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
 		int count = 0;
 		
 		sql = "UPDATE INTO BBS SET TITLE = ?, CONTENT = ? WHERE SEQ_BBS = ?";
@@ -129,9 +118,6 @@ public class BbsDao {
 	}
 	
 	public boolean deletePost(int seq) {
-		Connection conn = null;
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
 		int count = 0;
 		
 		sql = "UPDATE BBS SET TITLE = '------삭제된 글입니다-----', CONTENT = '', DEL = 1 WHERE BBS_SEQ = " + seq;
@@ -153,10 +139,6 @@ public class BbsDao {
 	
 	public void addReadCount(int seq) {
 		sql=" UPDATE BBS SET BBS_COUNT = BBS_COUNT + 1 WHERE BBS_SEQ = " + seq;
-		
-		Connection conn=null;
-		PreparedStatement psmt=null;
-		ResultSet rs=null;
 		
 		try {
 			conn = DBConnection.makeConnection();	
