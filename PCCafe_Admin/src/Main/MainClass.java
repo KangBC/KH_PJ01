@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import view.Administrator;
+import View.ControlView;
 
 public class MainClass {
 
@@ -27,11 +27,7 @@ public class MainClass {
 		}
 		JFrame.setDefaultLookAndFeelDecorated(true);
 
-		try {
-			Administrator frame = new Administrator();
+			ControlView frame = new ControlView();
 			frame.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
-}
