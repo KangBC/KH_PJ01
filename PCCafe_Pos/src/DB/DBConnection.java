@@ -15,9 +15,9 @@ public class DBConnection {
 		}
 	}
 
+	// 테스트 DB 설정 중
 	public static Connection makeConnection() {
 		Connection conn = null;
-
 		try {
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe", "hr", "hr");
 			System.out.println("DB Connection Success");

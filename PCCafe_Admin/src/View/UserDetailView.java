@@ -73,7 +73,6 @@ public class UserDetailView extends JFrame implements ActionListener {
 		button.addActionListener(this);
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		// 채팅
 		Object obj = e.getSource();
