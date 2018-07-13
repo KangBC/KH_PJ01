@@ -1,8 +1,17 @@
 package Dao;
 
 import java.awt.EventQueue;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
+import DB.DBClose;
+import DB.DBConnection;
 import Dto.member_Dto;
 import View.addTime_View;
 import View.checkSpot_View;
@@ -12,13 +21,12 @@ import View.main_View;
 public class POS_Dao {
 
 	private static POS_Dao dao = new POS_Dao();
-	// Test DB
-	private static ArrayList<member_Dto> list;
 
 	// Member Variable
 	private int choTime = 0;
 	private int choPrice = 0;
 	private int insertMoney = 0;
+	private ArrayList<member_Dto> List = new ArrayList<>();
 
 	// Getter & Setter
 	public int getChoTime() {
@@ -45,13 +53,12 @@ public class POS_Dao {
 		this.insertMoney = insertMoney;
 	}
 
-	// Test DB Getter & Setter
-	public static ArrayList<member_Dto> getList() {
-		return list;
+	public ArrayList<member_Dto> getList() {
+		return List;
 	}
 
-	public static void setList(ArrayList<member_Dto> list) {
-		POS_Dao.list = list;
+	public void setList(ArrayList<member_Dto> list) {
+		List = list;
 	}
 
 	// View Method
@@ -112,14 +119,43 @@ public class POS_Dao {
 	}
 
 	private POS_Dao() {
-		list = new ArrayList<>();
-		list.add(new member_Dto("apple", "1", 60));
-		list.add(new member_Dto("app", "1", 160));
-		list.add(new member_Dto("ap7ple", "1", 260));
-		list.add(new member_Dto("app1le", "1", 560));
-		list.add(new member_Dto("ape1", "1", 660));
-		list.add(new member_Dto("ale", "1", 160));
 
+	}
+
+	// DB 테스트용
+	public void findId(String temp) {
+		if (temp.equals(null) || temp.equals("")) {
+			return;
+		}
+		String sql = null;
+		sql = " SELECT SEQ_MEMBER, MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_MINUTE, ENTRY_DATE, PHONE_NUMBER"
+				+ " FROM PC_MEMBER " + " WHERE MEMBER_ID LIKE '%" + temp + "%'";
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+
+		ArrayList<member_Dto> getList = new ArrayList<>();
+
+		try {
+			conn = DBConnection.makeConnection();
+
+			psmt = conn.prepareStatement(sql);
+
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				int i = 1;
+				member_Dto dto = new member_Dto(rs.getInt(i++), rs.getString(i++), rs.getString(i++), rs.getString(i++),
+						rs.getInt(i++), rs.getString(i++), rs.getString(i++));
+				getList.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, rs);
+		}
+		List = getList;
 	}
 
 	public static POS_Dao getInstance() {
