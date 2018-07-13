@@ -31,12 +31,11 @@ public class OrderListView extends JFrame implements ActionListener,MouseListene
 	private JTextField selectField;
 	private JButton selectBtn;
 
-	String columnNames[] = { "번호", "상품명", "현재수량","전체수량","발주수량"};
+	String columnNames[] = { "번호", "상품명", "상품수량", "상품금액", "총상품금액" };
 
-	Object rowData[][] = { { "1", "신라면", "10", "5","1" }};
+	Object rowData[][] = { { "1", "신라면", "10개", "4000", "4000" } };
 		
 	DefaultTableModel model;
-	private JButton btnNewButton;
 
 	public OrderListView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,7 +50,7 @@ public class OrderListView extends JFrame implements ActionListener,MouseListene
 		System.out.println("cur:" + cur);
 		contentPane.setLayout(null);
 
-		JLabel loginLabel = new JLabel("발주");
+		JLabel loginLabel = new JLabel("주문상세보기");
 		loginLabel.setBounds(10, 10, 120, 15);
 		getContentPane().add(loginLabel);
 
@@ -81,19 +80,15 @@ public class OrderListView extends JFrame implements ActionListener,MouseListene
 
 		jScrPane = new JScrollPane(jTable);
 
-		jScrPane.setBounds(10, 50, 598, 300);
+		jScrPane.setBounds(10, 50, 1902, 708);
 		getContentPane().add(jScrPane);
 
 		writeBtn = new JButton("수정 완료");
 		writeBtn.addActionListener(this);
-		writeBtn.setBounds(510, 377, 100, 27);
+		writeBtn.setBounds(1659, 859, 164, 114);
 		getContentPane().add(writeBtn);
 
 		getContentPane().setBackground(Color.cyan);
-		
-		btnNewButton = new JButton("발주");
-		btnNewButton.setBounds(14, 377, 105, 27);
-		contentPane.add(btnNewButton);
 		setVisible(true);
 	}
 
