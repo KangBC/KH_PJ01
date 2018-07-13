@@ -3,8 +3,7 @@ package Dao;
 import java.awt.EventQueue;
 import java.util.ArrayList;
 
-import javax.swing.JLabel;
-
+import Dto.member_Dto;
 import View.addTime_View;
 import View.checkSpot_View;
 import View.demand_View;
@@ -13,6 +12,8 @@ import View.main_View;
 public class POS_Dao {
 
 	private static POS_Dao dao = new POS_Dao();
+	// Test DB
+	private static ArrayList<member_Dto> list;
 
 	// Member Variable
 	private int choTime = 0;
@@ -44,9 +45,16 @@ public class POS_Dao {
 		this.insertMoney = insertMoney;
 	}
 
-	// test
-	public static ArrayList<String> list;
+	// Test DB Getter & Setter
+	public static ArrayList<member_Dto> getList() {
+		return list;
+	}
 
+	public static void setList(ArrayList<member_Dto> list) {
+		POS_Dao.list = list;
+	}
+
+	// View Method
 	public void mainView() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -104,12 +112,13 @@ public class POS_Dao {
 	}
 
 	private POS_Dao() {
-		// test
 		list = new ArrayList<>();
-		list.add("1");
-		for (int i = 1; i < 10; i++) {
-			list.add(list.get(i - 1) + "" + (i + 1));
-		}
+		list.add(new member_Dto("apple", "1", 60));
+		list.add(new member_Dto("app", "1", 160));
+		list.add(new member_Dto("ap7ple", "1", 260));
+		list.add(new member_Dto("app1le", "1", 560));
+		list.add(new member_Dto("ape1", "1", 660));
+		list.add(new member_Dto("ale", "1", 160));
 
 	}
 

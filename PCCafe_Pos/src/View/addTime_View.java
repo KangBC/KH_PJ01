@@ -3,33 +3,48 @@ package View;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.text.JTextComponent;
 
 import Dao.POS_Dao;
+import Dto.member_Dto;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
-import java.awt.EventQueue;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import java.awt.SystemColor;
 import java.awt.Color;
+import javax.swing.JTable;
 
 public class addTime_View extends JFrame implements ActionListener {
 	private POS_Dao dao = POS_Dao.getInstance();
-	private JTextField tf_ID;
-	private JLabel lb_dto_ID;
-	private JTextField txtTest;
-	private JTextField textField_1;
-	private JButton bt_ID, bt_Insert, bt_Back, bt_time_1, bt_time_2, bt_time_3, bt_time_4, bt_time_5;
+	private JButton bt_Insert, bt_select, bt_mainView, bt_time_1, bt_time_2, bt_time_3, bt_time_4, bt_time_5;
 	private JLabel lb_cho_time, lb_cho_price;
+	private JTable jTable = new JTable();;
+	private JTextField tf_showID;
+	private JTextField tf_inputID;
+	private JTextField tf_showTime;
+
+	// Table Variable
+	private String columnNames[] = { "검색된 ID" };
+	private Object rowData[][];
+	private DefaultTableModel model;
+	private ArrayList<member_Dto> list;
 
 	public addTime_View() {
 		ImageIcon icon = new ImageIcon("backGround.jpg");
@@ -52,7 +67,7 @@ public class addTime_View extends JFrame implements ActionListener {
 		pl_mid.setLayout(null);
 
 		JPanel pl_mid_3 = new JPanel();
-		pl_mid_3.setBounds(1074, 0, 742, 490);
+		pl_mid_3.setBounds(1074, 0, 742, 979);
 		pl_mid_3.setBackground(Color.BLACK);
 		pl_mid.add(pl_mid_3);
 		pl_mid_3.setLayout(null);
@@ -70,69 +85,210 @@ public class addTime_View extends JFrame implements ActionListener {
 		lb_IDCheck.setBounds(0, 0, 126, 89);
 		pl_title_3.add(lb_IDCheck);
 
-		lb_dto_ID = new JLabel("ID : ");
-		lb_dto_ID.setForeground(Color.WHITE);
-		lb_dto_ID.setFont(new Font("굴림", Font.BOLD, 18));
-		lb_dto_ID.setHorizontalAlignment(SwingConstants.CENTER);
-		lb_dto_ID.setBounds(147, 119, 112, 52);
-		pl_mid_3.add(lb_dto_ID);
+		list = dao.getList();
+		if (list.size() > 0) {
+			rowData = new Object[list.size()][1]; // 테이블의 2차원배열이 생성
+			for (int i = 0; i < list.size(); i++) {
+				member_Dto dto = list.get(i);
+				rowData[i][0] = dto.getId();
+				model = new DefaultTableModel(rowData, columnNames) {
+					public boolean isCellEditable(int rowIndex, int mColIndex) {
+						return false;
+					}
+				};
+				model.setDataVector(rowData, columnNames);
+			}
 
-		txtTest = new JTextField();
-		txtTest.setHorizontalAlignment(SwingConstants.CENTER);
-		txtTest.setText("TEST");
-		txtTest.setBounds(265, 119, 246, 52);
-		pl_mid_3.add(txtTest);
-		txtTest.setColumns(10);
+			jTable = new JTable(model);
+			jTable.addMouseListener(new MouseListener() {
 
-		JLabel label = new JLabel("남은시간 : ");
-		label.setForeground(Color.WHITE);
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setFont(new Font("굴림", Font.BOLD, 18));
-		label.setBounds(147, 196, 112, 52);
-		pl_mid_3.add(label);
+				@Override
+				public void mouseReleased(MouseEvent e) {
 
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("굴림", Font.BOLD, 50));
-		textField_1.setText("3 : 23");
-		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_1.setBounds(157, 260, 444, 186);
-		pl_mid_3.add(textField_1);
-		textField_1.setColumns(10);
+				}
 
-		JPanel pl_mid_4 = new JPanel();
-		pl_mid_4.setBounds(1074, 489, 742, 490);
-		pl_mid_4.setBackground(Color.BLACK);
-		pl_mid.add(pl_mid_4);
-		pl_mid_4.setLayout(null);
+				@Override
+				public void mousePressed(MouseEvent e) {
 
-		JPanel pl_titile_4 = new JPanel();
-		pl_titile_4.setBackground(Color.LIGHT_GRAY);
-		pl_titile_4.setBounds(0, 0, 742, 90);
-		pl_mid_4.add(pl_titile_4);
-		pl_titile_4.setLayout(null);
+				}
 
-		JLabel lb_IDSearch = new JLabel("ID 검색");
-		lb_IDSearch.setHorizontalAlignment(SwingConstants.CENTER);
-		lb_IDSearch.setFont(new Font("굴림", Font.BOLD, 20));
-		lb_IDSearch.setBounds(0, 0, 126, 89);
-		pl_titile_4.add(lb_IDSearch);
+				@Override
+				public void mouseExited(MouseEvent e) {
 
-		tf_ID = new JTextField();
-		tf_ID.setText("TEST");
-		tf_ID.setFont(new Font("굴림", Font.BOLD, 23));
-		tf_ID.setHorizontalAlignment(SwingConstants.CENTER);
-		tf_ID.setBounds(49, 184, 511, 90);
-		pl_mid_4.add(tf_ID);
-		tf_ID.setColumns(10);
+				}
 
-		bt_ID = new JButton("검색");
-		bt_ID.setBounds(574, 184, 132, 90);
-		pl_mid_4.add(bt_ID);
+				@Override
+				public void mouseEntered(MouseEvent e) {
 
-		bt_Back = new JButton("메인화면");
-		bt_Back.setFont(new Font("굴림", Font.BOLD, 18));
-		bt_Back.setBounds(393, 375, 312, 90);
-		pl_mid_4.add(bt_Back);
+				}
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (e.getClickCount() == 2) {
+						int rowNum = jTable.getSelectedRow();
+						if (rowNum == -1) {
+							return;
+						}
+						tf_showID.setText(dao.getList().get(rowNum).getId());
+						tf_showTime.setText(dao.getList().get(rowNum).getTime() / 60 + "시간"
+								+ dao.getList().get(rowNum).getTime() % 60 + "분");
+					}
+				}
+			});
+
+			jTable.setAutoCreateRowSorter(true);
+			jTable.setFillsViewportHeight(true);
+
+			// 컬럼의 높이 설정
+			jTable.setRowHeight(50);
+			jTable.setBackground(Color.LIGHT_GRAY);
+			jTable.setFont(new Font("굴림", Font.BOLD, 20));
+
+			// 테이블안에 컬럼을 위치설정
+			DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
+			celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
+
+			JScrollPane jScrPane = new JScrollPane(jTable);
+			jScrPane.setBounds(29, 115, 493, 556);
+			pl_mid_3.add(jScrPane);
+		}
+
+		tf_showID = new JTextField();
+		tf_showID.setBounds(536, 172, 191, 58);
+		tf_showID.setEditable(false);
+		tf_showID.setFont(new Font("굴림", Font.BOLD, 18));
+		pl_mid_3.add(tf_showID);
+		tf_showID.setColumns(10);
+
+		tf_inputID = new JTextField();
+		tf_inputID.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				list = new ArrayList<>();
+				for (int i = 0; i < dao.getList().size(); i++) {
+					if (dao.getList().get(i).getId().contains(tf_inputID.getText())) {
+						list.add(dao.getList().get(i));
+					}
+				}
+				if (list.size() > 0) {
+					rowData = new Object[list.size()][1]; // 테이블의 2차원배열이 생성
+					for (int i = 0; i < list.size(); i++) {
+						member_Dto dto = list.get(i);
+						rowData[i][0] = dto.getId();
+						model = new DefaultTableModel(rowData, columnNames) {
+							public boolean isCellEditable(int rowIndex, int mColIndex) {
+								return false;
+							}
+						};
+						model.setDataVector(rowData, columnNames);
+					}
+
+					jTable = new JTable(model);
+					jTable.addMouseListener(new MouseListener() {
+
+						@Override
+						public void mouseReleased(MouseEvent e) {
+
+						}
+
+						@Override
+						public void mousePressed(MouseEvent e) {
+
+						}
+
+						@Override
+						public void mouseExited(MouseEvent e) {
+
+						}
+
+						@Override
+						public void mouseEntered(MouseEvent e) {
+
+						}
+
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							if (e.getClickCount() == 2) {
+								int rowNum = jTable.getSelectedRow();
+								if (rowNum == -1) {
+									return;
+								}
+								tf_showID.setText(dao.getList().get(rowNum).getId());
+								tf_showTime.setText(dao.getList().get(rowNum).getTime() / 60 + "시간"
+										+ dao.getList().get(rowNum).getTime() % 60 + "분");
+							}
+						}
+					});
+
+					jTable.setAutoCreateRowSorter(true);
+					jTable.setFillsViewportHeight(true);
+
+					// 컬럼의 높이 설정
+					jTable.setRowHeight(50);
+					jTable.setBackground(Color.LIGHT_GRAY);
+					jTable.setFont(new Font("굴림", Font.BOLD, 20));
+
+					// 테이블안에 컬럼을 위치설정
+					DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
+					celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
+
+					JScrollPane jScrPane = new JScrollPane(jTable);
+					jScrPane.setBounds(29, 115, 493, 556);
+					pl_mid_3.add(jScrPane);
+				}
+			}
+		});
+
+		tf_inputID.setHorizontalAlignment(SwingConstants.CENTER);
+		tf_inputID.setFont(new Font("굴림", Font.BOLD, 23));
+		tf_inputID.setColumns(10);
+		tf_inputID.setBounds(29, 741, 493, 90);
+		pl_mid_3.add(tf_inputID);
+
+		bt_mainView = new JButton("메인화면");
+		bt_mainView.setFont(new Font("굴림", Font.BOLD, 18));
+		bt_mainView.setBounds(400, 865, 312, 90);
+		pl_mid_3.add(bt_mainView);
+
+		bt_select = new JButton("선택");
+		bt_select.setBounds(536, 401, 191, 130);
+		pl_mid_3.add(bt_select);
+
+		JLabel lblNewLabel = new JLabel("아이디");
+		lblNewLabel.setForeground(Color.LIGHT_GRAY);
+		lblNewLabel.setFont(new Font("굴림", Font.BOLD, 25));
+		lblNewLabel.setBounds(536, 115, 114, 45);
+		pl_mid_3.add(lblNewLabel);
+
+		tf_showTime = new JTextField();
+		tf_showTime.setColumns(10);
+		tf_showTime.setBounds(536, 299, 191, 58);
+		tf_showTime.setFont(new Font("굴림", Font.BOLD, 18));
+		tf_showTime.setEditable(false);
+		pl_mid_3.add(tf_showTime);
+
+		JLabel lblTime = new JLabel("남은시간");
+		lblTime.setForeground(Color.LIGHT_GRAY);
+		lblTime.setFont(new Font("굴림", Font.BOLD, 25));
+		lblTime.setBounds(536, 242, 114, 45);
+		pl_mid_3.add(lblTime);
+
+		JLabel lblId = new JLabel("ID 검색");
+		lblId.setForeground(Color.LIGHT_GRAY);
+		lblId.setFont(new Font("굴림", Font.BOLD, 25));
+		lblId.setBounds(29, 683, 222, 45);
+		pl_mid_3.add(lblId);
 
 		JPanel pl_mid_2 = new JPanel();
 		pl_mid_2.setBackground(Color.BLACK);
@@ -227,9 +383,13 @@ public class addTime_View extends JFrame implements ActionListener {
 		setBounds(0, 0, 1920, 1080);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		bt_ID.addActionListener(this);
+		// Initialize Variable
+		lb_cho_time.setText("0 원");
+		lb_cho_price.setText("0 원");
+
 		bt_Insert.addActionListener(this);
-		bt_Back.addActionListener(this);
+		bt_select.addActionListener(this);
+		bt_mainView.addActionListener(this);
 		bt_time_1.addActionListener(this);
 		bt_time_2.addActionListener(this);
 		bt_time_3.addActionListener(this);
@@ -248,9 +408,11 @@ public class addTime_View extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		POS_Dao dao = POS_Dao.getInstance();
 		Object obj = e.getSource();
-		if (obj == bt_Back) {
+		if (obj == bt_mainView) {
 			dao.mainView();
 			this.dispose();
+		} else if (obj == bt_select) {
+
 		} else if (obj == bt_Insert) {
 			dao.demandView();
 			this.dispose();
