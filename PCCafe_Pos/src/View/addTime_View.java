@@ -102,6 +102,7 @@ public class addTime_View extends JFrame implements ActionListener, KeyListener,
 		pl_mid_3.add(bt_select);
 
 		jTable = new JTable();
+		jScrPane = new JScrollPane();
 		
 		dao.findId(tf_inputID.getText());
 		
@@ -316,7 +317,9 @@ public class addTime_View extends JFrame implements ActionListener, KeyListener,
 	}
 
 	public void keyReleased(KeyEvent e) {
+		pl_mid_3.remove(jScrPane);
 		dao.findId(tf_inputID.getText());
+
 		jTable = new JTable();
 		
 		if (dao.getList().size() > 0) {
@@ -331,7 +334,7 @@ public class addTime_View extends JFrame implements ActionListener, KeyListener,
 				}
 			};
 			model.setDataVector(rowData, columnNames);
-
+			
 			jTable.setModel(model);
 			jTable.addMouseListener(this);
 			// jTable.setAutoCreateRowSorter(true);
