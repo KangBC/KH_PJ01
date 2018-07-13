@@ -2,7 +2,10 @@ package DB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DB_for_dev {
 	
@@ -26,16 +29,20 @@ public class DB_for_dev {
 		
 	}
 	
-	public void DB_DROP() throws SQLException{
+	public void DB_DROP() throws SQLException{		
 		String sql = " DROP TABLE PC_MEMBER CASCADE CONSTRAINT ";
+		psmt = conn.prepareStatement(sql);
+		psmt.executeQuery();
+		
+		sql = " DROP SEQUENCE SEQ_MEMBER";
 		psmt = conn.prepareStatement(sql);
 		psmt.executeQuery();
 		
 		sql = " DROP TABLE BBS CASCADE CONSTRAINT ";
 		psmt = conn.prepareStatement(sql);
 		psmt.executeQuery();
-		
-		sql = " DROP SEQUENCE SEQ_MEMBER; DROP SEQUENCE SEQ_BBS";
+
+		sql = " DROP SEQUENCE SEQ_BBS";
 		psmt = conn.prepareStatement(sql);
 		psmt.executeQuery();
 	}
@@ -75,13 +82,18 @@ public class DB_for_dev {
 		psmt.executeQuery();
 		
 		sql = " INSERT INTO BBS(SEQ_BBS, SEQ_MEMBER, BBS_DEL, BBS_ADMIN, BBS_TITLE, BBS_CONTENT, BBS_COUNT, BBS_DATE) "
-				+ " VALUES( SEQ_BBS.NEXTVAL, 1, 0, 0, 'TEST_BBS', '-----------!!!!!!!!!!!!!!!!!-----------------', 0, SYSDATE" ;
+				+ " VALUES( SEQ_BBS.NEXTVAL, 1, 0, 0, 'TEST_BBS', '-----------!!!!!!!!!!!!!!!!!-----------------', 0, SYSDATE)" ;
 		psmt = conn.prepareStatement(sql);
 		psmt.executeQuery();
 		
 		sql = " INSERT INTO BBS(SEQ_BBS, SEQ_MEMBER, BBS_DEL, BBS_ADMIN, BBS_TITLE, BBS_CONTENT, BBS_COUNT, BBS_DATE) "
-				+ " VALUES( SEQ_BBS.NEXTVAL, 2, 0, 0, 'TEST_BBS2', '!!!!!!!!!!!!------!!!!!------', 0, SYSDATE" ;
+				+ " VALUES( SEQ_BBS.NEXTVAL, 2, 0, 0, 'TEST_BBS2', '!!!!!!!!!!!!------!!!!!------', 0, SYSDATE)" ;
 		psmt = conn.prepareStatement(sql);
 		psmt.executeQuery();
+	}
+	
+	public void DB_STUFF() throws SQLException{
+		String sql = "CREATE TABLE STUFF (STUFF_NUM NUMBER(4,0), STUFF_NAME VARCHAR2(25 BYTE), STUFF_PRICE NUMBER(8,0), "
+										+ " STUFF_KIND NUMBER(3,0) CONSTRAINT STUFF_PK PRIMARY KEY (STUFF_NUM))";
 	}
 }
