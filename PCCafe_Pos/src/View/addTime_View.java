@@ -101,8 +101,10 @@ public class addTime_View extends JFrame implements ActionListener, KeyListener,
 		bt_select.setBounds(536, 401, 191, 130);
 		pl_mid_3.add(bt_select);
 
+		jTable = new JTable();
+		
 		dao.findId(tf_inputID.getText());
-
+		
 		if (dao.getList().size() > 0) {
 			rowData = new Object[dao.getList().size()][1]; // 테이블의 2차원배열이 생성
 			for (int i = 0; i < dao.getList().size(); i++) {
@@ -283,7 +285,6 @@ public class addTime_View extends JFrame implements ActionListener, KeyListener,
 		lb_cho_price.setText(dao.getChoPrice() + "원");
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		POS_Dao dao = POS_Dao.getInstance();
 		Object obj = e.getSource();
@@ -308,18 +309,16 @@ public class addTime_View extends JFrame implements ActionListener, KeyListener,
 		}
 	}
 
-	@Override
 	public void keyTyped(KeyEvent e) {
 	}
 
-	@Override
 	public void keyPressed(KeyEvent e) {
 	}
 
-	@Override
 	public void keyReleased(KeyEvent e) {
 		dao.findId(tf_inputID.getText());
-
+		jTable = new JTable();
+		
 		if (dao.getList().size() > 0) {
 			rowData = new Object[dao.getList().size()][1]; // 테이블의 2차원배열이 생성
 			for (int i = 0; i < dao.getList().size(); i++) {
@@ -352,11 +351,9 @@ public class addTime_View extends JFrame implements ActionListener, KeyListener,
 		}
 	}
 
-	@Override
 	public void mouseClicked(MouseEvent e) {
 	}
 
-	@Override
 	public void mousePressed(MouseEvent e) {
 		int rowNum = jTable.getSelectedRow();
 		JOptionPane.showMessageDialog(null, "클릭 열번호 : " + rowNum);
@@ -369,15 +366,12 @@ public class addTime_View extends JFrame implements ActionListener, KeyListener,
 		rowNum = -1;
 	}
 
-	@Override
 	public void mouseReleased(MouseEvent e) {
 	}
 
-	@Override
 	public void mouseEntered(MouseEvent e) {
 	}
 
-	@Override
 	public void mouseExited(MouseEvent e) {
 	}
 }
