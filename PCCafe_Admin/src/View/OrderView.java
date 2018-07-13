@@ -31,27 +31,23 @@ public class OrderView extends JFrame implements ActionListener, MouseListener {
 
 	private JTextField selectField;
 
-	String columnNames[] = { "번호", "상품명", "현재수량", "전체수량", "남은수량" };
+	String columnNames[] = { "번호", "상품명", "상품수량", "상품금액", "총상품금액" };
 
-	Object rowData[][] = { { "1", "신라면", "10", "40", "30" } };
+	Object rowData[][] = { { "1", "신라면", "10개", "4000", "4000" } };
 
 	DefaultTableModel model;
 
 	public OrderView() {
 
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1522, 480);
-		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
 
 		String cur = System.getProperty("user.dir");
 		System.out.println("cur:" + cur);
 		contentPane.setLayout(null);
 
-		JLabel loginLabel = new JLabel("재고관리");
+		JLabel loginLabel = new JLabel("주문확인");
 		loginLabel.setBounds(10, 10, 120, 15);
 		getContentPane().add(loginLabel);
 
@@ -60,6 +56,7 @@ public class OrderView extends JFrame implements ActionListener, MouseListener {
 		model.setDataVector(rowData, columnNames);
 
 		jTable = new JTable(model) {
+			//테이블 text 수정방지
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -76,25 +73,32 @@ public class OrderView extends JFrame implements ActionListener, MouseListener {
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
 
 		jScrPane = new JScrollPane(jTable);
-		jScrPane.setBounds(10, 50, 600, 300);
+		jScrPane.setBounds(0, 33, 1902, 708);
 		getContentPane().add(jScrPane);
 
-		writeBtn = new JButton("수정");
-		writeBtn.setBounds(10, 380, 100, 20);
+		writeBtn = new JButton("상세보기");
+		writeBtn.setBounds(10, 832, 387, 136);
 		writeBtn.addActionListener(this);
 		getContentPane().add(writeBtn);
 
 		// 검색
 		selectField = new JTextField();
-		selectField.setBounds(250, 380, 150, 20);
+		selectField.setBounds(698, 850, 489, 100);
 		getContentPane().add(selectField);
 
 		getContentPane().setBackground(Color.GRAY);
-		
+
 		JButton btnNewButton = new JButton("검색");
-		btnNewButton.setBounds(416, 377, 105, 27);
+		btnNewButton.setBounds(1188, 850, 186, 100);
 		contentPane.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("확인");
+		btnNewButton_1.setBounds(1515, 832, 387, 136);
+		contentPane.add(btnNewButton_1);
 		setVisible(true);
+
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 1920, 1080);// 전체
 	}
 
 	@Override
@@ -132,12 +136,11 @@ public class OrderView extends JFrame implements ActionListener, MouseListener {
 		if (obj == writeBtn) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
-						OrderListView frame = new OrderListView();
-						dispose(); // 현재 창을 닫음
-						frame.setVisible(true);
+					OrderListView frame = new OrderListView();
+					dispose(); // 현재 창을 닫음
+					frame.setVisible(true);
 				}
 
-					
 			});
 		}
 	}

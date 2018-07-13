@@ -1,6 +1,6 @@
 package View;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,28 +10,26 @@ import java.awt.event.WindowListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
-import java.awt.Color;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 public class ControlView extends JFrame implements ActionListener, WindowListener {
 
 	private JPanel contentPane;
-	private JButton button_1, button_2, button_3, button_4, button_5,
-	                button_6, button_7, button_8, button_9, button_10,
-			        button_11, button_12, button_13, button_14, button_15, 
-			        button_16, btnExit;
+	private JButton btnDldjsl, button_2, button_3, button_4, button_5, button_6, button_7, button_8, button_9,
+			button_10, button_11, button_12, button_13, button_14, button_15, button_16;
 
 	private JTextField textField;
 	private JTextField textField_1;
 
+	//private Socket socket; // 채팅소켓
+
+	//public ControlView(Socket socket) {
 	public ControlView() {
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//종료
-		setBounds(100, 100, 1920, 1080);//전체 화면 조절
-		
+	
+		//this.socket = socket;
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 1920, 1080));
 		setContentPane(contentPane);
@@ -42,11 +40,11 @@ public class ControlView extends JFrame implements ActionListener, WindowListene
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		//버튼
-		button_1 = new JButton("1");
-		button_1.setBounds(33, 59, 200, 150);
-		panel.add(button_1);
-		button_1.addActionListener(this);
+		// 버튼
+		btnDldjsl = new JButton("1");
+		btnDldjsl.setBounds(33, 59, 200, 150);
+		panel.add(btnDldjsl);
+		btnDldjsl.addActionListener(this);
 
 		button_2 = new JButton("2");
 		button_2.setBounds(306, 59, 200, 150);
@@ -104,43 +102,41 @@ public class ControlView extends JFrame implements ActionListener, WindowListene
 		button_12.addActionListener(this);
 
 		button_13 = new JButton("재고관리");
-		button_13.setBounds(1088, 59, 761, 113);
+		button_13.setBounds(1558, 46, 270, 300);
 		panel.add(button_13);
 		button_13.addActionListener(this);
 
 		button_14 = new JButton("주문확인");
-		button_14.setBounds(1088, 233, 761, 113);
+		button_14.setBounds(1088, 47, 270, 300);
 		panel.add(button_14);
 		button_14.addActionListener(this);
 
 		button_15 = new JButton("회원정보");
-		button_15.setBounds(1088, 413, 761, 113);
+		button_15.setBounds(1088, 440, 270, 300);
 		panel.add(button_15);
 		button_15.addActionListener(this);
 
 		button_16 = new JButton("게시판");
-		button_16.setBounds(1093, 605, 761, 113);
+		button_16.setBounds(1558, 440, 270, 300);
 		panel.add(button_16);
 		button_16.addActionListener(this);
 
-		btnExit = new JButton("exit");
-		btnExit.setBounds(1088, 808, 761, 113);
-		panel.add(btnExit);
-		
 		textField = new JTextField();
 		textField.setBackground(Color.PINK);
 		textField.setForeground(Color.BLUE);
 		textField.setBounds(919, 0, 15, 1049);
 		panel.add(textField);
 		textField.setColumns(10);
-		
+
 		textField_1 = new JTextField();
 		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_1.setText("시계 추가");
-		textField_1.setBounds(32, 897, 754, 119);
+		textField_1.setBounds(1074, 890, 754, 119);
 		panel.add(textField_1);
 		textField_1.setColumns(10);
-		btnExit.addActionListener(this);
+
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 종료
+		setBounds(100, 100, 1920, 1080);// 전체 화면 조절
 
 	}
 
@@ -187,54 +183,50 @@ public class ControlView extends JFrame implements ActionListener, WindowListene
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
+	// 재고관리
 		
-		// 재고관리
-		Object obj = e.getSource();
-		if (obj == button_13) {
+		/*if (obj == button_13) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
-						OrderView frame = new OrderView();
-						frame.setVisible(true);
+					 frame = new ();
+					frame.setVisible(true);
 				}
-				
-			});
+
+			});*/
 			// 주문확인
-		} else if (obj == button_14) {
+		Object obj = e.getSource();
+		if (obj == button_14) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
-						ManageMemListView frame = new ManageMemListView();
-						frame.setVisible(true);
+					OrderView frame = new OrderView();
+					frame.setVisible(true);
 				}
 			});
-			// 회원정보
+			// 회원정보 (ok)
 		} else if (obj == button_15) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
-						jeongbo frame = new jeongbo();
-						frame.setVisible(true);
+					ManageMemView frame = new ManageMemView();
+					frame.setVisible(true);
 				}
 			});
-			// 게시판
+			// 게시판(ok)
 		} else if (obj == button_16) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
-						BbsListView frame = new BbsListView();
-						frame.setVisible(true);
-				}
-			});
-			// exit
-		} else if (obj == btnExit) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					dispose(); // 현재 창을 닫음		
+					BbsListView frame = new BbsListView();
+					frame.setVisible(true);
 				}
 			});
 
-		} else if (obj == button_1) {
+			//UserDetailView(ok)
+		} else if (obj == btnDldjsl) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
-						UserDetailView frame = new UserDetailView();
-						frame.setVisible(true);
+					//UserDetailView frame = new UserDetailView(socket);
+					UserDetailView frame = new UserDetailView();
+					frame.setVisible(true);
 				}
 			});
 		}

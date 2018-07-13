@@ -32,19 +32,16 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 
 	private JTextField selectField;
 
-	String columnNames[] = { "번호", "내용", "작성자" };
+	String columnNames[] = { "번호", "제목", "내용", "작성자", "조회수" };
 
-	Object rowData[][] = { { "진라면", "10", "50", "100" }, 
-			{ "홈런볼", "20", "40", "90" }, 
-			{ "햄버거", "30", "30", "70" },
-			{ "핫바", "30", "30", "70" }, 
-			{ "콜라", "30", "30", "70" } };
+	Object rowData[][] = { { "진라면", "10", "50", "100", "2" } };
 
 	DefaultTableModel model;
+	private JButton btnNewButton;
 
 	public BbsListView() {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -68,6 +65,8 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 		jTable.getColumnModel().getColumn(0).setMaxWidth(700);
 		jTable.getColumnModel().getColumn(1).setMaxWidth(700);
 		jTable.getColumnModel().getColumn(2).setMaxWidth(700);
+		jTable.getColumnModel().getColumn(3).setMaxWidth(700);
+		jTable.getColumnModel().getColumn(4).setMaxWidth(700);
 
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
@@ -76,30 +75,35 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 		jScrPane.setBounds(0, 39, 1910, 684);
 		getContentPane().add(jScrPane);
 
+		// 글쓰기
 		writeBtn = new JButton("글쓰기");
-		writeBtn.setBounds(10, 751, 161, 91);
+		writeBtn.setBounds(10, 747, 290, 99);
 		writeBtn.addActionListener(this);
 		getContentPane().add(writeBtn);
+		writeBtn.addActionListener(this);
 
-		// 검색
 		selectField = new JTextField();
-		selectField.setBounds(608, 881, 813, 99);
+		selectField.setBounds(482, 902, 813, 99);
 		getContentPane().add(selectField);
 
+		// 검색
 		selectBtn = new JButton("검색");
-		selectBtn.setBounds(1418, 880, 147, 101);
+		selectBtn.setBounds(1299, 901, 147, 101);
 		selectBtn.addActionListener(this);
 		getContentPane().add(selectBtn);
-
 		getContentPane().setBackground(Color.GRAY);
-		
-		JButton button = new JButton("수정");
-		button.setBounds(191, 746, 147, 101);
-		contentPane.add(button);
-		
-		JButton button_1 = new JButton("삭제");
-		button_1.setBounds(1763, 746, 147, 101);
-		contentPane.add(button_1);
+
+		btnNewButton = new JButton("확인");
+		btnNewButton.setBounds(1606, 901, 290, 100);
+		contentPane.add(btnNewButton);
+		btnNewButton.addActionListener(this);
+
+		// Choice(AWT) -> JComboBox(swing)
+		String[] selects = new String[] { "번호", "제목", "내용", "작성자" };
+		choiceList = new JComboBox<>(selects);
+		choiceList.setBounds(180, 900, 290, 100);
+		add(choiceList);
+
 		setBounds(100, 100, 1928, 1060);
 		setVisible(true);
 	}
@@ -135,6 +139,25 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 	}
 
 	@Override
+	// 확인버튼
 	public void actionPerformed(ActionEvent e) {
+		Object obj = e.getSource();
+		if (obj == btnNewButton) {
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					ControlView frame = new ControlView();
+					frame.setVisible(true);
+				}
+			});
+
+	//글쓰기
+		} else if (obj == writeBtn) {
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					ControlView frame = new ControlView();
+					frame.setVisible(true);
+				}
+			});
+		}
 	}
 }

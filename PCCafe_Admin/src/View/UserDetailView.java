@@ -5,21 +5,22 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JButton;
 
 public class UserDetailView extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JButton btnNewButton;
 	private JButton button;
+	// private Socket socket;//새로운 socket방 선언
 
-	public UserDetailView() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 406, 326);
+	public UserDetailView() { // 또하나의 socket방 선언
+		// public UserDetailView(Socket socket) { // 또하나의 socket방 선언
+		// this.socket = socket;
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -71,6 +72,10 @@ public class UserDetailView extends JFrame implements ActionListener {
 		button.setBounds(265, 214, 105, 43);
 		panel.add(button);
 		button.addActionListener(this);
+
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 406, 326);
+
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -79,17 +84,19 @@ public class UserDetailView extends JFrame implements ActionListener {
 		if (obj == btnNewButton) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
+					// ChatView frame = new ChatView(socket);
 					ChatView frame = new ChatView();
-					dispose(); // 현재 창을 닫음	
+					dispose(); // 현재 창을 닫음
 					frame.setVisible(true);
 				}
 
 			});
-			// 완료
+
+			// 완료 기능을 삭제 하고 툴바를 삭제한다.
 		} else if (obj == button) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
-					 dispose(); // 현재 창을 닫음					
+					dispose(); // 현재 창을 닫음
 				}
 			});
 
