@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import DB.DBClose;
@@ -16,6 +17,7 @@ public class BbsDao {
 	private String sql;
 	
 	private List<BbsDto> dtoList = null;
+	private List<BbsDto> dtoList_notice = null;
 	
 	private Connection conn = null;
 	private PreparedStatement psmt = null;
@@ -29,10 +31,37 @@ public class BbsDao {
 		this.dto = dto;
 	}
 	
+	
 	// 뿌려줄 때 사용할 list를 얻어옴.
 	public List<BbsDto> getList(){
+		dtoList_notice = new ArrayList<>();
 		sql = " SELECT SEQ_BBS, SEQ_MEMBER, BBS_DEL, BBS_ADMIN, BBS_TITLE, BBS_CONTENT, BBS_COUNT, BBS_DATE "
-				+ " FROM BBS " + " WHERE BBS_DEL = 0" 
+				+ " FROM BBS " + " WHERE BBS_DEL = 0 AND BBS_ADMIN = 0" 
+				+ " ORDER BY BBS_DATE DESC " ;
+		
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				BbsDto dto = new BbsDto(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getInt(7), rs.getString(8));
+				dtoList_notice.add(dto);				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		finally{ DBClose.close(psmt, conn, rs);	}
+		
+		return dtoList;
+	}
+	
+	// 공지사항을 뿌려줄 때 사용할 list를 반환
+	public List<BbsDto> getNotice(){
+		dtoList = new ArrayList<>();
+		sql = " SELECT SEQ_BBS, SEQ_MEMBER, BBS_DEL, BBS_ADMIN, BBS_TITLE, BBS_CONTENT, BBS_COUNT, BBS_DATE "
+				+ " FROM BBS " + " WHERE BBS_DEL = 0 AND BBS_ADMIN = 1" 
 				+ " ORDER BY BBS_DATE DESC " ;
 		
 		try {
@@ -52,7 +81,8 @@ public class BbsDao {
 		
 		return dtoList;
 	}
-	
+		
+
 	// 검색 위한 부분
 	public List<BbsDto> serchPost(String column, String contain){
 		sql = " SELECT SEQ_BBS, SEQ_MEMBER, BBS_DEL, BBS_ADMIN, BBS_TITLE, BBS_CONTENT, BBS_COUNT, BBS_DATE "
