@@ -15,7 +15,7 @@ public class serverBackGroud extends Thread {
 	private final int PORT_NUMBER = 9000;
 	private Socket socket;
 	private ArrayList<String> checkSpot;
-	
+
 	// Getter & Setter
 	public ArrayList<String> getCheckSpot() {
 		return checkSpot;
