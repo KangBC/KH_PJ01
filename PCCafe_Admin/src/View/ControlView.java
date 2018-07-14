@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,9 +14,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.xml.soap.SAAJResult;
+
+import Dto.BbsDto;
+import Singleton.Singleton;
 
 public class ControlView extends JFrame implements ActionListener, WindowListener {
 
+	protected static final List<BbsDto> Dto = null;
+	protected static final List<BbsDto> List = null;
 	private JPanel contentPane;
 	private JButton btnDldjsl, button_2, button_3, button_4, button_5, button_6, button_7, button_8, button_9,
 			button_10, button_11, button_12, button_13, button_14, button_15, button_16;
@@ -183,18 +190,7 @@ public class ControlView extends JFrame implements ActionListener, WindowListene
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
-	// 재고관리
-		
-		/*if (obj == button_13) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					 frame = new ();
-					frame.setVisible(true);
-				}
-
-			});*/
-			// 주문확인
+		// 주문확인(ok)
 		Object obj = e.getSource();
 		if (obj == button_14) {
 			EventQueue.invokeLater(new Runnable() {
@@ -203,7 +199,7 @@ public class ControlView extends JFrame implements ActionListener, WindowListene
 					frame.setVisible(true);
 				}
 			});
-			// 회원정보 (ok)
+		// 회원정보 (ok)
 		} else if (obj == button_15) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
@@ -211,12 +207,12 @@ public class ControlView extends JFrame implements ActionListener, WindowListene
 					frame.setVisible(true);
 				}
 			});
-			// 게시판(ok)
+		// 게시판(ok)
 		} else if (obj == button_16) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
-					BbsListView frame = new BbsListView();
-					frame.setVisible(true);
+					Singleton single = Singleton.getInstance();
+					single.bbsCtrl.getBbsList();
 				}
 			});
 
