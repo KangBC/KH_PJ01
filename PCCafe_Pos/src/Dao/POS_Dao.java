@@ -17,19 +17,16 @@ import View.addTime_View;
 import View.checkSpot_View;
 import View.demand_View;
 import View.main_View;
-import server.serverBackGroud;
 
 public class POS_Dao {
 
 	private static POS_Dao dao = new POS_Dao();
 
-	public serverBackGroud serCtrl;
-
 	// Member Variable
-	private member_Dto userDto;
 	private int choTime = 0;
 	private int choPrice = 0;
 	private int insertMoney = 0;
+	private ArrayList<member_Dto> List = new ArrayList<>();
 
 	// Getter & Setter
 	public int getChoTime() {
@@ -56,12 +53,12 @@ public class POS_Dao {
 		this.insertMoney = insertMoney;
 	}
 
-	public member_Dto getUserDto() {
-		return userDto;
+	public ArrayList<member_Dto> getList() {
+		return List;
 	}
 
-	public void setUserDto(member_Dto userDto) {
-		this.userDto = userDto;
+	public void setList(ArrayList<member_Dto> list) {
+		List = list;
 	}
 
 	// View Method
@@ -122,13 +119,13 @@ public class POS_Dao {
 	}
 
 	private POS_Dao() {
-		serCtrl = new serverBackGroud();
+
 	}
 
-	// ID Search
-	public ArrayList<member_Dto> findId(String temp) {
+	// DB 테스트용
+	public void findId(String temp) {
 		if (temp.equals(null) || temp.equals("")) {
-			return null;
+			return;
 		}
 		String sql = null;
 		sql = " SELECT SEQ_MEMBER, MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_MINUTE, ENTRY_DATE, PHONE_NUMBER"
@@ -158,31 +155,7 @@ public class POS_Dao {
 		} finally {
 			DBClose.close(psmt, conn, rs);
 		}
-		return getList;
-	}
-
-	// Input time
-	public boolean inputTime(int seq, int time) {
-		String sql = "UPDATE PC_MEMBER SET MEMBER_MINUTE = " + time + " WHERE SEQ_MEMBER = ?";
-
-		Connection conn = null;
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = DBConnection.makeConnection();
-			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, seq);
-
-			psmt.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		} finally {
-			DBClose.close(psmt, conn, rs);
-		}
-		return true;
+		List = getList;
 	}
 
 	public static POS_Dao getInstance() {

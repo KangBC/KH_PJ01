@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.EventQueue;
 import java.awt.Graphics;
 
 import javax.swing.ImageIcon;
@@ -14,8 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class main_View extends JFrame implements ActionListener {
-	private POS_Dao dao = POS_Dao.getInstance();
-	private JButton checkSpot, addTime;
+	JButton checkSpot, addTime;
 
 	public main_View() {
 		ImageIcon icon = new ImageIcon("backGround.jpg");
@@ -54,12 +54,12 @@ public class main_View extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		POS_Dao dao = POS_Dao.getInstance();
 		Object obj = e.getSource();
 		if (obj == addTime) {
 			dao.addTimeView();
 			this.dispose();
 		} else if (obj == checkSpot) {
-			dao.serCtrl.sendSign();
 			dao.checkSpotView();
 			this.dispose();
 		}
