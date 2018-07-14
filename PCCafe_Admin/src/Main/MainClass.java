@@ -1,32 +1,30 @@
 package Main;
 
-import java.sql.SQLException;
-
 import javax.swing.JFrame;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 import DB.DBConnection;
 import Singleton.Singleton;
-import View.BbsUpateview;
 import View.ControlView;
 
 public class MainClass {
 
-
-	public static void main(String[] args) throws Exception{
-		// DB
-		new DBConnection().makeConnection();
-
+	public static void main(String[] args) {
 		// Single
 		Singleton sc = Singleton.getInstance();
+		
+		// DB Connect
+		DBConnection.makeConnection();
 
 		// Look & Feel
-		
-		UIManager.setLookAndFeel("ch.randelshofer.quaqua.QuaquaLookAndFeel");
-
+		try {
+			UIManager.setLookAndFeel("ch.randelshofer.quaqua.QuaquaLookAndFeel");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		JFrame.setDefaultLookAndFeelDecorated(true);
-
+		
+		
 		ControlView frame = new ControlView();
 		frame.setVisible(true);
 	}

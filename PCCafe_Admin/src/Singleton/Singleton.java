@@ -7,6 +7,7 @@ import Controller.chatController;
 public class Singleton {
 	
 	private static Singleton single = new Singleton();
+	
 	public MemberController memCtrl;
 	public BbsController bbsCtrl;
 	public chatController chatCtrl;
@@ -20,5 +21,4 @@ public class Singleton {
 	public static Singleton getInstance() {
 		return single;
 	}
-	
 }
