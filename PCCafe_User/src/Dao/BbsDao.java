@@ -41,7 +41,7 @@ public class BbsDao {
 			rs = psmt.executeQuery();
 			
 			while(rs.next()) {
-				BbsDto dto = new BbsDto(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getInt(5), rs.getString(6));
+				BbsDto dto = new BbsDto(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getInt(7), rs.getString(8));
 				dtoList.add(dto);				
 			}
 		} catch (SQLException e) {
@@ -53,6 +53,29 @@ public class BbsDao {
 		return dtoList;
 	}
 	
+	// 검색 위한 부분
+	public List<BbsDto> serchPost(String column, String contain){
+		sql = " SELECT SEQ_BBS, SEQ_MEMBER, BBS_DEL, BBS_ADMIN, BBS_TITLE, BBS_CONTENT, BBS_COUNT, BBS_DATE "
+				+ " FROM BBS " + " WHERE BBS_DEL = 0 AND " + column + " LIKE '%" + contain + "%'" 
+				+ " ORDER BY BBS_DATE DESC " ;
+		
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				BbsDto dto = new BbsDto(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getInt(7), rs.getString(8));
+				dtoList.add(dto);				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		finally{ DBClose.close(psmt, conn, rs);	}
+		
+		return dtoList;
+	}
 	// Detail이나 Update View를 위한 메서드
 	public BbsDto getPost(int seq) {
 		sql = " SELECT SEQ_BBS, SEQ_MEMBER, BBS_DEL, BBS_ADMIN, BBS_TITLE, BBS_CONTENT, BBS_COUNT, BBS_DATE "
@@ -79,7 +102,7 @@ public class BbsDao {
 		int count = 0;
 		
 		sql = " INSERT INTO BBS(SEQ_BBS, SEQ_MEMBER, BBS_DEL, BBS_ADMIN, BBS_TITLE, BBS_CONTENT, BBS_COUNT, BBS_DATE) "
-				+ " VALUES( SEQ_BBS.NEXTVAL, ?, 0, 0, ?, ?, 0, SYSDATE" ;
+				+ " VALUES( SEQ_BBS.NEXTVAL, ?, 0, 0, ?, ?, 0, SYSDATE)" ;
 		
 		try {
 			conn = DBConnection.makeConnection();
