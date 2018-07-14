@@ -99,42 +99,6 @@ public class addTime_View extends JFrame implements ActionListener, KeyListener,
 
 		jTable = new JTable();
 		jScrPane = new JScrollPane();
-<<<<<<< HEAD
-=======
-		
-		dao.findId(tf_inputID.getText());
-		
-		if (dao.getList().size() > 0) {
-			rowData = new Object[dao.getList().size()][1]; // 테이블의 2차원배열이 생성
-			for (int i = 0; i < dao.getList().size(); i++) {
-				member_Dto dto = dao.getList().get(i);
-				rowData[i][0] = dto.getId();
-			}
-			model = new DefaultTableModel(rowData, columnNames) {
-				public boolean isCellEditable(int rowIndex, int mColIndex) {
-					return false;
-				}
-			};
-			model.setDataVector(rowData, columnNames);
-
-			jTable.setModel(model);
-			jTable.addMouseListener(this);
-			jTable.setAutoCreateRowSorter(true);
-			jTable.setFillsViewportHeight(true);
-
-			// 컬럼의 높이 설정
-			jTable.setRowHeight(50);
-			jTable.setBackground(Color.LIGHT_GRAY);
-			jTable.setFont(new Font("굴림", Font.BOLD, 20));
-
-			// 테이블안에 컬럼을 위치설정
-			DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
-			celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
-			jScrPane = new JScrollPane(jTable);
-			jScrPane.setBounds(29, 115, 493, 556);
-			pl_mid_3.add(jScrPane);
-		}
->>>>>>> f0a8150bea8bb7534991ea6ccf9e9519adc2801f
 
 		JLabel lblNewLabel = new JLabel("아이디");
 		lblNewLabel.setForeground(Color.LIGHT_GRAY);
@@ -314,12 +278,7 @@ public class addTime_View extends JFrame implements ActionListener, KeyListener,
 
 	public void keyReleased(KeyEvent e) {
 		pl_mid_3.remove(jScrPane);
-<<<<<<< HEAD
 		List = dao.findId(tf_inputID.getText());
-=======
-		dao.findId(tf_inputID.getText());
-
->>>>>>> f0a8150bea8bb7534991ea6ccf9e9519adc2801f
 		jTable = new JTable();
 
 		if (List.size() > 0) {
@@ -334,7 +293,7 @@ public class addTime_View extends JFrame implements ActionListener, KeyListener,
 				}
 			};
 			model.setDataVector(rowData, columnNames);
-			
+
 			jTable.setModel(model);
 			jTable.addMouseListener(this);
 			jTable.setAutoCreateRowSorter(true);
