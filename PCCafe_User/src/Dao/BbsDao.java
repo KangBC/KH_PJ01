@@ -115,8 +115,8 @@ public class BbsDao {
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			
-			BbsDto dto = new BbsDto(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getInt(5), rs.getString(6));
+			rs.next();
+			BbsDto dto = new BbsDto(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getInt(7), rs.getString(8));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -198,7 +198,7 @@ public class BbsDao {
 	
 	// 조회수를 1씩 추가해주기 위한 메서드
 	public void addReadCount(int seq) {
-		sql=" UPDATE BBS SET BBS_COUNT = BBS_COUNT + 1 WHERE BBS_SEQ = " + seq;
+		sql=" UPDATE BBS SET BBS_COUNT = BBS_COUNT + 1 WHERE SEQ_BBS = " + seq;
 		
 		try {
 			conn = DBConnection.makeConnection();	
