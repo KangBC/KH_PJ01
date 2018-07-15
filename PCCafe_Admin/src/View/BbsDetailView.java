@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -15,8 +14,9 @@ import javax.swing.JTextField;
 import Dto.BbsDto;
 import Singleton.Singleton;
 
-public class BbsUpateview extends JFrame{
+public class BbsDetailView extends JFrame {
 		
+	
 	JTextField idTextfield;
 	JTextField wdateTextfield;
 	JTextField readCountTextfield;
@@ -24,11 +24,9 @@ public class BbsUpateview extends JFrame{
 	
 	JTextArea contentArea;
 	
-	public BbsUpateview(BbsDto dto) {
-		super("수정");	
+	public BbsDetailView(BbsDto dto) {
+		super("내용 보기");		
 		
-		Singleton sc = Singleton.getInstance();
-				
 		setLayout(null);
 		
 		JLabel writerLabel = new JLabel("작성자:");
@@ -63,14 +61,16 @@ public class BbsUpateview extends JFrame{
 		add(titleLabel);
 		
 		titleTextfield = new JTextField(dto.getTitle());
-		titleTextfield.setBounds(120, 100, 300, 20);			
+		titleTextfield.setBounds(120, 100, 300, 20);
+		titleTextfield.setEditable(false);		
 		add(titleTextfield);
 		
 		JLabel contentLabel = new JLabel("내용:");
 		contentLabel.setBounds(10, 130, 60, 15);
 		add(contentLabel);
 				
-		contentArea = new JTextArea(dto.getContent());		
+		contentArea = new JTextArea(dto.getContent());
+		contentArea.setEditable(false);
 		contentArea.setLineWrap(true);	
 			
 		JScrollPane scrPane = new JScrollPane(contentArea);
@@ -85,39 +85,57 @@ public class BbsUpateview extends JFrame{
 		setBounds(100, 100, 500, 600);
 		setVisible(true);
 		
+		
+		Singleton sc = Singleton.getInstance();
+		
 		// updatebutton
 		JButton updateBtn = null;		
-		updateBtn = new JButton("수정완료");
+		updateBtn = new JButton("수정");
 		updateBtn.setBounds(150, 480, 100, 20);
 		add(updateBtn);
+		/*
+		// 수정버튼의 비활성화(같은 id일 경우만)
+		if(!dto.getUserNum().equals(sc.memCtrl.getLoginId())){
+			updateBtn.setEnabled(false);
+		}
 		updateBtn.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {					
-				String title = titleTextfield.getText();
-				String content = contentArea.getText();
-				
-				if(title.equals("") || content.equals("")) {
-					JOptionPane.showMessageDialog(null, "빈칸을 모두 작성해 주십시오");
-					return;
-				}
-				
-				// 수정부분 db
+			public void actionPerformed(ActionEvent e) {	
 				Singleton sc = Singleton.getInstance();
-				sc.bbsCtrl.bbsUpdateAf(dto.getPostNum(), 
-							titleTextfield.getText(), 
-							contentArea.getText());
-				dispose();			
+				sc.bbsCtrl.bbsUpdate(dto.getSeq());
+				dispose();
 			}
 		});
 		
-		bbsBtn.addActionListener(new ActionListener() {			
+		// deletebutton
+		JButton deleteBtn = null;		
+		deleteBtn = new JButton("삭제");
+		deleteBtn.setBounds(290, 480, 100, 20);
+		add(deleteBtn);
+		
+		// 삭제버튼의 비활성화(같은 id일 경우만)		
+		if(!dto.getUserNum().equals(sc.memCtrl.getLoginId())){ // MemberController가없어서 안됨.
+			deleteBtn.setEnabled(false);
+		}
+		deleteBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {					
+				Singleton sc = Singleton.getInstance();
+				sc.bbsCtrl.bbsDelete(dto.getSeq());				
+				dispose();
+			}
+		});
+		
+		*/
+		
+		bbsBtn.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {	
 				Singleton sc = Singleton.getInstance();
 				sc.bbsCtrl.getBbsList();
 				dispose();
 			}
-		});		
-		
+		});
 	}
+
 }

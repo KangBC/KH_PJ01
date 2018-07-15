@@ -20,6 +20,8 @@ public class DB_for_dev {
 			
 			DB_MEMBER();
 			DB_BBS();
+			
+			DB_STUFF();
 
 			conn.close();
 			psmt.close();
@@ -94,6 +96,8 @@ public class DB_for_dev {
 	
 	public void DB_STUFF() throws SQLException{
 		String sql = "CREATE TABLE STUFF (STUFF_NUM NUMBER(4,0), STUFF_NAME VARCHAR2(25 BYTE), STUFF_PRICE NUMBER(8,0), "
-										+ " STUFF_KIND NUMBER(3,0) CONSTRAINT STUFF_PK PRIMARY KEY (STUFF_NUM))";
+										+ " STUFF_KIND NUMBER(3,0), CONSTRAINT STUFF_PK PRIMARY KEY (STUFF_NUM))";
+		psmt = conn.prepareStatement(sql);
+		psmt.executeQuery();
 	}
 }

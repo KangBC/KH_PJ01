@@ -74,4 +74,5 @@ public class BbsDto {
 	public String getCreatedDate() {
 		return createdDate;
 	}
+
 }
