@@ -1,17 +1,7 @@
 package Controller;
 
-import java.util.List;
-
-import javax.swing.JOptionPane;
-
-import Dto.BbsDto;
-import Serviece.BbsDaoService;
-import View.BbsAddView;
-import View.BbsDetailView;
-import View.BbsListView;
-import View.BbsUpateview;
-
 public class BbsController {
+<<<<<<< HEAD
 	
 	BbsDaoService bbsService = new BbsDaoService();
 	
@@ -85,6 +75,9 @@ public class BbsController {
 			new BbsUpateview(dto);
 		}
 	}
+=======
+
+>>>>>>> origin/Hyeonseok
 }
 
 

@@ -7,12 +7,12 @@ import Controller.chatController;
 public class Singleton {
 	
 	private static Singleton single = new Singleton();
-//<<<<<<< HEAD
-	//public MemberController memCtrl;
+<<<<<<< HEAD
 	
 	public MemberController memCtrl;
-	
-//>>>>>>> origin/Hyeonseok
+=======
+	//public MemberController memCtrl;
+>>>>>>> origin/master
 	public BbsController bbsCtrl;
 	//public chatController chatCtrl;
 	

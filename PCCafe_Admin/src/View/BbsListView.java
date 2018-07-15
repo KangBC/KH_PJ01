@@ -12,7 +12,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -61,23 +60,21 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 		JLabel loginLabel = new JLabel("게시판");
 		loginLabel.setBounds(10, 10, 120, 15);
 		getContentPane().add(loginLabel);
-
-		int len = list.size();
+		
+		int len = list != null ? list.size() : 0;
 		int n = 1;
-
-		rowData = new Object[len][5];
-
-		for (int i = 0; i < len; i++) {
-			BbsDto dto = list.get(i);
+		
+		rowData = new Object[len][3];
+				
+		for(int i = 0;i < len; i++){
+			BbsDto dto = list.get(i);			
 			rowData[i][0] = n;
-			//삭제기능 보여줄시 사용
-			//if (dto.getDel() == 1) {
-			//	rowData[i][1] = "************************이 글은 삭제되었습니다************************";
-			//} else {
+			if(dto.getDel() == 1) {
+				rowData[i][1] = "************************이 글은 삭제되었습니다************************";
+			}else {
 				rowData[i][1] = dto.getTitle();
-			//}
+			}
 			rowData[i][2] = dto.getUserNum();
-			rowData[i][4] = dto.getReadCount();
 			n++;
 		}
 
@@ -85,12 +82,7 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 
 		model.setDataVector(rowData, columnNames);
 
-		jTable = new JTable(model) {
-			// 테이블 text 수정방지
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
+		jTable = new JTable(model);
 		jTable.addMouseListener(this);
 
 		jTable.getColumnModel().getColumn(0).setMaxWidth(700);
@@ -165,38 +157,39 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 	}
 
 	@Override
-	// 게시글 마우스 클릭
-	public void mouseReleased(MouseEvent e) {
-
-		Singleton sc = Singleton.getInstance();
-
-		int rowNum = jTable.getSelectedRow();
-        //삭제된 게시글 마우스 클릭시 메세지
-		/*if (list.get(rowNum).getDel() == 1) {
-			JOptionPane.showMessageDialog(null, "이 글은 볼 수 없습니다");
-			return;
-		}*/
-
-		sc.bbsCtrl.bbsDetail(list.get(rowNum).getPostNum());
-		this.dispose();
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
 
 	}
 
+	@Override
+	// 확인버튼
 	public void actionPerformed(ActionEvent e) {
 		Singleton sc = Singleton.getInstance();
 		Object obj = e.getSource();
+		
+		//검색
+		if (obj == selectBtn) {
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					String selectedItem = (String)choiceList.getSelectedItem();
+				
+					sc.bbsCtrl.getBbsFindList(selectField.getText(), selectedItem);			
+			
+				}
+			});
 
-		DefaultTableModel tableModel = (DefaultTableModel) jTable.getModel();
-
-		if (obj == writeBtn) {
-			sc.bbsCtrl.bbsWrite();
-
-		} else if (obj == selectBtn) {
-			String selectedItem = (String) choiceList.getSelectedItem();
-
-			sc.bbsCtrl.getBbsFindList(selectField.getText(), selectedItem);
+			// 글쓰기
+		} else if (obj == writeBtn) {
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					BbsAddView frame = new BbsAddView();
+					frame.setVisible(true);
+				}
+			});
 		}
+		
+
 		this.dispose();
 	}
-
 }

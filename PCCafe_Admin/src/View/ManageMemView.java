@@ -28,6 +28,8 @@ public class ManageMemView extends JFrame implements ActionListener, WindowListe
 	private JButton button_1, button_2, button_3, button_4;
 
 	public ManageMemView() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 494, 517);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -103,9 +105,6 @@ public class ManageMemView extends JFrame implements ActionListener, WindowListe
 		JLabel label_2 = new JLabel("남은시간");
 		label_2.setBounds(49, 239, 62, 18);
 		panel.add(label_2);
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 494, 517);
 	}
 
 	@Override

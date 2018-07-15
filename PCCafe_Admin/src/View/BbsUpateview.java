@@ -15,108 +15,109 @@ import javax.swing.JTextField;
 import Dto.BbsDto;
 import Singleton.Singleton;
 
-public class BbsUpateview extends JFrame {
-
+public class BbsUpateview extends JFrame{
+		
 	JTextField idTextfield;
 	JTextField wdateTextfield;
 	JTextField readCountTextfield;
 	JTextField titleTextfield;
-
+	
 	JTextArea contentArea;
-
+	
 	public BbsUpateview(BbsDto dto) {
-		super("수정");
-
+		super("수정");	
+		
 		Singleton sc = Singleton.getInstance();
-
+				
 		setLayout(null);
-
+		
 		JLabel writerLabel = new JLabel("작성자:");
 		writerLabel.setBounds(10, 10, 60, 15);
 		add(writerLabel);
-
+				
 		idTextfield = new JTextField(dto.getUserNum());
 		idTextfield.setBounds(120, 10, 200, 20);
-		idTextfield.setEditable(false);
+		idTextfield.setEditable(false);		
 		add(idTextfield);
-
+		
 		JLabel writedLabel = new JLabel("작성일:");
 		writedLabel.setBounds(10, 40, 60, 15);
 		add(writedLabel);
-
+		
 		wdateTextfield = new JTextField(dto.getCreatedDate());
 		wdateTextfield.setBounds(120, 40, 200, 20);
-		wdateTextfield.setEditable(false);
+		wdateTextfield.setEditable(false);		
 		add(wdateTextfield);
-
+		
 		JLabel readLabel = new JLabel("조회수:");
 		readLabel.setBounds(10, 70, 60, 15);
 		add(readLabel);
-
+		
 		readCountTextfield = new JTextField(dto.getReadCount() + "");
 		readCountTextfield.setBounds(120, 70, 200, 20);
-		readCountTextfield.setEditable(false);
+		readCountTextfield.setEditable(false);		
 		add(readCountTextfield);
-
+		
 		JLabel titleLabel = new JLabel("제목:");
 		titleLabel.setBounds(10, 100, 60, 15);
 		add(titleLabel);
-
+		
 		titleTextfield = new JTextField(dto.getTitle());
-		titleTextfield.setBounds(120, 100, 300, 20);
+		titleTextfield.setBounds(120, 100, 300, 20);			
 		add(titleTextfield);
-
+		
 		JLabel contentLabel = new JLabel("내용:");
 		contentLabel.setBounds(10, 130, 60, 15);
 		add(contentLabel);
-
-		contentArea = new JTextArea(dto.getContent());
-		contentArea.setLineWrap(true);
-
+				
+		contentArea = new JTextArea(dto.getContent());		
+		contentArea.setLineWrap(true);	
+			
 		JScrollPane scrPane = new JScrollPane(contentArea);
 		scrPane.setPreferredSize(new Dimension(200, 120));
 		scrPane.setBounds(10, 160, 460, 300);
-		add(scrPane);
-
+		add(scrPane);		
+		
 		JButton bbsBtn = new JButton("게시판목록");
-		bbsBtn.setBounds(10, 480, 100, 20);
+		bbsBtn.setBounds(10, 480, 100, 20);		
 		add(bbsBtn);
-
+		
 		setBounds(100, 100, 500, 600);
 		setVisible(true);
-
+		
 		// updatebutton
-		JButton updateBtn = null;
+		JButton updateBtn = null;		
 		updateBtn = new JButton("수정완료");
 		updateBtn.setBounds(150, 480, 100, 20);
 		add(updateBtn);
 		updateBtn.addActionListener(new ActionListener() {
-			
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {					
 				String title = titleTextfield.getText();
 				String content = contentArea.getText();
-
-				if (title.equals("") || content.equals("")) {
+				
+				if(title.equals("") || content.equals("")) {
 					JOptionPane.showMessageDialog(null, "빈칸을 모두 작성해 주십시오");
 					return;
 				}
-
+				
 				// 수정부분 db
 				Singleton sc = Singleton.getInstance();
-				sc.bbsCtrl.bbsUpdateAf(dto.getPostNum(), titleTextfield.getText(), contentArea.getText());
-				dispose();
+				sc.bbsCtrl.bbsUpdateAf(dto.getPostNum(), 
+							titleTextfield.getText(), 
+							contentArea.getText());
+				dispose();			
 			}
 		});
-
-		bbsBtn.addActionListener(new ActionListener() {
+		
+		bbsBtn.addActionListener(new ActionListener() {			
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {					
 				Singleton sc = Singleton.getInstance();
 				sc.bbsCtrl.getBbsList();
 				dispose();
 			}
-		});
-
+		});		
+		
 	}
 }
