@@ -8,6 +8,7 @@ public class MainClass {
 	public static void main(String[] args) {
 		POS_Dao dao = POS_Dao.getInstance();
 		DBConnection.makeConnection();
+		dao.serCtrl.connectServer();
 		dao.mainView();
 	}
 }
