@@ -15,15 +15,14 @@ import Dto.BbsDto;
 import Singleton.Singleton;
 
 public class BbsDetailView extends JFrame {
-		
-	
+
 	JTextField idTextfield;
 	JTextField wdateTextfield;
 	JTextField readCountTextfield;
 	JTextField titleTextfield;
-	
+
 	JTextArea contentArea;
-	
+
 	public BbsDetailView(BbsDto dto) {
 		super("내용 보기");		
 		
@@ -93,16 +92,18 @@ public class BbsDetailView extends JFrame {
 		updateBtn = new JButton("수정");
 		updateBtn.setBounds(150, 480, 100, 20);
 		add(updateBtn);
-		/*
+		
+		// MemberController가없어서 안됨. 일단 주석처리
 		// 수정버튼의 비활성화(같은 id일 경우만)
-		if(!dto.getUserNum().equals(sc.memCtrl.getLoginId())){
+		/*if(!dto.getUserNum().equals(sc.memCtrl.getLoginId())){ // MemberController가없어서 안됨.
 			updateBtn.setEnabled(false);
-		}
+		}*/
+		
 		updateBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {	
 				Singleton sc = Singleton.getInstance();
-				sc.bbsCtrl.bbsUpdate(dto.getSeq());
+				sc.bbsCtrl.bbsUpdate(dto.getPostNum());
 				dispose();
 			}
 		});
@@ -113,20 +114,19 @@ public class BbsDetailView extends JFrame {
 		deleteBtn.setBounds(290, 480, 100, 20);
 		add(deleteBtn);
 		
-		// 삭제버튼의 비활성화(같은 id일 경우만)		
+	/*	// 삭제버튼의 비활성화(같은 id일 경우만)		
 		if(!dto.getUserNum().equals(sc.memCtrl.getLoginId())){ // MemberController가없어서 안됨.
 			deleteBtn.setEnabled(false);
-		}
+		}*/
+		
 		deleteBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {					
 				Singleton sc = Singleton.getInstance();
-				sc.bbsCtrl.bbsDelete(dto.getSeq());				
+				sc.bbsCtrl.bbsDelete(dto.getPostNum());				
 				dispose();
 			}
 		});
-		
-		*/
 		
 		bbsBtn.addActionListener(new ActionListener() {			
 			@Override

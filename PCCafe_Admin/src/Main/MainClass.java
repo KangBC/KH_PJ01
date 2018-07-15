@@ -1,12 +1,5 @@
 package Main;
 
-<<<<<<< HEAD
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
-=======
->>>>>>> origin/Hyeonseok
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
@@ -16,7 +9,7 @@ import View.ControlView;
 
 public class MainClass {
 
-<<<<<<< HEAD
+/*<<<<<<< HEAD
 	public static void main(String[] args) throws Exception {
 
 		// Single
@@ -24,15 +17,18 @@ public class MainClass {
 
 		// Look & Feel
 
-		UIManager.setLookAndFeel("ch.randelshofer.quaqua.QuaquaLookAndFeel");
-=======
+		UIManager.setLookAndFeel("ch.randelshofer.quaqua.QuaquaLookAndFeel");*/
+
+		
+		
+		//=======
 	public static void main(String[] args) {
 		// Single
 		Singleton sc = Singleton.getInstance();
 		
 		// DB Connect
 		DBConnection.makeConnection();
->>>>>>> origin/Hyeonseok
+//>>>>>>> origin/Hyeonseok
 
 		// Look & Feel
 		try {
