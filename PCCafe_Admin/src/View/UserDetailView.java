@@ -11,16 +11,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Singleton.Singleton;
+
 public class UserDetailView extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private JButton btnNewButton;
-	private JButton button;
-	// private Socket socket;//새로운 socket방 선언
+	private JButton but_chat;
+	private JButton success;
 
-	public UserDetailView() { // 또하나의 socket방 선언
-		// public UserDetailView(Socket socket) { // 또하나의 socket방 선언
-		// this.socket = socket;
+	public UserDetailView() {
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -31,47 +30,47 @@ public class UserDetailView extends JFrame implements ActionListener {
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("고객아이디:");
-		lblNewLabel.setBounds(111, 23, 86, 37);
-		panel.add(lblNewLabel);
+		JLabel JuserNum = new JLabel("고객아이디:");
+		JuserNum.setBounds(111, 23, 86, 37);
+		panel.add(JuserNum);
 
-		JLabel lblDldjsl = new JLabel("dldjsl2");
-		lblDldjsl.setBounds(199, 23, 134, 37);
-		panel.add(lblDldjsl);
+		JLabel JuserNum1 = new JLabel("dldjsl2");
+		JuserNum1.setBounds(199, 23, 134, 37);
+		panel.add(JuserNum1);
 
-		JLabel label = new JLabel("피씨번호:");
-		label.setBounds(111, 61, 62, 37);
-		panel.add(label);
+		JLabel pcnum = new JLabel("피씨번호:");
+		pcnum.setBounds(111, 61, 62, 37);
+		panel.add(pcnum);
 
-		JLabel label_1 = new JLabel("5");
-		label_1.setBounds(205, 61, 62, 37);
-		panel.add(label_1);
+		JLabel pcnumber = new JLabel("5");
+		pcnumber.setBounds(205, 61, 62, 37);
+		panel.add(pcnumber);
 
-		JLabel label_2 = new JLabel("이용시간:");
-		label_2.setBounds(111, 107, 62, 37);
-		panel.add(label_2);
+		JLabel Hoursuse = new JLabel("이용시간:");
+		Hoursuse.setBounds(111, 107, 62, 37);
+		panel.add(Hoursuse);
 
-		JLabel label_3 = new JLabel("이용요금");
-		label_3.setBounds(111, 156, 62, 37);
-		panel.add(label_3);
+		JLabel Hoursusenum = new JLabel("0");
+		Hoursusenum.setBounds(111, 156, 62, 37);
+		panel.add(Hoursusenum);
 
-		JLabel label_4 = new JLabel("0");
-		label_4.setBounds(199, 107, 62, 37);
-		panel.add(label_4);
+		JLabel Charge = new JLabel("이용요금");
+		Charge.setBounds(199, 107, 62, 37);
+		panel.add(Charge);
 
-		JLabel label_5 = new JLabel("0");
-		label_5.setBounds(199, 156, 62, 37);
-		panel.add(label_5);
+		JLabel Chargenum = new JLabel("0");
+		Chargenum.setBounds(199, 156, 62, 37);
+		panel.add(Chargenum);
 
-		btnNewButton = new JButton("채팅");
-		btnNewButton.setBounds(14, 214, 105, 43);
-		panel.add(btnNewButton);
-		btnNewButton.addActionListener(this);
+		but_chat = new JButton("채팅");
+		but_chat.setBounds(14, 214, 105, 43);
+		panel.add(but_chat);
+		but_chat.addActionListener(this);
 
-		button = new JButton("완료");
-		button.setBounds(265, 214, 105, 43);
-		panel.add(button);
-		button.addActionListener(this);
+		success = new JButton("완료");
+		success.setBounds(265, 214, 105, 43);
+		panel.add(success);
+		success.addActionListener(this);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 406, 326);
@@ -79,21 +78,16 @@ public class UserDetailView extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		// 채팅
 		Object obj = e.getSource();
-		if (obj == btnNewButton) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					// ChatView frame = new ChatView(socket);
-					ChatView frame = new ChatView();
-					dispose(); // 현재 창을 닫음
-					frame.setVisible(true);
-				}
-
-			});
+		
+		Singleton sc = Singleton.getInstance();
+		
+		//chatview
+		if (obj == but_chat) {
+			sc.bbsCtrl.chat();
 
 			// 완료 기능을 삭제 하고 툴바를 삭제한다.
-		} else if (obj == button) {
+		} else if (obj == success) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					dispose(); // 현재 창을 닫음

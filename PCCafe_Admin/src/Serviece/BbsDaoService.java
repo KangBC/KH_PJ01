@@ -10,39 +10,37 @@ public class BbsDaoService {
 
 	BbsDao dao = new BbsDao();
 	
-	
+	//게시판 리스트
 	public List<BbsDto> getBbsList() {		
 		return dao.getList();
 	}
-
-	//추가예정  //리스트 검색 부분 DB가 없음 ㅂ;
-	public List<BbsDto> getFindList(String fStr, String fword){		
-		//return dao.getFindList(fStr, fword);	
-		return null;
+	
+    //검색
+	public List<BbsDto> getFindList(String column, String contain){		
+		return dao.serchPost(column, contain);	
 	}
 
-	
+	//게시글 번호
 	public BbsDto getBBS(int seq) {		
 		return dao.getPost(seq);		
 	}
 
-	
+	//게시글 조회수
 	public void readCount(int seq) {
 		dao.addReadCount(seq);		
 	}
 
-	
+	//글쓰기
 	public boolean writeBbs(BbsDto dto) {
-		// TODO Auto-generated method stub오잉 이거 왜 에러안뜸?너가 수정함? 
 		return dao.addPost(dto);		
 	}
 
-	
+	//게시글 삭제
 	public boolean bbsDelete(int seq) {		
 		return dao.deletePost(seq);		
 	}
 
-	
+	//게시글 수정
 	public boolean bbsUpdate(int seq, String title, String content) {		
 		return dao.updatePost(seq, title, content);		
 	}

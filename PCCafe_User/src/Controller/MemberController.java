@@ -15,16 +15,14 @@ import View.SignUpView;
 
 public class MemberController {
 	
-	private MemberDao memdao = new MemberDao();
 	private MemeberServiece memSvc = new MemeberServiece();
 	
-	ChatView chatView = null;
-	BbsListView bbsListView = null;
+	private ChatView chatView = null;
 	OrderView orderView = null;
 	
 	public void tictoc(MemberDto dto) {
-		memdao.updateRTime(dto);
-		Singleton.getInstance().dto.setR_time(memdao.getRTime(dto));
+		memSvc.updateRTime(dto);
+		Singleton.getInstance().dto.setR_time(memSvc.getRTime(dto));
 	}
 	
 	public void draw_login() {
@@ -43,14 +41,7 @@ public class MemberController {
 		}
 	}
 	
-	public void draw_bbsList() {
-		if(bbsListView == null) {
-			bbsListView = new BbsListView();
-		}else {
-			bbsListView.dispose();
-			bbsListView = new BbsListView();
-		}
-	}
+	
 	
 	public void draw_orderView() {
 		if(orderView == null) {

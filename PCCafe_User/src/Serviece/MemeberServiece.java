@@ -18,4 +18,12 @@ public class MemeberServiece {
 	public boolean checkId(String id) {
 		return memDao.checkId(id);
 	}
+	
+	public void updateRTime(MemberDto dto) {
+		memDao.updateRTime(dto);
+	}
+	
+	public int getRTime(MemberDto dto) {
+		return memDao.getRTime(dto);
+	}
 }

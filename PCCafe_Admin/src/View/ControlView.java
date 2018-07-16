@@ -1,12 +1,8 @@
 package View;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,28 +10,23 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.xml.soap.SAAJResult;
 
-import Dto.BbsDto;
 import Singleton.Singleton;
 
-public class ControlView extends JFrame implements ActionListener, WindowListener {
+public class ControlView extends JFrame implements ActionListener {
 
-	protected static final List<BbsDto> Dto = null;
-	protected static final List<BbsDto> List = null;
 	private JPanel contentPane;
-	private JButton btnDldjsl, button_2, button_3, button_4, button_5, button_6, button_7, button_8, button_9,
-			button_10, button_11, button_12, button_13, button_14, button_15, button_16;
+	private JButton button_1, button_2, button_3, button_4, button_5, button_6, button_7, button_8, button_9, button_10,
+			button_11, button_12;
+
+	private JButton but_stuff, but_order, but_manager, but_gasipan;
 
 	private JTextField textField;
 	private JTextField textField_1;
 
-	//private Socket socket; // 채팅소켓
+	Singleton sc = Singleton.getInstance();
 
-	//public ControlView(Socket socket) {
 	public ControlView() {
-	
-		//this.socket = socket;
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 1920, 1080));
@@ -47,11 +38,11 @@ public class ControlView extends JFrame implements ActionListener, WindowListene
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		// 버튼
-		btnDldjsl = new JButton("1");
-		btnDldjsl.setBounds(33, 59, 200, 150);
-		panel.add(btnDldjsl);
-		btnDldjsl.addActionListener(this);
+		// 피씨자리번호 (UserDetailView)
+		button_1 = new JButton("1");
+		button_1.setBounds(33, 59, 200, 150);
+		panel.add(button_1);
+		button_1.addActionListener(this);
 
 		button_2 = new JButton("2");
 		button_2.setBounds(306, 59, 200, 150);
@@ -108,25 +99,27 @@ public class ControlView extends JFrame implements ActionListener, WindowListene
 		panel.add(button_12);
 		button_12.addActionListener(this);
 
-		button_13 = new JButton("재고관리");
-		button_13.setBounds(1558, 46, 270, 300);
-		panel.add(button_13);
-		button_13.addActionListener(this);
+		// 기능 아직 미사용
+		but_stuff = new JButton("재고관리");
+		but_stuff.setBounds(1558, 46, 270, 300);
+		panel.add(but_stuff);
+		but_stuff.addActionListener(this);
 
-		button_14 = new JButton("주문확인");
-		button_14.setBounds(1088, 47, 270, 300);
-		panel.add(button_14);
-		button_14.addActionListener(this);
+		// 테이블 새로 만들어야함
+		but_order = new JButton("주문확인");
+		but_order.setBounds(1088, 47, 270, 300);
+		panel.add(but_order);
+		but_order.addActionListener(this);
 
-		button_15 = new JButton("회원정보");
-		button_15.setBounds(1088, 440, 270, 300);
-		panel.add(button_15);
-		button_15.addActionListener(this);
+		but_manager = new JButton("회원정보");
+		but_manager.setBounds(1088, 440, 270, 300);
+		panel.add(but_manager);
+		but_manager.addActionListener(this);
 
-		button_16 = new JButton("게시판");
-		button_16.setBounds(1558, 440, 270, 300);
-		panel.add(button_16);
-		button_16.addActionListener(this);
+		but_gasipan = new JButton("게시판");
+		but_gasipan.setBounds(1558, 440, 270, 300);
+		panel.add(but_gasipan);
+		but_gasipan.addActionListener(this);
 
 		textField = new JTextField();
 		textField.setBackground(Color.PINK);
@@ -148,83 +141,24 @@ public class ControlView extends JFrame implements ActionListener, WindowListene
 	}
 
 	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowClosed(WindowEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowClosing(WindowEvent e) {
-		System.exit(0);
-
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	public void actionPerformed(ActionEvent e) {
-		// 주문확인(ok)
 		Object obj = e.getSource();
-		if (obj == button_14) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					OrderView frame = new OrderView();
-					frame.setVisible(true);
-				}
-			});
-		// 회원정보 (ok)
-		} else if (obj == button_15) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					ManageMemView frame = new ManageMemView();
-					frame.setVisible(true);
-				}
-			});
-		// 게시판(ok)
-		} else if (obj == button_16) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					Singleton single = Singleton.getInstance();
-					single.bbsCtrl.getBbsList();
-				}
-			});
 
-			//UserDetailView(ok)
-		} else if (obj == btnDldjsl) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					//UserDetailView frame = new UserDetailView(socket);
-					UserDetailView frame = new UserDetailView();
-					frame.setVisible(true);
-				}
-			});
+		// 회원정보view
+		if (obj == but_manager) {
+			sc.memCtrl.manager();
+
+			// 게시판 List
+		} else if (obj == but_gasipan) {
+			sc.bbsCtrl.gasipanList();
+
+			// UserDetailView
+		} else if (obj == button_1) {
+			sc.bbsCtrl.UserDetai();
+
+			// OrderView
+		} else if (obj == but_order) {
+			sc.bbsCtrl.order();
 		}
 	}
 }

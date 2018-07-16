@@ -6,5 +6,6 @@
 	<classpathentry kind="lib" path="C:/Users/lenovo/Desktop/Java/KH_PJ01/PCCafe_Admin/JTattoo.jar"/>
 	<classpathentry kind="lib" path="C:/Users/lenovo/Desktop/Java/KH_PJ01/PCCafe_Admin/liquidlnf.jar"/>
 	<classpathentry kind="lib" path="C:/Users/lenovo/Desktop/Java/KH_PJ01/PCCafe_Admin/quaqua.jar"/>
+	<classpathentry kind="lib" path="C:/Java/driver/ojdbc6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
