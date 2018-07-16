@@ -18,7 +18,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-public class OrderListView extends JFrame implements ActionListener,MouseListener {
+public class OrderListView사용안함 extends JFrame implements ActionListener,MouseListener {
 
 	private JPanel contentPane;
 	private JButton logoutBtn;
@@ -37,7 +37,7 @@ public class OrderListView extends JFrame implements ActionListener,MouseListene
 		
 	DefaultTableModel model;
 
-	public OrderListView() {
+	public OrderListView사용안함() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1920, 1080);
 		contentPane = new JPanel();

@@ -1,11 +1,5 @@
 package Main;
 
-<<<<<<< HEAD
-=======
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
@@ -16,6 +10,9 @@ import View.ControlView;
 public class MainClass {
 	public static void main(String[] args) throws Exception {
 
+		//DB
+		DBConnection.makeConnection();
+		
 		// Single
 		Singleton sc = Singleton.getInstance();
 

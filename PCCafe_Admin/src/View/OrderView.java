@@ -1,11 +1,11 @@
 package View;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,25 +19,35 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import Dto.BbsDto;
+import Dto.MemberDto;
+import Singleton.Singleton;
+
 public class OrderView extends JFrame implements ActionListener, MouseListener {
 
 	private JPanel contentPane;
-	private JButton logoutBtn;
 	private JTable jTable;
 	private JScrollPane jScrPane;
-	private JButton writeBtn;
-
-	private JComboBox<String> choiceList;
-
 	private JTextField selectField;
+	private JButton logoutBtn;
+	private JButton writeBtn;
+	private JButton selectBtn;
+	private JButton btnNewButton;
 
-	String columnNames[] = { "번호", "상품명", "상품수량", "상품금액", "총상품금액" };
+	Singleton sc = Singleton.getInstance();
 
-	Object rowData[][] = { { "1", "신라면", "10개", "4000", "4000" } };
+	String columnNames[] = { "번호", "ID", "상품명", "가격", "작성자", "날자" };
+
+	Object rowData[][];
 
 	DefaultTableModel model;
 
-	public OrderView() {
+	List<BbsDto> list;
+
+	public OrderView(List<BbsDto> list) {
+		super("주문확인");
+
+		this.list = list;
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -51,12 +61,32 @@ public class OrderView extends JFrame implements ActionListener, MouseListener {
 		loginLabel.setBounds(10, 10, 120, 15);
 		getContentPane().add(loginLabel);
 
+		// List size
+		int len = list.size();
+		int n = 1;
+
+		rowData = new Object[len][6];
+
+		// String columnNames[] = { "번호", "ID","상품명", "가격","작성자", "날자" };
+
+		for (int i = 0; i < len; i++) {
+			// BbsDto dto = list.get(i);
+			BbsDto dto = list.get(i);
+			rowData[i][0] = n;
+			rowData[i][1] = dto.getTitle();
+			rowData[i][2] = dto.getContent();
+			rowData[i][3] = dto.getUserNum();
+			rowData[i][4] = dto.getReadCount();
+			rowData[i][5] = dto.getCreatedDate();
+			n++;
+		}
+
 		model = new DefaultTableModel(columnNames, 0);
 
 		model.setDataVector(rowData, columnNames);
 
 		jTable = new JTable(model) {
-			//테이블 text 수정방지
+			// 테이블 text 수정방지
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -68,37 +98,24 @@ public class OrderView extends JFrame implements ActionListener, MouseListener {
 		jTable.getColumnModel().getColumn(2).setMaxWidth(700);
 		jTable.getColumnModel().getColumn(3).setMaxWidth(700);
 		jTable.getColumnModel().getColumn(4).setMaxWidth(700);
+		jTable.getColumnModel().getColumn(5).setMaxWidth(700);
 
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
 
 		jScrPane = new JScrollPane(jTable);
-		jScrPane.setBounds(0, 33, 1902, 708);
+		jScrPane.setBounds(0, 39, 1910, 684);
 		getContentPane().add(jScrPane);
 
-		writeBtn = new JButton("상세보기");
-		writeBtn.setBounds(10, 832, 387, 136);
-		writeBtn.addActionListener(this);
+		// menu
+		writeBtn = new JButton("menu");
+		writeBtn.setBounds(10, 747, 290, 99);
 		getContentPane().add(writeBtn);
-
-		// 검색
-		selectField = new JTextField();
-		selectField.setBounds(698, 850, 489, 100);
-		getContentPane().add(selectField);
-
-		getContentPane().setBackground(Color.GRAY);
-
-		JButton btnNewButton = new JButton("검색");
-		btnNewButton.setBounds(1188, 850, 186, 100);
-		contentPane.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("확인");
-		btnNewButton_1.setBounds(1515, 832, 387, 136);
-		contentPane.add(btnNewButton_1);
-		setVisible(true);
+		writeBtn.addActionListener(this);
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1920, 1080);// 전체
+		setBounds(100, 100, 1928, 1060);
+		setVisible(true);
 	}
 
 	@Override
@@ -121,27 +138,29 @@ public class OrderView extends JFrame implements ActionListener, MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
+	// 게시글 마우스 클릭 -- 나중에 확인?
+	public void mouseReleased(MouseEvent e) {
+
+		int rowNum = jTable.getSelectedRow();
+		sc.bbsCtrl.bbsDetail(list.get(rowNum).getPostNum());
+
+	}
+
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
-		if (obj == writeBtn) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					OrderListView frame = new OrderListView();
-					dispose(); // 현재 창을 닫음
-					frame.setVisible(true);
-				}
 
-			});
+		DefaultTableModel tableModel = (DefaultTableModel) jTable.getModel();
+
+		// menu view 돌아가기
+		if (obj == writeBtn) {
+			sc.bbsCtrl.bbsWrite();
+
+			this.dispose();
 		}
 	}
 }
