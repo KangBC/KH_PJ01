@@ -25,7 +25,8 @@ import java.awt.Color;
 public class ControlView extends JFrame implements ActionListener{
 
 	private MemberDto dto;
-	private MemberController memCtrl = Singleton.getInstance().memCtrl;
+	private Singleton sgt = Singleton.getInstance();
+	private MemberController memCtrl = sgt.memCtrl;
 	
 	private JPanel contentPane;
 	
@@ -39,8 +40,8 @@ public class ControlView extends JFrame implements ActionListener{
 	
 	public ControlView() {
 		dto = Singleton.getInstance().dto;
+		//tictoc();
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -102,6 +103,7 @@ public class ControlView extends JFrame implements ActionListener{
 		use_Label.setBounds(103, 52, 61, 16);
 		panel_1.add(use_Label);
 		
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);;
 		setUndecorated(true);
 		setVisible(true);
 	}
@@ -109,12 +111,12 @@ public class ControlView extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		JButton btn = (JButton)e.getSource();
 		if(btn == logoutBtn) {
-			new LoginView();
+			memCtrl.draw_login();
 			this.dispose();
 		}else if(btn == MesBtn) {
-			new ChatView();
+			memCtrl.draw_Chat();
 		}else if(btn == BbsBtn) {
-			new BbsListView();
+			memCtrl.draw_bbsList();
 		}else if(btn == oderBtn) {
 			new OrderView();
 		}
@@ -129,6 +131,6 @@ public class ControlView extends JFrame implements ActionListener{
 				time_Label.setText(dto.getR_time() + "");
 			}
 		};
-		tm.scheduleAtFixedRate(tmt, 60000, 60000);	
+		tm.scheduleAtFixedRate(tmt, 1000, 1000);	
 	}
 }

@@ -1,11 +1,6 @@
 package View;
 
-import java.awt.BorderLayout;
-import java.awt.Choice;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -15,16 +10,11 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
-
 
 public class BbsListView extends JFrame implements ActionListener, MouseListener {
 
@@ -46,7 +36,6 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 	
 	DefaultTableModel model;	
 
-	
 	public BbsListView() {
 		super();
 		
@@ -63,8 +52,6 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 		jTable = new JTable(model);
 		jTable.addMouseListener(this);
 		
-		
-		
 		// 컬럼의 넓이 설정
 		jTable.getColumnModel().getColumn(0).setMaxWidth(50);
 		jTable.getColumnModel().getColumn(1).setMaxWidth(500);
@@ -75,14 +62,11 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
 		jTable.getColumn("번호").setCellRenderer(celAlignCenter);
 		jTable.getColumn("작성자").setCellRenderer(celAlignCenter);
-				
-		
-		
+
 		jScrPane = new JScrollPane(jTable);
 		
 		jScrPane.setBounds(10, 50, 600, 300);
 		add(jScrPane);
-		
 		
 		// 글쓰기 버튼
 		writeBtn = new JButton("글쓰기");
@@ -100,7 +84,6 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 		selectBtn.setBounds(420, 380, 100, 20);		
 		add(selectBtn);
 		
-		
 		// Choice(AWT) -> JComboBox(swing)
 		String[] selects = new String[] {"제목", "내용", "작성자"};		
 		choiceList = new JComboBox<>(selects);
@@ -113,50 +96,26 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 		setVisible(true);		
 	}
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					BbsListView frame = new BbsListView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton btn = (JButton)e.getSource();
 		if(btn == writeBtn) {

@@ -26,18 +26,36 @@ public class MemberDao {
 	public MemberDao(MemberDto dto) {
 		this.dto = dto;
 	}
+	// 중복확인
+	public boolean checkId(String id) {
+		int count = 0;
+		sql = "SELECT MEMBER_ID FROM PC_MEMBER WHERE MEMBER_ID = '" + id + "'";
 	
-	// 반환값이 null일경우 로그인 실패하도록 해줘야함. 이 dto는 singleton이 계속 갖고있도록 할것.
-	public MemberDto login(String id, String pw) {			
-		sql = "SELECT SEQ_MEMBER, MEMBER_MINUTE, MEMBER_ID FROM PC_MEMBER WHERE MEMBER_ID = " + id + ", MEMBER_PW = " + pw;
-		
 		try {
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			
-			dto = new MemberDto(rs.getInt(1),rs.getInt(2),rs.getString(3));
-			
+			if(rs.next()) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
+	// 반환값이 null일경우 로그인 실패하도록 해줘야함. 이 dto는 singleton이 계속 갖고있도록 할것.
+	public MemberDto login(String id, String pw) {			
+		sql = "SELECT SEQ_MEMBER, MEMBER_MINUTE, MEMBER_ID FROM PC_MEMBER WHERE MEMBER_ID = '" + id + "'AND MEMBER_PW = '" + pw + "'";
+		
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				dto = new MemberDto(rs.getInt(1),rs.getInt(2),rs.getString(3));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -76,16 +94,16 @@ public class MemberDao {
 	public int getRTime(MemberDto dto) {			
 		int r_time = 0;
 		
-		sql = "SELECT ENTRY_DATE FROM PC_MEMBER WHERE MEMBER_ID = " + dto.getName();
+		sql = "SELECT MEMBER_MINUTE FROM PC_MEMBER WHERE MEMBER_ID = " + dto.getName();
 		
 		try {
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
 			
 			rs = psmt.executeQuery();
-			
-			rs.next();
-			r_time = rs.getInt(1);
+			if(rs.next()) {
+				r_time = rs.getInt(1);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -98,7 +116,7 @@ public class MemberDao {
 	public boolean updateRTime(MemberDto dto) {			
 		int count = 0;
 		
-		sql = "UPDATE PC_MEMBER SET ENTRY_DATE = ? WHERE MEMBER_ID = ?";
+		sql = "UPDATE PC_MEMBER SET MEMBER_MINUTE = ? WHERE MEMBER_ID = ?";
 		
 		try {
 			conn = DBConnection.makeConnection();

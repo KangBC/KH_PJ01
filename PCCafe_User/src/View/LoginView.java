@@ -1,27 +1,32 @@
 package View;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import Controller.MemberController;
+import Dao.MemberDao;
 import Dto.MemberDto;
 import Singleton.Singleton;
 
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
+public class LoginView extends JFrame implements ActionListener,KeyListener {
 
-public class LoginView extends JFrame implements ActionListener {
-
+	Singleton sgt = Singleton.getInstance();
+	MemberController memCtrl = sgt.memCtrl; 
+	
 	private JPanel contentPane;
-	private JTextField textField;
-	private JPasswordField passwordField;
+	private JTextField idField;
+	private JPasswordField pwField;
 	private JButton loginBtn;
 	private JButton signupBtn;
 	
@@ -46,14 +51,16 @@ public class LoginView extends JFrame implements ActionListener {
 		add(signupBtn);
 		
 		
-		textField = new JTextField();
-		textField.setBounds(218, 56, 130, 26);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		idField = new JTextField();
+		idField.setBounds(218, 56, 130, 26);
+		idField.setColumns(10);
+		idField.addKeyListener(this);
+		contentPane.add(idField);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(218, 94, 130, 29);
-		contentPane.add(passwordField);
+		pwField = new JPasswordField();
+		pwField.setBounds(218, 94, 130, 29);
+		pwField.addKeyListener(this);
+		contentPane.add(pwField);
 		
 		JLabel idLabel = new JLabel("아이디");
 		idLabel.setBounds(121, 61, 61, 16);
@@ -69,14 +76,31 @@ public class LoginView extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		JButton btn = (JButton)e.getSource();
+		
 		if(btn == loginBtn) {
-			Singleton.getInstance().dto = new MemberDto(0, 0, "");
-			
-			new ControlView();
-			this.dispose();
+			if(memCtrl.login(idField.getText(), pwField.getText())) {
+					this.dispose();
+			}else {
+				pwField.setText("");
+			}
 		}else if(btn == signupBtn) {
-			new SignUpView();
+			memCtrl.draw_Signup();
 			this.dispose();
 		}
+	}
+	
+	public void keyPressed(KeyEvent e) {
+	}
+
+	public void keyReleased(KeyEvent e) {
+		JTextField tf =(JTextField)e.getSource();
+		String tfName = tf.getName();
+
+		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+			loginBtn.doClick();
+		}
+	}
+
+	public void keyTyped(KeyEvent e) {
 	}
 }
