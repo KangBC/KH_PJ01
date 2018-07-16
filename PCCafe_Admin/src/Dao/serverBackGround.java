@@ -73,10 +73,10 @@ public class serverBackGround extends Thread {
 	}
 
 	// Send Message
-	public void sendMsg(Socket sock, String msg) {
+	public void sendMsg(String msg) {
 		PrintWriter pw;
 		try {
-			pw = new PrintWriter(sock.getOutputStream(), true);
+			pw = new PrintWriter(socket.getOutputStream(), true);
 			pw.println(msg);
 			pw.flush();
 		} catch (IOException e) {

@@ -4,109 +4,43 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.xml.soap.SAAJResult;
 
-import Dto.BbsDto;
 import Singleton.Singleton;
+import java.awt.GridLayout;
 
-public class ControlView extends JFrame implements ActionListener, WindowListener {
-
-	protected static final List<BbsDto> Dto = null;
-	protected static final List<BbsDto> List = null;
+public class ControlView extends JFrame implements ActionListener {
+	private Singleton single = Singleton.getInstance();
 	private JPanel contentPane;
-	private JButton btnDldjsl, button_2, button_3, button_4, button_5, button_6, button_7, button_8, button_9,
-			button_10, button_11, button_12, button_13, button_14, button_15, button_16;
-
-	private JTextField textField;
+	private JButton bt_1, bt_2, bt_3, bt_4, bt_5, bt_6, bt_7, bt_8, bt_9, bt_10, button_13, button_14, button_15,
+			button_16;
 	private JTextField textField_1;
 
-	//private Socket socket; // 채팅소켓
+	// Seat Function
+	private ArrayList<JButton> buttonList = new ArrayList<>();
+	private ArrayList<JPanel> panelList = new ArrayList<>();
+	private JButton btnNewButton;
+	private int selectSeat = -1;
 
-	//public ControlView(Socket socket) {
 	public ControlView() {
-	
-		//this.socket = socket;
-
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 1920, 1080));
+		contentPane.setBorder(new EmptyBorder(0, 0, 1920, 1080));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
+		panel.setBackground(Color.BLACK);
 		panel.setBounds(0, 0, 1920, 1080);
 		contentPane.add(panel);
 		panel.setLayout(null);
-
-		// 버튼
-		btnDldjsl = new JButton("1");
-		btnDldjsl.setBounds(33, 59, 200, 150);
-		panel.add(btnDldjsl);
-		btnDldjsl.addActionListener(this);
-
-		button_2 = new JButton("2");
-		button_2.setBounds(306, 59, 200, 150);
-		panel.add(button_2);
-		button_2.addActionListener(this);
-
-		button_3 = new JButton("3");
-		button_3.setBounds(586, 59, 200, 150);
-		panel.add(button_3);
-		button_3.addActionListener(this);
-
-		button_4 = new JButton("4");
-		button_4.setBounds(33, 262, 200, 150);
-		panel.add(button_4);
-		button_4.addActionListener(this);
-
-		button_5 = new JButton("5");
-		button_5.setBounds(306, 262, 200, 150);
-		panel.add(button_5);
-		button_5.addActionListener(this);
-
-		button_6 = new JButton("6");
-		button_6.setBounds(586, 262, 200, 150);
-		panel.add(button_6);
-		button_6.addActionListener(this);
-
-		button_7 = new JButton("7");
-		button_7.setBounds(33, 490, 200, 150);
-		panel.add(button_7);
-		button_7.addActionListener(this);
-
-		button_8 = new JButton("8");
-		button_8.setBounds(306, 490, 200, 150);
-		panel.add(button_8);
-		button_8.addActionListener(this);
-
-		button_9 = new JButton("9");
-		button_9.setBounds(586, 490, 200, 150);
-		panel.add(button_9);
-		button_9.addActionListener(this);
-
-		button_10 = new JButton("10");
-		button_10.setBounds(33, 712, 200, 150);
-		panel.add(button_10);
-		button_10.addActionListener(this);
-
-		button_11 = new JButton("11");
-		button_11.setBounds(586, 712, 200, 150);
-		panel.add(button_11);
-		button_11.addActionListener(this);
-
-		button_12 = new JButton("12");
-		button_12.setBounds(306, 712, 200, 150);
-		panel.add(button_12);
-		button_12.addActionListener(this);
 
 		button_13 = new JButton("재고관리");
 		button_13.setBounds(1558, 46, 270, 300);
@@ -128,13 +62,6 @@ public class ControlView extends JFrame implements ActionListener, WindowListene
 		panel.add(button_16);
 		button_16.addActionListener(this);
 
-		textField = new JTextField();
-		textField.setBackground(Color.PINK);
-		textField.setForeground(Color.BLUE);
-		textField.setBounds(919, 0, 15, 1049);
-		panel.add(textField);
-		textField.setColumns(10);
-
 		textField_1 = new JTextField();
 		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_1.setText("시계 추가");
@@ -142,50 +69,109 @@ public class ControlView extends JFrame implements ActionListener, WindowListene
 		panel.add(textField_1);
 		textField_1.setColumns(10);
 
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(Color.PINK);
+		panel_1.setBounds(920, 0, 4, 1029);
+		panel.add(panel_1);
+
+		btnNewButton = new JButton("초기화");
+		btnNewButton.setBounds(36, 936, 105, 27);
+		btnNewButton.addActionListener(this);
+		panel.add(btnNewButton);
+
+		JPanel panel_2 = new JPanel();
+		JPanel panel_3 = new JPanel();
+		JPanel panel_4 = new JPanel();
+		JPanel panel_5 = new JPanel();
+		JPanel panel_6 = new JPanel();
+		JPanel panel_7 = new JPanel();
+		JPanel panel_8 = new JPanel();
+		JPanel panel_9 = new JPanel();
+		JPanel panel_10 = new JPanel();
+		JPanel panel_11 = new JPanel();
+
+		panelList.add(panel_2);
+		panelList.add(panel_3);
+		panelList.add(panel_4);
+		panelList.add(panel_5);
+		panelList.add(panel_6);
+		panelList.add(panel_7);
+		panelList.add(panel_8);
+		panelList.add(panel_9);
+		panelList.add(panel_10);
+		panelList.add(panel_11);
+
+		panel_2.setBounds(48, 46, 212, 168);
+		panel_3.setBounds(344, 46, 212, 168);
+		panel_4.setBounds(631, 46, 212, 168);
+		panel_5.setBounds(48, 293, 212, 168);
+		panel_6.setBounds(344, 293, 212, 168);
+		panel_7.setBounds(631, 293, 212, 168);
+		panel_8.setBounds(48, 534, 212, 168);
+		panel_9.setBounds(344, 534, 212, 168);
+		panel_10.setBounds(631, 534, 212, 168);
+		panel_11.setBounds(631, 785, 212, 168);
+
+		bt_1 = new JButton("");
+		bt_2 = new JButton("");
+		bt_3 = new JButton("");
+		bt_4 = new JButton("");
+		bt_5 = new JButton("");
+		bt_6 = new JButton("");
+		bt_7 = new JButton("");
+		bt_8 = new JButton("");
+		bt_9 = new JButton("");
+		bt_10 = new JButton("");
+
+		buttonList.add(bt_1);
+		buttonList.add(bt_2);
+		buttonList.add(bt_3);
+		buttonList.add(bt_4);
+		buttonList.add(bt_5);
+		buttonList.add(bt_6);
+		buttonList.add(bt_7);
+		buttonList.add(bt_8);
+		buttonList.add(bt_9);
+		buttonList.add(bt_10);
+
+		for (int i = 0; i < single.serCtrl.getSeatList().length; i++) {
+			String temp[] = single.serCtrl.getSeatList();
+			if (temp[i].equals("1")) {
+				// Panel
+				panelList.get(i).setBackground(Color.RED);
+				panelList.get(i).setLayout(new GridLayout(1, 0, 0, 0));
+				panel.add(panelList.get(i));
+				// Button
+				buttonList.get(i).setEnabled(true);
+				buttonList.get(i).setOpaque(false);
+				buttonList.get(i).setContentAreaFilled(false);
+				buttonList.get(i).setBorder(null);
+				panel_2.add(buttonList.get(i));
+			} else {
+				// Panel
+				panelList.get(i).setBackground(Color.BLUE);
+				panelList.get(i).setLayout(new GridLayout(1, 0, 0, 0));
+				panel.add(panelList.get(i));
+				// Button
+				buttonList.get(i).setEnabled(false);
+				buttonList.get(i).setOpaque(false);
+				buttonList.get(i).setContentAreaFilled(false);
+				buttonList.get(i).setBorder(null);
+				panel_2.add(buttonList.get(i));
+			}
+		}
+		bt_1.addActionListener(this);
+		bt_2.addActionListener(this);
+		bt_3.addActionListener(this);
+		bt_4.addActionListener(this);
+		bt_5.addActionListener(this);
+		bt_6.addActionListener(this);
+		bt_7.addActionListener(this);
+		bt_8.addActionListener(this);
+		bt_9.addActionListener(this);
+		bt_10.addActionListener(this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 종료
-		setBounds(100, 100, 1920, 1080);// 전체 화면 조절
-
-	}
-
-	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowClosed(WindowEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowClosing(WindowEvent e) {
-		System.exit(0);
-
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
+		setBounds(0, 0, 1920, 1080);// 전체 화면 조절
 	}
 
 	@Override
@@ -199,7 +185,7 @@ public class ControlView extends JFrame implements ActionListener, WindowListene
 					frame.setVisible(true);
 				}
 			});
-		// 회원정보 (ok)
+			// 회원정보 (ok)
 		} else if (obj == button_15) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
@@ -207,7 +193,7 @@ public class ControlView extends JFrame implements ActionListener, WindowListene
 					frame.setVisible(true);
 				}
 			});
-		// 게시판(ok)
+			// 게시판(ok)
 		} else if (obj == button_16) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
@@ -216,15 +202,50 @@ public class ControlView extends JFrame implements ActionListener, WindowListene
 				}
 			});
 
-			//UserDetailView(ok)
-		} else if (obj == btnDldjsl) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					//UserDetailView frame = new UserDetailView(socket);
-					UserDetailView frame = new UserDetailView();
-					frame.setVisible(true);
-				}
-			});
+		} else if (obj == bt_1) {
+			selectSeat = 0;
+			single.serCtrl.detailView(selectSeat);
+			selectSeat = -1;
+		} else if (obj == bt_2) {
+			selectSeat = 1;
+			single.serCtrl.detailView(selectSeat);
+			selectSeat = -1;
+		} else if (obj == bt_3) {
+			selectSeat = 2;
+			single.serCtrl.detailView(selectSeat);
+			selectSeat = -1;
+		} else if (obj == bt_4) {
+			selectSeat = 3;
+			single.serCtrl.detailView(selectSeat);
+			selectSeat = -1;
+		} else if (obj == bt_5) {
+			selectSeat = 4;
+			single.serCtrl.detailView(selectSeat);
+			selectSeat = -1;
+		} else if (obj == bt_6) {
+			selectSeat = 5;
+			single.serCtrl.detailView(selectSeat);
+			selectSeat = -1;
+		} else if (obj == bt_7) {
+			selectSeat = 6;
+			single.serCtrl.detailView(selectSeat);
+			selectSeat = -1;
+		} else if (obj == bt_8) {
+			selectSeat = 7;
+			single.serCtrl.detailView(selectSeat);
+			selectSeat = -1;
+		} else if (obj == bt_9) {
+			selectSeat = 8;
+			single.serCtrl.detailView(selectSeat);
+			selectSeat = -1;
+		} else if (obj == bt_10) {
+			selectSeat = 9;
+			single.serCtrl.detailView(selectSeat);
+			selectSeat = -1;
+		} else if (obj == btnNewButton) {
+			ControlView frame = new ControlView();
+			frame.setVisible(true);
+			this.dispose();
 		}
 	}
 }
