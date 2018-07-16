@@ -26,10 +26,11 @@ public class ChatView extends JFrame implements ActionListener {
 	private JButton bt_exit, bt_send;
 	private Socket socket;
 	private JTextField tf_msg;
+	private JTextArea contentArea;
 
 	public ChatView(Socket socket) {
 		this.socket = socket;
-		ImageIcon icon = new ImageIcon("blakc.png");
+		ImageIcon icon = new ImageIcon("black.png");
 		JPanel contentPane = new JPanel() {
 			public void paintComponent(Graphics g) {
 				g.drawImage(icon.getImage(), 0, 0, null);
@@ -41,7 +42,7 @@ public class ChatView extends JFrame implements ActionListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		bt_exit = new JButton(new ImageIcon("exit.png"));
-		bt_exit.setBounds(414, 0, 60, 52);
+		bt_exit.setBounds(413, 1, 60, 46);
 		bt_exit.setOpaque(false);
 		bt_exit.setContentAreaFilled(false);
 		bt_exit.setBorder(null);
@@ -55,7 +56,7 @@ public class ChatView extends JFrame implements ActionListener {
 		title.setBounds(114, 0, 246, 52);
 		contentPane.add(title);
 
-		JTextArea contentArea = new JTextArea();
+		contentArea = new JTextArea();
 		contentArea.setText("[알림] 필요한 용무가 있으시면 언제든 연락해주세요!" + "\n");
 		contentArea.setEditable(false);
 		contentArea.setLineWrap(true);
@@ -93,13 +94,13 @@ public class ChatView extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		serverBackGround serback;
 		Object obj = e.getSource();
 		if (obj == bt_exit) {
 			this.dispose();
 		} else if (obj == bt_send) {
-			serback = new serverBackGround(socket);
-			serback.sendMsg(tf_msg.getText());
+			new serverBackGround(socket).sendMsg(socket, tf_msg.getText());
+			contentArea.append(tf_msg.getText() + "\n");
+			tf_msg.setText("");
 		}
 	}
 }

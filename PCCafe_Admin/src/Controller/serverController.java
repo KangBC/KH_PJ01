@@ -85,19 +85,26 @@ public class serverController {
 		ResultSet rs = null;
 
 		String userId = loginId[seatNum];
-		String sql = " SELECT MEMBER_ID, MEMBER_MINUTE FROM PC_MEMBER WHERE MEMBER_ID = '" + userId + "'";
+		System.out.println("id : " + userId);
+		String sql = " SELECT MEMBER_ID, MEMBER_MINUTE FROM PC_MEMBER WHERE MEMBER_ID = ?";
 		MemberDto dto = new MemberDto();
 		try {
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, userId);
 			rs = psmt.executeQuery();
 
-			dto = new MemberDto(rs.getString(1), rs.getInt(2));
+			if (rs.next()) {
+				String id = rs.getString(1);
+				int time = rs.getInt(2);
+				dto = new MemberDto(id, time);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DBClose.close(psmt, conn, rs);
 		}
+
 		UserDetailView frame = new UserDetailView(seatNum, dto);
 		frame.setUndecorated(true);
 		frame.setVisible(true);

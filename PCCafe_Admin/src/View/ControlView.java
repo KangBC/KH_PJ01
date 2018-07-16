@@ -146,7 +146,6 @@ public class ControlView extends JFrame implements ActionListener {
 				buttonList.get(i).setOpaque(false);
 				buttonList.get(i).setContentAreaFilled(false);
 				buttonList.get(i).setBorder(null);
-				panel_2.add(buttonList.get(i));
 			} else {
 				// Panel
 				panelList.get(i).setBackground(Color.BLUE);
@@ -157,9 +156,20 @@ public class ControlView extends JFrame implements ActionListener {
 				buttonList.get(i).setOpaque(false);
 				buttonList.get(i).setContentAreaFilled(false);
 				buttonList.get(i).setBorder(null);
-				panel_2.add(buttonList.get(i));
 			}
 		}
+
+		panel_2.add(bt_1);
+		panel_3.add(bt_2);
+		panel_4.add(bt_3);
+		panel_5.add(bt_4);
+		panel_6.add(bt_5);
+		panel_7.add(bt_6);
+		panel_8.add(bt_7);
+		panel_9.add(bt_8);
+		panel_10.add(bt_9);
+		panel_11.add(bt_10);
+
 		bt_1.addActionListener(this);
 		bt_2.addActionListener(this);
 		bt_3.addActionListener(this);
@@ -170,6 +180,7 @@ public class ControlView extends JFrame implements ActionListener {
 		bt_8.addActionListener(this);
 		bt_9.addActionListener(this);
 		bt_10.addActionListener(this);
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 종료
 		setBounds(0, 0, 1920, 1080);// 전체 화면 조절
 	}

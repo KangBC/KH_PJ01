@@ -44,7 +44,7 @@ public class UserDetailView extends JFrame implements ActionListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		JLabel lb_title = new JLabel();
-		lb_title.setText("PC " + seatNum + 1);
+		lb_title.setText("PC " + (seatNum + 1));
 		lb_title.setForeground(Color.WHITE);
 		lb_title.setFont(new Font("Arial Black", Font.PLAIN, 30));
 		lb_title.setHorizontalAlignment(SwingConstants.CENTER);
@@ -64,12 +64,13 @@ public class UserDetailView extends JFrame implements ActionListener {
 
 		tf_id = new JTextField(dto.getId());
 		tf_id.setEnabled(false);
+		tf_id.setFont(new Font("Georgia", Font.BOLD, 18));
 		tf_id.setColumns(10);
 		tf_id.setBounds(137, 69, 278, 31);
 		contentPane.add(tf_id);
 
 		JLabel lb_id = new JLabel();
-		lb_id.setText("아이디");
+		lb_id.setText("ID");
 		lb_id.setHorizontalAlignment(SwingConstants.CENTER);
 		lb_id.setForeground(Color.WHITE);
 		lb_id.setFont(new Font("Georgia", Font.BOLD, 18));
@@ -77,21 +78,24 @@ public class UserDetailView extends JFrame implements ActionListener {
 		contentPane.add(lb_id);
 
 		JLabel lb_time = new JLabel();
-		lb_time.setText("시간");
+		lb_time.setText("TIME");
 		lb_time.setHorizontalAlignment(SwingConstants.CENTER);
 		lb_time.setForeground(Color.WHITE);
 		lb_time.setFont(new Font("Georgia", Font.BOLD, 18));
 		lb_time.setBounds(40, 155, 83, 28);
 		contentPane.add(lb_time);
 
-		tf_time = new JTextField(dto.getR_time());
+		// Test
+		System.out.println("r_time : " + dto.getR_time());
+		tf_time = new JTextField(dto.getR_time()+" minute");
+		tf_time.setFont(new Font("Georgia", Font.BOLD, 18));
 		tf_time.setEnabled(false);
 		tf_time.setColumns(10);
 		tf_time.setBounds(137, 155, 278, 31);
 		contentPane.add(tf_time);
 
 		JLabel lb_order = new JLabel();
-		lb_order.setText("주문내역");
+		lb_order.setText("ORDER");
 		lb_order.setHorizontalAlignment(SwingConstants.CENTER);
 		lb_order.setForeground(Color.WHITE);
 		lb_order.setFont(new Font("Georgia", Font.BOLD, 18));
