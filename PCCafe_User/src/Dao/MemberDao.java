@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.sound.midi.Sequence;
+
 import DB.DBClose;
 import DB.DBConnection;
 import Dto.MemberDto;
@@ -71,8 +73,29 @@ public class MemberDao {
 		return count > 0 ? true : false;
 	}
 	
-	// 남은 시간을 업데이트 하기 위한 메서드. 로그아웃 될 때 호출할 것인지?
-	public boolean updateEntryTime(MemberDto dto) {			
+	public int getRTime(MemberDto dto) {			
+		int r_time = 0;
+		
+		sql = "SELECT ENTRY_DATE FROM PC_MEMBER WHERE MEMBER_ID = " + dto.getName();
+		
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			
+			rs = psmt.executeQuery();
+			
+			rs.next();
+			r_time = rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		finally { DBClose.close(psmt, conn, rs); }
+		return r_time;
+	}
+	
+	// 남은 시간을 업데이트 하기 위한 메서드. 
+	public boolean updateRTime(MemberDto dto) {			
 		int count = 0;
 		
 		sql = "UPDATE PC_MEMBER SET ENTRY_DATE = ? WHERE MEMBER_ID = ?";

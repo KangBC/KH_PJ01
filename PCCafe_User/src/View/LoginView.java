@@ -8,6 +8,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Dto.MemberDto;
+import Singleton.Singleton;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -20,8 +24,6 @@ public class LoginView extends JFrame implements ActionListener {
 	private JPasswordField passwordField;
 	private JButton loginBtn;
 	private JButton signupBtn;
-
-	
 	
 	public LoginView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -65,43 +67,16 @@ public class LoginView extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 
-
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton btn = (JButton)e.getSource();
 		if(btn == loginBtn) {
+			Singleton.getInstance().dto = new MemberDto(0, 0, "");
+			
 			new ControlView();
 			this.dispose();
 		}else if(btn == signupBtn) {
 			new SignUpView();
 			this.dispose();
 		}
-		
-		/* <특수문자 한글 금지 시키는 함수.>
-		public boolean checkInputOnlyNumberAndAlphabet(String textInput) {
-			char chrInput;
-			for (int i = 0; i < textInput.length(); i++) {
-			chr = textInput.charAt(i); // 입력받은 텍스트에서 문자 하나하나 가져와서 체
-			if (chrInput >= 0x61 && chrInput <= 0x7A) {
-			    // 영문(소문자) OK!
-			} 
-			else if (chrInput >=0x41 && chrInput <= 0x5A) {
-			    // 영문(대문자) OK!
-			}
-			else if (chrInput >= 0x30 && chrInput <= 0x39) {
-
-			    // 숫자 OK!
-			} 
-			else {
-			    return false;   // 영문자도 아니고 숫자도 아님!
-			}
-			}
-			return true;
-			}
-			*/
-
-		
-		
-		
 	}
 }

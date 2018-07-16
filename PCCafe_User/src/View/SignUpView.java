@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Dto.MemberDto;
+//import dao.MemberDao;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,7 +22,7 @@ public class SignUpView extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField idField;
-	private JPasswordField pwdField;
+	private JPasswordField pwField;
 	private JTextField nameField;
 	private JTextField PhField;
 	
@@ -67,9 +68,9 @@ public class SignUpView extends JFrame implements ActionListener {
 		textField1.add(idField);
 		idField.setColumns(10);
 		
-		pwdField = new JPasswordField();
-		pwdField.setBounds(208, 63, 130, 26);
-		textField1.add(pwdField);
+		pwField = new JPasswordField();
+		pwField.setBounds(208, 63, 130, 26);
+		textField1.add(pwField);
 		
 		nameField = new JTextField();
 		nameField.setBounds(208, 91, 130, 26);
@@ -119,7 +120,6 @@ public class SignUpView extends JFrame implements ActionListener {
 				// 숫자 OK!
 			} else {
 				return false; // 영문자도 아니고 숫자도 아님!
-
 			}
 		}
 		return true;
@@ -130,33 +130,31 @@ public class SignUpView extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton btn = (JButton)e.getSource();
-		MemberDto dto = new MemberDto(idField.getText(),pwdField.getText(),
+		MemberDto dto = new MemberDto(idField.getText(),pwField.getText(),
 									nameField.getText(),PhField.getText());	//DB로 갈수있게 가공
-		
-		/*
+		Dao.MemberDao dao = new Dao.MemberDao();
 		if(btn == signupBtn) {
-			if() {
-				this.dispose();
-				new LoginView();
-			}else {
-				boolean b = checkInputOnlyNumberAndAlphabet(idField.getText());
-		         if(b) {
-		            JOptionPane.showMessageDialog(null, "아이디에 특수문자 또는 공백이 있습니다.");
-		         }
+	
+			boolean b = false;
+		    if(!checkInputOnlyNumberAndAlphabet(idField.getText())) {
+		    		JOptionPane.showMessageDialog(null, "아이디에 특수문자 또는 공백이 있습니다.");
+		    		System.out.println("id");
+		    		b = true;
+		    }
+		    
+		    if(!checkInputOnlyNumberAndAlphabet(pwField.getText())) {
+			       JOptionPane.showMessageDialog(null, "비밀번호에 특수문자 또는 공백이 있습니다.");
+			       System.out.println("pw");
+			       b = true;
 			}
-			
-		}else if(btn == escBtn) {
-			new LoginView();
-			this.dispose();
-		}else if(btn == idCheckBtn) {
-			
+		    
+		    if(!b) {
+		    	//DB들어가야할곳
+		    	JOptionPane.showMessageDialog(null, "회원가입이 되었습니다.");
+		    	new LoginView();
+				this.dispose();
+		    }
+		
 		}
-		*/
-	/*	 <회원가입할때 아이디에서 특수문자,공백 못주게하는 부분>
-	boolean b = checkInputOnlyNumberAndAlphabet(idField.getText());
-         if(b) {
-            JOptionPane.showMessageDialog(null, "아이디에 특수문자 또는 공백이 있습니다.");
-         }
-	*/
 	}
 }

@@ -8,7 +8,6 @@ import java.sql.Statement;
 public class DBClose {
 	
 	public static void close(Statement stmt, Connection conn, ResultSet rs) {
-		
 		try {
 			if(stmt != null) {
 				stmt.close();
@@ -20,11 +19,7 @@ public class DBClose {
 				rs.close();
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 	}
-
 }
