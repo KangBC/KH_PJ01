@@ -28,6 +28,7 @@ public class serverBackGroud extends Thread {
 	public void connectServer() {
 		try {
 			socket = new Socket("127.0.0.1", PORT_NUMBER);
+			System.out.println("서버에 접속하였습니다.");
 			start();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
