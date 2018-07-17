@@ -425,33 +425,43 @@ public class ControlView extends JFrame implements ActionListener {
 		} else if (obj == bt_1) {
 			selectSeat = 0;
 			single.serCtrl.chatView(selectSeat);
+			System.out.println("test" + selectSeat);
 		} else if (obj == bt_2) {
 			selectSeat = 1;
 			single.serCtrl.chatView(selectSeat);
+			System.out.println("test" + selectSeat);
 		} else if (obj == bt_3) {
 			selectSeat = 2;
 			single.serCtrl.chatView(selectSeat);
+			System.out.println("test" + selectSeat);
 		} else if (obj == bt_4) {
 			selectSeat = 3;
 			single.serCtrl.chatView(selectSeat);
+			System.out.println("test" + selectSeat);
 		} else if (obj == bt_5) {
 			selectSeat = 4;
 			single.serCtrl.chatView(selectSeat);
+			System.out.println("test" + selectSeat);
 		} else if (obj == bt_6) {
 			selectSeat = 5;
 			single.serCtrl.chatView(selectSeat);
+			System.out.println("test" + selectSeat);
 		} else if (obj == bt_7) {
 			selectSeat = 6;
 			single.serCtrl.chatView(selectSeat);
+			System.out.println("test" + selectSeat);
 		} else if (obj == bt_8) {
 			selectSeat = 7;
 			single.serCtrl.chatView(selectSeat);
+			System.out.println("test" + selectSeat);
 		} else if (obj == bt_9) {
 			selectSeat = 8;
 			single.serCtrl.chatView(selectSeat);
+			System.out.println("test" + selectSeat);
 		} else if (obj == bt_10) {
 			selectSeat = 9;
 			single.serCtrl.chatView(selectSeat);
+			System.out.println("test" + selectSeat);
 		}
 	}
 }

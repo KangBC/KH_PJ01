@@ -95,10 +95,12 @@ public class ChatView extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
+		serverBackGround serBack = new serverBackGround(socket);
 		if (obj == bt_exit) {
-			this.dispose();
+			this.setVisible(false);
 		} else if (obj == bt_send) {
-			new serverBackGround(socket).sendMsg(socket, tf_msg.getText());
+			serBack.commandSign(socket);
+			serBack.sendMsg(socket, tf_msg.getText());
 			contentArea.append(tf_msg.getText() + "\n");
 			tf_msg.setText("");
 		}

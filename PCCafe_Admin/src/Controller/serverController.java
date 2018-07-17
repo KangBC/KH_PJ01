@@ -2,6 +2,7 @@ package Controller;
 
 import java.awt.EventQueue;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import View.ChatView;
 
@@ -14,6 +15,8 @@ public class serverController {
 	// Id List
 	private String loginId[] = new String[10];
 
+	private ChatView chatList[] = new ChatView[10];
+
 	private final int SERVER_PORT = 9000;
 
 	// Constructor
@@ -23,6 +26,7 @@ public class serverController {
 			seatList[i] = "0";
 			sockList[i] = null;
 			loginId[i] = null;
+			chatList[i] = null;
 		}
 	}
 
@@ -55,6 +59,14 @@ public class serverController {
 		this.loginId = loginId;
 	}
 
+	public ChatView[] getChatList() {
+		return chatList;
+	}
+
+	public void setChatList(ChatView[] chatList) {
+		this.chatList = chatList;
+	}
+
 	// Set Random SeatNum
 	public int randomSeatNum(Socket socket) {
 		int temp;
@@ -79,10 +91,16 @@ public class serverController {
 					ChatView frame = new ChatView(temp[seatNum]);
 					frame.setUndecorated(true);
 					frame.setVisible(true);
+					chatList[seatNum] = frame;
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+	}
+	
+	// ShowView
+	public void showView(int num) {
+		chatList[num].setVisible(true);
 	}
 }

@@ -31,14 +31,6 @@ public class MemberController {
 		new SignUpView();
 	}
 	
-	public void draw_Chat() {
-		if(chatView == null) {
-			chatView = new ChatView();
-		}else {
-			chatView.setVisible(true);
-		}
-	}
-	
 	
 	
 	public void draw_orderView() {
