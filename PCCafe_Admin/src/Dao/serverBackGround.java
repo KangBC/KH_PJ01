@@ -6,7 +6,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import Main.MainClass;
 import Singleton.Singleton;
+import View.ChatView;
+import View.ControlView;
 
 public class serverBackGround extends Thread {
 	private Singleton single = Singleton.getInstance();
@@ -42,8 +45,11 @@ public class serverBackGround extends Thread {
 					String tempIdList[] = single.serCtrl.getLoginId();
 					tempIdList[temp] = msg;
 					userLogin = false;
+					MainClass.mainView.dispose();
+					MainClass.mainView = new ControlView();
+					MainClass.mainView.setVisible(true);
 				} else {
-
+					// ChatView.contentArea.append(msg);
 				}
 				Thread.sleep(100);
 			}
@@ -73,7 +79,7 @@ public class serverBackGround extends Thread {
 	}
 
 	// Send Message
-	public void sendMsg(Socket sock,String msg) {
+	public void sendMsg(Socket sock, String msg) {
 		PrintWriter pw;
 		try {
 			pw = new PrintWriter(socket.getOutputStream(), true);

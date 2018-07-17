@@ -26,7 +26,7 @@ public class ChatView extends JFrame implements ActionListener {
 	private JButton bt_exit, bt_send;
 	private Socket socket;
 	private JTextField tf_msg;
-	private JTextArea contentArea;
+	public static JTextArea contentArea;
 
 	public ChatView(Socket socket) {
 		this.socket = socket;
