@@ -116,7 +116,7 @@ public class ControlView extends JFrame implements ActionListener{
 		}else if(btn == MesBtn) {
 			memCtrl.draw_Chat();
 		}else if(btn == BbsBtn) {
-			memCtrl.draw_bbsList();
+			//memCtrl.draw_bbsList();
 		}else if(btn == oderBtn) {
 			new OrderView();
 		}
