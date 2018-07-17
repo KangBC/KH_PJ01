@@ -6,7 +6,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import Dto.BbsDto;
-import Serviece.BbsDaoService;
+import Serviece.BbsDaoServiece;
 import View.BbsAddView;
 import View.BbsDetailView;
 import View.BbsListView;
@@ -20,19 +20,17 @@ public class BbsController {
 
 	BbsListView bbsLV = null;
 	BbsDetailView bbsDV = null;
-	BbsDaoService bbsService = new BbsDaoService();
+	BbsDaoServiece bbsService = new BbsDaoServiece();
 
 	// DB에 저장된 게시글 목록을 전부 가져온다.
-	public List<BbsDto> getBbsList() {
+	public void drawBbsList() {
 		List<BbsDto> list = bbsService.getBbsList();
-
 		if (bbsLV == null) {
 			bbsLV = new BbsListView(list);
 		} else {
 			bbsLV.dispose();
 			bbsLV = new BbsListView(list);
 		}
-		return list;
 	}
 
 	// DB에 해당 게시글이 있는지 검색
@@ -61,7 +59,7 @@ public class BbsController {
 		}
 	}
 
-	// 게시글 뷰
+	// 게시글  글쓰기 view
 	public void bbsWrite() {
 		new BbsAddView();
 	}
@@ -71,25 +69,27 @@ public class BbsController {
 		boolean b = bbsService.writeBbs(dto);
 		if (b) {
 			JOptionPane.showMessageDialog(null, "성공적으로 추가되었습니다");
-			getBbsList();
+			drawBbsList();
 		} else {
 			JOptionPane.showMessageDialog(null, "추가되지 못했습니다");
 			bbsWrite();
 		}
 	}
 
+	// 삭제
 	public void bbsDelete(int seq) {
 		boolean b = bbsService.bbsDelete(seq);
 		if (b) {
 			JOptionPane.showMessageDialog(null, "성공적으로 삭제되었습니다");
-			getBbsList();
+			drawBbsList();
 		} else {
 			JOptionPane.showMessageDialog(null, "삭제하지 못했습니다");
 			bbsDetail(seq);
 		}
 	}
 
-	// 게시글 수정
+	
+   //게시글 view
 	public void bbsUpdate(int seq) {
 		BbsDto dto = bbsService.getBBS(seq);
 		new BbsUpateview(dto);
@@ -100,7 +100,7 @@ public class BbsController {
 		boolean b = bbsService.bbsUpdate(seq, title, content);
 		if (b) {
 			JOptionPane.showMessageDialog(null, "성공적으로 수정되었습니다");
-			getBbsList();
+			drawBbsList();
 		} else {
 			JOptionPane.showMessageDialog(null, "수정되지 못했습니다");
 			BbsDto dto = bbsService.getBBS(seq);
@@ -108,8 +108,9 @@ public class BbsController {
 		}
 	}
 
+	
+	
 	// ControlView 공간
-
 	// UserDetailView
 	public void UserDetai() {
 		EventQueue.invokeLater(new Runnable() {
@@ -124,25 +125,8 @@ public class BbsController {
 		});
 	}
 
-	
-	// 게시판 List view
-	public void gasipanList() { // 객체 이름 변경예정
-
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					BbsListView frame = new BbsListView(bbsService.getBbsList());
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	
 	// chatview
-	public void chat() { 
+	public void chat() {
 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -157,7 +141,7 @@ public class BbsController {
 	}
 
 	// OrderView
-	public void order() { 
+	public void order() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -170,18 +154,10 @@ public class BbsController {
 		});
 	}
 }
-	
-/*	// OrderListView
-	public void orderList() { 
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					OrderListView frame = new OrderListView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-}*/
+
+/*
+ * // OrderListView public void orderList() { EventQueue.invokeLater(new
+ * Runnable() { public void run() { try { OrderListView frame = new
+ * OrderListView(); frame.setVisible(true); } catch (Exception e) {
+ * e.printStackTrace(); } } }); } }
+ */

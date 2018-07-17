@@ -11,7 +11,7 @@ import java.util.List;
 
 import Dto.chatDto;
 
-public class chatController extends Thread {
+public class ChatController extends Thread {
 
 	// Member Variable
 	private ArrayList<chatDto> list = new ArrayList<>();

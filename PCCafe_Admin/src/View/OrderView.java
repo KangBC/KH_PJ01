@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -15,9 +16,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import Dto.BbsDto;
 import Dto.MemberDto;
@@ -116,6 +119,7 @@ public class OrderView extends JFrame implements ActionListener, MouseListener {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1928, 1060);
 		setVisible(true);
+
 	}
 
 	@Override
@@ -145,22 +149,20 @@ public class OrderView extends JFrame implements ActionListener, MouseListener {
 	@Override
 	// 게시글 마우스 클릭 -- 나중에 확인?
 	public void mouseReleased(MouseEvent e) {
-
-		int rowNum = jTable.getSelectedRow();
-		sc.bbsCtrl.bbsDetail(list.get(rowNum).getPostNum());
-
+		/*
+		 * int rowNum = jTable.getSelectedRow();
+		 * sc.bbsCtrl.bbsDetail(list.get(rowNum).getPostNum());
+		 */
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
-
-		DefaultTableModel tableModel = (DefaultTableModel) jTable.getModel();
-
-		// menu view 돌아가기
-		if (obj == writeBtn) {
-			sc.bbsCtrl.bbsWrite();
-
-			this.dispose();
-		}
+		/*
+		 * DefaultTableModel tableModel = (DefaultTableModel) jTable.getModel();
+		 * 
+		 * // menu view 돌아가기 if (obj == writeBtn) { sc.bbsCtrl.bbsWrite();
+		 * 
+		 * this.dispose(); }
+		 */
 	}
 }

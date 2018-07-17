@@ -2,14 +2,13 @@ package Singleton;
 
 import Controller.BbsController;
 import Controller.MemberController;
-import Controller.chatController;
+import Controller.ChatController;
 
 public class Singleton {
 	
 	private static Singleton single = new Singleton();
 	
 	public MemberController memCtrl;
-
 	public BbsController bbsCtrl;
 	//public chatController chatCtrl;
 	

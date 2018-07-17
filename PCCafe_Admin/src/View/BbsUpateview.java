@@ -21,13 +21,12 @@ public class BbsUpateview extends JFrame{
 	JTextField wdateTextfield;
 	JTextField readCountTextfield;
 	JTextField titleTextfield;
-	
 	JTextArea contentArea;
+	
+	Singleton sc = Singleton.getInstance();
 	
 	public BbsUpateview(BbsDto dto) {
 		super("수정");	
-		
-		Singleton sc = Singleton.getInstance();
 				
 		setLayout(null);
 		
@@ -91,6 +90,7 @@ public class BbsUpateview extends JFrame{
 		updateBtn.setBounds(150, 480, 100, 20);
 		add(updateBtn);
 		updateBtn.addActionListener(new ActionListener() {
+		
 			@Override
 			public void actionPerformed(ActionEvent e) {					
 				String title = titleTextfield.getText();
@@ -114,7 +114,7 @@ public class BbsUpateview extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {					
 				Singleton sc = Singleton.getInstance();
-				sc.bbsCtrl.getBbsList();
+				sc.bbsCtrl.drawBbsList();
 				dispose();
 			}
 		});		

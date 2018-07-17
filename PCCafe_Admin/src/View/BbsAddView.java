@@ -3,23 +3,17 @@ package View;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
 
-import Dao.BbsDao;
 import Dto.BbsDto;
 import Singleton.Singleton;
-import View.BbsListView;
 
 public class BbsAddView extends JFrame implements ActionListener {
 
@@ -28,7 +22,7 @@ public class BbsAddView extends JFrame implements ActionListener {
 	JTextArea contentArea;
 	JButton btn;
 	JButton backBtn;
-	
+
 	Singleton sc = Singleton.getInstance();
 
 	public BbsAddView() {
@@ -75,8 +69,8 @@ public class BbsAddView extends JFrame implements ActionListener {
 		backBtn.setBounds(10, 420, 100, 20);
 		add(backBtn);
 
-		// 글올리기
 		btn.addActionListener(new ActionListener() {
+			// 글올리기
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("btn.addActionListener");
@@ -95,21 +89,24 @@ public class BbsAddView extends JFrame implements ActionListener {
 				}
 				dispose();
 			}
+
 		});
 
 		// 목록
 		backBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				sc.bbsCtrl.getBbsList();
+				sc.bbsCtrl.drawBbsList();
 				dispose();
 			}
 		});
 	}
 
+	//삭제하면오휴남
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		// TODO Auto-generated method stub
+		
 	}
 
 }

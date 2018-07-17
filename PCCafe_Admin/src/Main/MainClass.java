@@ -16,11 +16,6 @@ public class MainClass {
 		// Single
 		Singleton sc = Singleton.getInstance();
 
-		// Look & Feel
-		UIManager.setLookAndFeel("ch.randelshofer.quaqua.QuaquaLookAndFeel");
-
-		JFrame.setDefaultLookAndFeelDecorated(true);
-
 		ControlView frame = new ControlView();
 		frame.setVisible(true);
 	}

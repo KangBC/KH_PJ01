@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import Serviece.MemeberServiece;
 import Singleton.Singleton;
 
 public class ControlView extends JFrame implements ActionListener {
@@ -25,6 +26,7 @@ public class ControlView extends JFrame implements ActionListener {
 	private JTextField textField_1;
 
 	Singleton sc = Singleton.getInstance();
+	
 
 	public ControlView() {
 
@@ -150,9 +152,8 @@ public class ControlView extends JFrame implements ActionListener {
 
 			// 게시판 List
 		} else if (obj == but_gasipan) {
-			sc.bbsCtrl.gasipanList();
+			sc.bbsCtrl.drawBbsList();
 
-			// UserDetailView
 		} else if (obj == button_1) {
 			sc.bbsCtrl.UserDetai();
 

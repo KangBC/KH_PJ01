@@ -128,7 +128,7 @@ public class BbsDetailView extends JFrame {
 		bbsBtn.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {	
-				sc.bbsCtrl.getBbsList();
+				sc.bbsCtrl.drawBbsList();
 				dispose();
 			}
 		});
