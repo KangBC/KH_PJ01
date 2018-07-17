@@ -1,5 +1,8 @@
 package Controller;
 
-public class BbsController {
+import Serviece.BbsServiece;
 
+
+public class BbsController {
+	BbsServiece BbsServiece = new BbsServiece();
 }

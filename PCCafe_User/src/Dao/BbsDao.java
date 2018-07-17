@@ -27,11 +27,6 @@ public class BbsDao {
 		
 	}
 
-	public BbsDao(BbsDto dto) {
-		this.dto = dto;
-	}
-	
-	
 	// 뿌려줄 때 사용할 list를 얻어옴.
 	public List<BbsDto> getList(){
 		dtoList_notice = new ArrayList<>();
@@ -128,7 +123,7 @@ public class BbsDao {
 	}
 	
 	// 새 글을 DB에 넣어주기 위한 메서드
-	public boolean addPost() {
+	public boolean addPost(BbsDto dto) {
 		int count = 0;
 		
 		sql = " INSERT INTO BBS(SEQ_BBS, SEQ_MEMBER, BBS_DEL, BBS_ADMIN, BBS_TITLE, BBS_CONTENT, BBS_COUNT, BBS_DATE) "
@@ -153,7 +148,7 @@ public class BbsDao {
 	}
 	
 	// 수정한 내용을 DB에 적용하기 위한 메서드
-	public boolean updatePost(int seq) {
+	public boolean updatePost(BbsDto dto) {
 		int count = 0;
 		
 		sql = "UPDATE INTO BBS SET TITLE = ?, CONTENT = ? WHERE SEQ_BBS = ?";
@@ -164,7 +159,7 @@ public class BbsDao {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, dto.getTitle());
 			psmt.setString(2, dto.getContent());
-			psmt.setInt(3, seq);
+			psmt.setInt(3, dto.getPostNum());
 			
 			count = psmt.executeUpdate();
 			

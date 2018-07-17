@@ -1,103 +1,107 @@
 package View;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import Dto.MemberDto;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import Controller.MemberController;
+import Dao.MemberDao;
+import Dto.MemberDto;
+import Singleton.Singleton;
+//import dao.MemberDao;
 
 public class SignUpView extends JFrame implements ActionListener {
 
+	private Singleton sgt = Singleton.getInstance();
+	private MemberController memctrl = sgt.memCtrl;
+	
 	private JPanel contentPane;
 	private JTextField idField;
-	private JPasswordField pwdField;
+	private JPasswordField pwField;
 	private JTextField nameField;
-	private JTextField PhField;
+	private JTextField phField;
 	
 	private JButton signupBtn;
-	private JButton escBtn;
+	private JButton cancleBtn;
 	private JButton idCheckBtn;
 	
-
+	private boolean idCheck;
 	
 	public SignUpView() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		setBounds(100, 100, 500, 320);
+
+		idCheck = false;
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JPanel textField1 = new JPanel();
-		contentPane.add(textField1, BorderLayout.CENTER);
-		textField1.setLayout(null);
-		
-		
+		JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.CENTER);
+		panel.setLayout(null);
 		
 		JLabel idlabel = new JLabel("아이디");
 		idlabel.setBounds(91, 40, 61, 16);
-		textField1.add(idlabel);
-		
+		panel.add(idlabel);
 		
 		JLabel pwlabel = new JLabel("비밀번호");
 		pwlabel.setBounds(91, 68, 61, 16);
-		textField1.add(pwlabel);
+		panel.add(pwlabel);
 		
 		JLabel namelabel = new JLabel("이름");
 		namelabel.setBounds(91, 96, 61, 16);
-		textField1.add(namelabel);
+		panel.add(namelabel);
 		
 		JLabel Phonelabel = new JLabel("핸드폰");
 		Phonelabel.setBounds(91, 124, 61, 16);
-		textField1.add(Phonelabel);
+		panel.add(Phonelabel);
 		
 		idField = new JTextField();
 		idField.setBounds(208, 35, 130, 26);
-		textField1.add(idField);
+		panel.add(idField);
 		idField.setColumns(10);
 		
-		pwdField = new JPasswordField();
-		pwdField.setBounds(208, 63, 130, 26);
-		textField1.add(pwdField);
+		pwField = new JPasswordField();
+		pwField.setBounds(208, 63, 130, 26);
+		panel.add(pwField);
 		
 		nameField = new JTextField();
 		nameField.setBounds(208, 91, 130, 26);
-		textField1.add(nameField);
+		panel.add(nameField);
 		nameField.setColumns(10);
 		
-		PhField = new JTextField();
-		PhField.setBounds(208, 119, 130, 26);
-		textField1.add(PhField);
-		PhField.setColumns(10);
+		phField = new JTextField();
+		phField.setBounds(208, 119, 130, 26);
+		panel.add(phField);
+		phField.setColumns(10);
 		
 		signupBtn = new JButton("회원가입");
 		signupBtn.setBounds(91, 202, 117, 29);
 		signupBtn.addActionListener(this);
-		textField1.add(signupBtn);
+		panel.add(signupBtn);
 		
-		
-		escBtn = new JButton("취소");
-		escBtn.setBounds(208, 202, 117, 29);
-		textField1.add(escBtn);
+		cancleBtn = new JButton("취소");
+		cancleBtn.setBounds(208, 202, 117, 29);
+		cancleBtn.addActionListener(this);
+		panel.add(cancleBtn);
 		
 		idCheckBtn = new JButton("확인");
 		idCheckBtn.setBounds(381, 35, 54, 29);
 		idCheckBtn.addActionListener(this);
-		textField1.add(idCheckBtn);
-		escBtn.addActionListener(this);
+		panel.add(idCheckBtn);
 		
-		
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setUndecorated(true);
 		setVisible(true);
 	}
@@ -106,8 +110,10 @@ public class SignUpView extends JFrame implements ActionListener {
 
 		char chrInput;
 
+		if(textInput.equals("")) {
+			return false;
+		}
 		for (int i = 0; i < textInput.length(); i++) {
-
 			chrInput = textInput.charAt(i); // 입력받은 텍스트에서 문자 하나하나 가져와서 체크
 
 			if (chrInput >= 0x61 && chrInput <= 0x7A) {
@@ -115,48 +121,58 @@ public class SignUpView extends JFrame implements ActionListener {
 			} else if (chrInput >= 0x41 && chrInput <= 0x5A) {
 				// 영문(대문자) OK!
 			} else if (chrInput >= 0x30 && chrInput <= 0x39) {
-
 				// 숫자 OK!
 			} else {
 				return false; // 영문자도 아니고 숫자도 아님!
-
 			}
 		}
 		return true;
 	}
 
-
-
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton btn = (JButton)e.getSource();
-		MemberDto dto = new MemberDto(idField.getText(),pwdField.getText(),
-									nameField.getText(),PhField.getText());	//DB로 갈수있게 가공
-		
-		/*
-		if(btn == signupBtn) {
-			if() {
-				this.dispose();
-				new LoginView();
-			}else {
-				boolean b = checkInputOnlyNumberAndAlphabet(idField.getText());
-		         if(b) {
-		            JOptionPane.showMessageDialog(null, "아이디에 특수문자 또는 공백이 있습니다.");
-		         }
+		MemberDao dao = new Dao.MemberDao();
+
+		MemberDto dto;
+
+		if(btn == idCheckBtn) {
+			boolean b = true;
+			
+			if(!checkInputOnlyNumberAndAlphabet(idField.getText())) {
+	    		JOptionPane.showMessageDialog(null, "아이디에 특수문자 또는 공백이 있습니다.");
+	    		b = false;
+		    }
+			
+			if(!memctrl.checkId(idField.getText())) {
+				JOptionPane.showMessageDialog(null, "이미 있는 ID입니다.");
+				b = false;
 			}
 			
-		}else if(btn == escBtn) {
-			new LoginView();
-			this.dispose();
-		}else if(btn == idCheckBtn) {
+			if(b) {
+				idCheck = true;
+			}
+		}else if(btn == signupBtn) {
+			boolean	b = true;
 			
+			if(!idCheck) {
+				JOptionPane.showMessageDialog(null, "ID 중복확인을 해주세요.");
+				b = false;
+			}else if(!checkInputOnlyNumberAndAlphabet(pwField.getText())) {
+		    	JOptionPane.showMessageDialog(null, "비밀번호에 특수문자 또는 공백이 있습니다.");
+		    	b = false;
+		    }
+		    
+		    if(b) {
+		    	dto = new MemberDto(idField.getText(), pwField.getText(), nameField.getText(), phField.getText());
+
+		    	if(memctrl.signUp(dto)) {
+		    		memctrl.draw_login();
+		    		this.dispose();
+		    	}
+		    }
+		}else if(btn == cancleBtn) {
+			memctrl.draw_login();
+			this.dispose();
 		}
-		*/
-	/*	 <회원가입할때 아이디에서 특수문자,공백 못주게하는 부분>
-	boolean b = checkInputOnlyNumberAndAlphabet(idField.getText());
-         if(b) {
-            JOptionPane.showMessageDialog(null, "아이디에 특수문자 또는 공백이 있습니다.");
-         }
-	*/
 	}
 }

@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,19 +14,34 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+
+import Controller.MemberController;
+import Dao.MemberDao;
+import Dto.MemberDto;
+import Singleton.Singleton;
+
 import java.awt.Color;
 
 public class ControlView extends JFrame implements ActionListener{
 
+	private MemberDto dto;
+	private Singleton sgt = Singleton.getInstance();
+	private MemberController memCtrl = sgt.memCtrl;
+	
 	private JPanel contentPane;
+	
 	private JButton MesBtn;
 	private JButton BbsBtn;
 	private JButton oderBtn;
 	private JButton logoutBtn;
 	
+	private JLabel time_Label;
+	private JLabel use_Label;
 	
 	public ControlView() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		dto = Singleton.getInstance().dto;
+		tictoc();
+		
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -78,32 +95,41 @@ public class ControlView extends JFrame implements ActionListener{
 		name_Label.setBounds(103, 6, 61, 16);
 		panel_1.add(name_Label);
 		
-		JLabel time_Label = new JLabel("0:00");
+		time_Label = new JLabel((sgt.dto.getR_time()/60) +" : " + (sgt.dto.getR_time()%60));
 		time_Label.setBounds(103, 34, 61, 16);
 		panel_1.add(time_Label);
 		
-		JLabel use_Label = new JLabel("0원");
+		use_Label = new JLabel("0원");
 		use_Label.setBounds(103, 52, 61, 16);
 		panel_1.add(use_Label);
 		
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);;
 		setUndecorated(true);
 		setVisible(true);
 	}
 
-
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton btn = (JButton)e.getSource();
 		if(btn == logoutBtn) {
-			new LoginView();
+			memCtrl.draw_login();
 			this.dispose();
 		}else if(btn == MesBtn) {
-			new ChatView();
+			memCtrl.draw_Chat();
 		}else if(btn == BbsBtn) {
-			new BbsListView();
+			//memCtrl.draw_bbsList();
 		}else if(btn == oderBtn) {
 			new OrderView();
 		}
-		
+	}
+	public void tictoc() {
+		Timer tm = new Timer(true);
+		TimerTask tmt = new TimerTask() {
+			public void run() {
+				memCtrl.tictoc(sgt.dto);
+				String time = (sgt.dto.getR_time()/60) +" : " + (sgt.dto.getR_time()%60);
+				time_Label.setText(time);
+			}
+		};
+		tm.scheduleAtFixedRate(tmt, 60000, 60000);	
 	}
 }

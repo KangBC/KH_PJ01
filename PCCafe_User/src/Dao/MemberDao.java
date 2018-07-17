@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.sound.midi.Sequence;
+
 import DB.DBClose;
 import DB.DBConnection;
 import Dto.MemberDto;
@@ -24,18 +26,36 @@ public class MemberDao {
 	public MemberDao(MemberDto dto) {
 		this.dto = dto;
 	}
+	// 중복확인
+	public boolean checkId(String id) {
+		int count = 0;
+		sql = "SELECT MEMBER_ID FROM PC_MEMBER WHERE MEMBER_ID = '" + id + "'";
 	
-	// 반환값이 null일경우 로그인 실패하도록 해줘야함. 이 dto는 singleton이 계속 갖고있도록 할것.
-	public MemberDto login(String id, String pw) {			
-		sql = "SELECT SEQ_MEMBER, MEMBER_MINUTE, MEMBER_ID FROM PC_MEMBER WHERE MEMBER_ID = " + id + ", MEMBER_PW = " + pw;
-		
 		try {
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			
-			dto = new MemberDto(rs.getInt(1),rs.getInt(2),rs.getString(3));
-			
+			if(rs.next()) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
+	// 반환값이 null일경우 로그인 실패하도록 해줘야함. 이 dto는 singleton이 계속 갖고있도록 할것.
+	public MemberDto login(String id, String pw) {			
+		sql = "SELECT SEQ_MEMBER, MEMBER_MINUTE, MEMBER_ID FROM PC_MEMBER WHERE MEMBER_ID = '" + id + "'AND MEMBER_PW = '" + pw + "'";
+		
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				dto = new MemberDto(rs.getInt(1),rs.getInt(2),rs.getString(3));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -71,17 +91,39 @@ public class MemberDao {
 		return count > 0 ? true : false;
 	}
 	
-	// 남은 시간을 업데이트 하기 위한 메서드. 로그아웃 될 때 호출할 것인지?
-	public boolean updateEntryTime(MemberDto dto) {			
-		int count = 0;
+	public int getRTime(MemberDto dto) {			
+		int r_time = 0;
 		
-		sql = "UPDATE PC_MEMBER SET ENTRY_DATE = ? WHERE MEMBER_ID = ?";
+		sql = "SELECT MEMBER_MINUTE FROM PC_MEMBER WHERE MEMBER_ID = '" + dto.getId()+ "'";
 		
 		try {
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
 			
-			psmt.setInt(1, dto.getR_time());
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				r_time = rs.getInt(1);
+				System.out.println(r_time + "");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		finally { DBClose.close(psmt, conn, rs); }
+		return r_time;
+	}
+	
+	// 남은 시간을 업데이트 하기 위한 메서드. 
+	public boolean updateRTime(MemberDto dto) {			
+		int count = 0;
+		
+		sql = "UPDATE PC_MEMBER SET MEMBER_MINUTE = ? WHERE MEMBER_ID = ?";
+		
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setInt(1, dto.getR_time()-1);
 			psmt.setString(2, dto.getId());
 			
 			count = psmt.executeUpdate();
