@@ -94,7 +94,7 @@ public class MemberDao {
 	public int getRTime(MemberDto dto) {			
 		int r_time = 0;
 		
-		sql = "SELECT MEMBER_MINUTE FROM PC_MEMBER WHERE MEMBER_ID = " + dto.getName();
+		sql = "SELECT MEMBER_MINUTE FROM PC_MEMBER WHERE MEMBER_ID = '" + dto.getId()+ "'";
 		
 		try {
 			conn = DBConnection.makeConnection();
@@ -103,6 +103,7 @@ public class MemberDao {
 			rs = psmt.executeQuery();
 			if(rs.next()) {
 				r_time = rs.getInt(1);
+				System.out.println(r_time + "");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -122,7 +123,7 @@ public class MemberDao {
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
 			
-			psmt.setInt(1, dto.getR_time());
+			psmt.setInt(1, dto.getR_time()-1);
 			psmt.setString(2, dto.getId());
 			
 			count = psmt.executeUpdate();

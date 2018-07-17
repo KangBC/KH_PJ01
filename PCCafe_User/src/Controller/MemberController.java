@@ -2,11 +2,9 @@ package Controller;
 
 import javax.swing.JOptionPane;
 
-import Dao.MemberDao;
 import Dto.MemberDto;
 import Serviece.MemeberServiece;
 import Singleton.Singleton;
-import View.BbsListView;
 import View.ChatView;
 import View.ControlView;
 import View.LoginView;
@@ -54,11 +52,9 @@ public class MemberController {
 	
 	public boolean login(String id, String pw) {
 		MemberDto dto = memSvc.login(id, pw);
-		
 		if(dto != null) {
 			Singleton.getInstance().dto = dto;
 			new ControlView();
-			
 			return true;
 		}
 		JOptionPane.showMessageDialog(null, "ID와 비밀번호를 확인해 주세요");

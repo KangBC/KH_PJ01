@@ -40,7 +40,7 @@ public class ControlView extends JFrame implements ActionListener{
 	
 	public ControlView() {
 		dto = Singleton.getInstance().dto;
-		//tictoc();
+		tictoc();
 		
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -95,7 +95,7 @@ public class ControlView extends JFrame implements ActionListener{
 		name_Label.setBounds(103, 6, 61, 16);
 		panel_1.add(name_Label);
 		
-		time_Label = new JLabel("0:00");
+		time_Label = new JLabel((sgt.dto.getR_time()/60) +" : " + (sgt.dto.getR_time()%60));
 		time_Label.setBounds(103, 34, 61, 16);
 		panel_1.add(time_Label);
 		
@@ -125,12 +125,11 @@ public class ControlView extends JFrame implements ActionListener{
 		Timer tm = new Timer(true);
 		TimerTask tmt = new TimerTask() {
 			public void run() {
-				dto.setR_time(dto.getR_time()-1);
-				memCtrl.tictoc(dto);
-				dto = Singleton.getInstance().dto;
-				time_Label.setText(dto.getR_time() + "");
+				memCtrl.tictoc(sgt.dto);
+				String time = (sgt.dto.getR_time()/60) +" : " + (sgt.dto.getR_time()%60);
+				time_Label.setText(time);
 			}
 		};
-		tm.scheduleAtFixedRate(tmt, 1000, 1000);	
+		tm.scheduleAtFixedRate(tmt, 60000, 60000);	
 	}
 }
