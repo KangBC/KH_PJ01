@@ -8,7 +8,6 @@ import Singleton.Singleton;
 import View.ChatView;
 import View.ControlView;
 import View.LoginView;
-import View.OrderView;
 import View.SignUpView;
 
 public class MemberController {
@@ -16,7 +15,8 @@ public class MemberController {
 	private MemeberServiece memSvc = new MemeberServiece();
 	
 	private ChatView chatView = null;
-	OrderView orderView = null;
+
+	public ControlView ctrlView = null;
 	
 	public void tictoc(MemberDto dto) {
 		memSvc.updateRTime(dto);
@@ -38,24 +38,16 @@ public class MemberController {
 			chatView.setVisible(true);
 		}
 	}
-	
-	
-	
-	public void draw_orderView() {
-		if(orderView == null) {
-			orderView = new OrderView();
-		}else {
-			orderView.dispose();
-			orderView = new OrderView();
-		}
-	}
-	
 	public boolean login(String id, String pw) {
 		MemberDto dto = memSvc.login(id, pw);
 		if(dto != null) {
-			Singleton.getInstance().dto = dto;
-			new ControlView();
-			return true;
+			if(dto.getR_time() >= 1) {
+				Singleton.getInstance().dto = dto;
+				ctrlView = new ControlView();
+				return true;
+			}
+			JOptionPane.showMessageDialog(null, "남은 시간이 없습니다.");
+			return false;
 		}
 		JOptionPane.showMessageDialog(null, "ID와 비밀번호를 확인해 주세요");
 		return false;

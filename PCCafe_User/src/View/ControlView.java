@@ -15,7 +15,9 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import Controller.BbsController;
 import Controller.MemberController;
+import Controller.StuffController;
 import Dao.MemberDao;
 import Dto.MemberDto;
 import Singleton.Singleton;
@@ -27,6 +29,8 @@ public class ControlView extends JFrame implements ActionListener{
 	private MemberDto dto;
 	private Singleton sgt = Singleton.getInstance();
 	private MemberController memCtrl = sgt.memCtrl;
+	private BbsController bbsCtrl = sgt.bbsCtrl;
+	private StuffController stuffCtrl = sgt.stuffCtrl;
 	
 	private JPanel contentPane;
 	
@@ -95,7 +99,7 @@ public class ControlView extends JFrame implements ActionListener{
 		name_Label.setBounds(103, 6, 61, 16);
 		panel_1.add(name_Label);
 		
-		time_Label = new JLabel((sgt.dto.getR_time()/60) +" : " + (sgt.dto.getR_time()%60));
+		time_Label = new JLabel((dto.getR_time()/60) +" : " + (dto.getR_time()%60));
 		time_Label.setBounds(103, 34, 61, 16);
 		panel_1.add(time_Label);
 		
@@ -116,18 +120,25 @@ public class ControlView extends JFrame implements ActionListener{
 		}else if(btn == MesBtn) {
 			memCtrl.draw_Chat();
 		}else if(btn == BbsBtn) {
-			//memCtrl.draw_bbsList();
+			//bbsCtrl.draw_bbsList();
 		}else if(btn == oderBtn) {
-			new OrderView();
+			stuffCtrl.draw_orderView();
 		}
 	}
+	
 	public void tictoc() {
 		Timer tm = new Timer(true);
 		TimerTask tmt = new TimerTask() {
 			public void run() {
 				memCtrl.tictoc(sgt.dto);
-				String time = (sgt.dto.getR_time()/60) +" : " + (sgt.dto.getR_time()%60);
+				String time = (sgt.dto.getR_time() / 60) +" : " + (sgt.dto.getR_time() % 60);
 				time_Label.setText(time);
+				
+				if(sgt.dto.getR_time() == 0) {
+					memCtrl.ctrlView.dispose();
+					memCtrl.draw_login();
+					sgt.dto = null;
+				}
 			}
 		};
 		tm.scheduleAtFixedRate(tmt, 60000, 60000);	

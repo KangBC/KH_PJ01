@@ -2,6 +2,7 @@ package Singleton;
 
 import Controller.BbsController;
 import Controller.MemberController;
+import Controller.StuffController;
 import Dto.MemberDto;
 
 public class Singleton {
@@ -10,10 +11,12 @@ public class Singleton {
 	public MemberDto dto = null;
 	public BbsController bbsCtrl = null;
 	public MemberController memCtrl = null;
+	public StuffController stuffCtrl = null;
 	
 	private Singleton() {
 		bbsCtrl = new BbsController();
 		memCtrl = new MemberController();
+		stuffCtrl = new StuffController();
 	}
 	
 	public static Singleton getInstance() {

@@ -77,7 +77,6 @@ public class LoginView extends JFrame implements ActionListener,KeyListener {
 	public void actionPerformed(ActionEvent e) {
 		JButton btn = (JButton)e.getSource();
 		
-		
 		if(btn == loginBtn) {
 			if(memCtrl.login(idField.getText(), pwField.getText())) {
 					this.dispose();
