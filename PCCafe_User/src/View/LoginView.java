@@ -119,15 +119,9 @@ public class LoginView extends JFrame implements ActionListener, KeyListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
+
 		Object obj = e.getSource();
 		if (obj == loginBtn) {
-=======
-
-		JButton btn = (JButton) e.getSource();
-
-		if (btn == loginBtn) {
->>>>>>> Hyeonseok
 			if (memCtrl.login(idField.getText(), pwField.getText())) {
 				sgt.serCtrl.connectServer(); // 서버연결
 				sgt.serCtrl.sendLoginSign(); // 로그인 아이디 준비 커멘드
