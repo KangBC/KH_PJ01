@@ -53,6 +53,7 @@ public class BbsController {
 		bbsService.readCount(seq);
 		BbsDto dto = bbsService.getBBS(seq);
 
+		bbsLV.repaintBBS();
 		if (bbsDV == null) {
 			bbsDV = new BbsDetailView(dto);
 		} else {
