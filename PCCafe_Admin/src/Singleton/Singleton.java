@@ -6,22 +6,6 @@ import Controller.serverController;
 
 public class Singleton {
 
-<<<<<<< HEAD
-	private static Singleton single = new Singleton();
-	public MemberController memCtrl;
-	public BbsController bbsCtrl;
-	public serverController serCtrl;
-
-	private Singleton() {
-		memCtrl = new MemberController();
-		bbsCtrl = new BbsController();
-		serCtrl = new serverController();
-	}
-
-	public static Singleton getInstance() {
-		return single;
-	}
-=======
    private static Singleton single = new Singleton();
    public MemberController memCtrl;
    public BbsController bbsCtrl;
@@ -36,5 +20,4 @@ public class Singleton {
    public static Singleton getInstance() {
       return single;
    }
->>>>>>> KH_MiniProject/hyunwoo
 }

@@ -32,15 +32,16 @@ public class BbsController {
 		}
 	}
 
-	//DB에 해당 게시글이 있는지 검색
-	public void getBbsFindList(String fStr, String fword){
-		List<BbsDto> list = bbsService.getFindList(fStr.trim(), fword);
+	// DB에 해당 게시글이 있는지 검색
+	public void getBbsFindList(String column, String contain) {
 
-		if(list.size() == 0 || fStr.trim().equals("")) {
+		List<BbsDto> list = bbsService.getFindList(column.trim(), contain);
+		System.out.println("List<BbsDto> list");
+		if (list.size() == 0 || contain.trim().equals("")) {
 			JOptionPane.showMessageDialog(null, "데이터를 찾을 수 없습니다");
 			List<BbsDto> _list = bbsService.getBbsList();
-			new BbsListView(_list);
-		}else {
+			new BbsListView(list);
+		} else {
 			new BbsListView(list);
 		}
 	}
@@ -48,7 +49,13 @@ public class BbsController {
 	public void bbsDetail(int seq) {
 		bbsService.readCount(seq);
 		BbsDto dto = bbsService.getBBS(seq);
-		new BbsDetailView(dto);
+
+		if (bbsDV == null) {
+			bbsDV = new BbsDetailView(dto);
+		} else {
+			bbsDV.dispose();
+			bbsDV = new BbsDetailView(dto);
+		}
 	}
 
 	// 게시글 글쓰기 view
@@ -56,14 +63,11 @@ public class BbsController {
 		new BbsAddView();
 	}
 
-	//게시글 글쓰기
-	public void bbsWriteAf(BbsDto dto){
+	// 게시글 글쓰기
+	public void bbsWriteAf(BbsDto dto) {
 		boolean b = bbsService.writeBbs(dto);
-		if(b){
+		if (b) {
 			JOptionPane.showMessageDialog(null, "성공적으로 추가되었습니다");
-			getBbsList();
-		}else{
-
 			drawBbsList();
 		} else {
 			JOptionPane.showMessageDialog(null, "추가되지 못했습니다");
@@ -73,10 +77,9 @@ public class BbsController {
 
 	// 삭제
 	public void bbsDelete(int seq) {
-		boolean b =  bbsService.bbsDelete(seq);
-		if(b){
+		boolean b = bbsService.bbsDelete(seq);
+		if (b) {
 			JOptionPane.showMessageDialog(null, "성공적으로 삭제되었습니다");
-			getBbsList();
 			drawBbsList();
 		} else {
 			JOptionPane.showMessageDialog(null, "삭제하지 못했습니다");
@@ -84,20 +87,17 @@ public class BbsController {
 		}
 	}
 
-
 	// 게시글 view
 	public void bbsUpdate(int seq) {
 		BbsDto dto = bbsService.getBBS(seq);
 		new BbsUpateview(dto);
 	}
 
-	//게시글 수정
+	// 게시글 수정
 	public void bbsUpdateAf(int seq, String title, String content) {
 		boolean b = bbsService.bbsUpdate(seq, title, content);
-		if(b) {
+		if (b) {
 			JOptionPane.showMessageDialog(null, "성공적으로 수정되었습니다");
-			getBbsList();
-		}else {
 			drawBbsList();
 		} else {
 			JOptionPane.showMessageDialog(null, "수정되지 못했습니다");
@@ -107,10 +107,13 @@ public class BbsController {
 	}
 
 	// ControlView 공간
+
+	// chatview
 	public void chat() {
 		ChatView frame = new ChatView(Socket);
 	}
 
+	// OrderView
 	public void order() {
 		OrderView frame = new OrderView(bbsService.getBbsList());
 	}

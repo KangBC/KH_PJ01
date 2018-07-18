@@ -1,9 +1,5 @@
 package Controller;
 
-<<<<<<< HEAD
-public class MemberController {
-
-=======
 import java.awt.EventQueue;
 
 import javax.swing.JOptionPane;
@@ -48,5 +44,4 @@ public class MemberController {
 			}
 		});
 	}
->>>>>>> KH_MiniProject/hyunwoo
 }

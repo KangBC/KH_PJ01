@@ -22,112 +22,87 @@ public class BbsAddView extends JFrame implements ActionListener {
 	JTextArea contentArea;
 	JButton btn;
 	JButton backBtn;
-<<<<<<< HEAD
-	
-=======
 
 	Singleton sc = Singleton.getInstance();
 
->>>>>>> KH_MiniProject/hyunwoo
 	public BbsAddView() {
 		super("글쓰기");
-		setLayout(null);
-		
+		getContentPane().setLayout(null);
+
 		JLabel writerLabel = new JLabel("작성자:");
 		writerLabel.setBounds(10, 10, 120, 15);
-<<<<<<< HEAD
-		add(writerLabel);		
-		
-				
-		writerText = new JTextField();
-=======
-		add(writerLabel);
+		getContentPane().add(writerLabel);
 
-		writerText = new JTextField("관리자"); // 변하지않는값
->>>>>>> KH_MiniProject/hyunwoo
+		writerText = new JTextField("관리자");
 		writerText.setBounds(120, 10, 200, 20);
-		writerText.setEditable(false);		
-		add(writerText);
-		
+		writerText.setEditable(false);
+		getContentPane().add(writerText);
+
 		JLabel titleLabel = new JLabel("제목:");
-		titleLabel.setBounds(10, 40, 120, 15);
-		add(titleLabel);
-		
+		titleLabel.setBounds(10, 40, 120, 32);
+		getContentPane().add(titleLabel);
+
 		titleText = new JTextField();
-		titleText.setBounds(120, 40, 350, 20);
-		add(titleText);
-		
+		titleText.setBounds(120, 40, 350, 32);
+		getContentPane().add(titleText);
+
 		JLabel contentLabel = new JLabel("내용:");
-		contentLabel.setBounds(10, 70, 120, 15);
-		add(contentLabel);
-		
-		contentArea = new JTextArea();	
-		contentArea.setLineWrap(true);	
-			
+		contentLabel.setBounds(10, 90, 120, 15);
+		getContentPane().add(contentLabel);
+
+		contentArea = new JTextArea();
+		contentArea.setLineWrap(true);
+
 		JScrollPane scrPane = new JScrollPane(contentArea);
+		scrPane.setBounds(10, 117, 460, 419);
 		scrPane.setPreferredSize(new Dimension(200, 120));
-		scrPane.setBounds(10, 100, 460, 300);
-		add(scrPane);
-		
+		getContentPane().add(scrPane);
+
 		btn = new JButton("글올리기");
-		btn.setBounds(150, 420, 100, 20);		
-		add(btn);
-		
-		setBounds(100, 100, 500, 500);
-		setVisible(true);	
-		
+		btn.setBounds(370, 559, 100, 40);
+		getContentPane().add(btn);
+
 		backBtn = new JButton("목록");
-		backBtn.setBounds(10, 420, 100, 20);		
-		add(backBtn);
-<<<<<<< HEAD
+		backBtn.setBounds(14, 559, 100, 40);
+		getContentPane().add(backBtn);
 		
-		
-		//글올리기
-		btn.addActionListener(new ActionListener() {			
-=======
+		setBounds(500, 250, 500, 673);
+		setVisible(true);
 
 		btn.addActionListener(new ActionListener() {
 
 			// 글올리기
->>>>>>> KH_MiniProject/hyunwoo
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Singleton sc = Singleton.getInstance();	
 				System.out.println("btn.addActionListener");
-				
-				//Date d = new Date();				
-				//SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm");
-				//System.out.println("sdf = " + sdf.format(d));
-				
-				//String id = sc.memCtrl.getLoginId();
+
+				// String id = sc.memCtrl.getLoginId();
 				String id = "관리자";
 				String title = titleText.getText();
 				String content = contentArea.getText();
-				//String wdate = sdf.format(d);
-					
-										
-				//int userNum, int notice, String title, String content
-				BbsDto dto = new BbsDto(0, 0, title,content);
-				sc.bbsCtrl.bbsWriteAf(dto);	
+
+				// BbsAddView 가 TITLE,CONTENT 가 공백일때
+				BbsDto dto = new BbsDto(0, 0, title, content);
+				if (title.equals("") == true || content.equals("") == true) {
+					JOptionPane.showMessageDialog(null, "제목,내용을 입력확인해주세요");
+				} else {
+					sc.bbsCtrl.bbsWriteAf(dto);
+				}
 				dispose();
 			}
 
 		});
-		
-		//목록
-		backBtn.addActionListener(new ActionListener() {			
+
+		// 목록
+		backBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
-				Singleton sc = Singleton.getInstance();
-				sc.bbsCtrl.getBbsList();
-=======
 				sc.bbsCtrl.drawBbsList();
->>>>>>> KH_MiniProject/hyunwoo
 				dispose();
 			}
 		});
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub

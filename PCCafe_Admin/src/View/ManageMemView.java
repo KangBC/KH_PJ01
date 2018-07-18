@@ -31,14 +31,18 @@ public class ManageMemView extends JFrame implements ActionListener {
 	MemberDto dto = new MemberDto();
 
 	Singleton mc = Singleton.getInstance();
-	boolean check_id = false; //아이디 검색을 누르고, 아이디가 있는지 없는지 체크
+
+	// 아이디 검색을 누르고, 아이디가 있는지 없는지 체크
+	boolean check_id = false;
+
 	public ManageMemView() {
 
 		super("회원정보");
+		setAutoRequestFocus(false);
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
+		contentPane.setLayout(new BorderLayout(10, 10));
 		setContentPane(contentPane);
 
 		JPanel panel = new JPanel();
@@ -47,55 +51,52 @@ public class ManageMemView extends JFrame implements ActionListener {
 
 		JLabel ID_JLabel = new JLabel("ID :\r\n");
 		ID_JLabel.setFont(new Font("굴림", Font.PLAIN, 20));
-		ID_JLabel.setBounds(125, 82, 126, 69);
+		ID_JLabel.setBounds(14, 82, 126, 69);
 		panel.add(ID_JLabel);
 
-		// 아이디 : 입력후 검색 할라면 텍스트 필드랑 = db 저장된게 같아야하잖아 ?
 		ID_JTectField = new JTextField();
 		ID_JTectField.setColumns(10);
-		ID_JTectField.setBounds(217, 98, 273, 40);
+		ID_JTectField.setBounds(132, 98, 273, 40);
 		panel.add(ID_JTectField);
 
-		// 이거는 그냥 나타나는게 맞는거고 ?
 		JLabel TMINUTE_label = new JLabel("이용시간 :");
 		TMINUTE_label.setFont(new Font("굴림", Font.PLAIN, 20));
-		TMINUTE_label.setBounds(77, 208, 126, 69);
+		TMINUTE_label.setBounds(14, 208, 126, 69);
 		panel.add(TMINUTE_label);
 
 		TMINUTE_textField = new JTextField();
 		TMINUTE_textField.setColumns(10);
 		TMINUTE_textField.setEditable(false);
-		TMINUTE_textField.setBounds(217, 224, 273, 40);
+		TMINUTE_textField.setBounds(132, 224, 273, 40);
 		panel.add(TMINUTE_textField);
 
-		// 내가 입력하면 수정이 되야하잖아 ?
 		JLabel Pssword_JLabel = new JLabel("PSSWORD :");
 		Pssword_JLabel.setFont(new Font("굴림", Font.PLAIN, 20));
-		Pssword_JLabel.setBounds(77, 351, 126, 69);
+		Pssword_JLabel.setBounds(14, 351, 126, 69);
 		panel.add(Pssword_JLabel);
 
 		Psword_textField = new JTextField();
-		Psword_textField.setBounds(217, 367, 273, 40);
+		Psword_textField.setBounds(132, 367, 273, 40);
 		panel.add(Psword_textField);
 		Psword_textField.setColumns(10);
 
 		Search_Button = new JButton("검색");
-		Search_Button.setBounds(528, 95, 138, 46);
+		Search_Button.setBounds(433, 95, 138, 46);
 		panel.add(Search_Button);
 		Search_Button.addActionListener(this);
 
 		Upate_button = new JButton("수정");
-		Upate_button.setBounds(528, 364, 138, 46);
+		Upate_button.setBounds(433, 364, 138, 46);
 		panel.add(Upate_button);
 		Upate_button.addActionListener(this);
 
 		success = new JButton("완료");
-		success.setBounds(263, 515, 176, 85);
+		success.setBounds(175, 493, 176, 85);
 		panel.add(success);
 		success.addActionListener(this);
 
+		setBounds(500, 250, 617, 673);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 732, 708);
 
 	}
 
@@ -116,29 +117,29 @@ public class ManageMemView extends JFrame implements ActionListener {
 			// 필드 텍스트값을 searchUser에 인자로 넣고 해당 결과를 dto에 담음.
 			dto = mc.memCtrl.getSearchUser(selectedItem);
 			// 증상 : 이름 검색을 안누르고 Password 바꾸면 설정이됨.
-			//임시로 작업함.
-			//dto == null 회원 정보 없음
-			if(dto == null) {
+			// 임시로 작업함.
+			// dto == null 회원 정보 없음
+			if (dto == null) {
 				check_id = false;
-			//dto != null 회원 정보 있음
-			}else {
+				// dto != null 회원 정보 있음
+			} else {
 				check_id = true;
 			}
-			
+
 			System.out.println("selectedItem(5) : " + dto.getR_time());
 			String timeToString = Integer.toString(dto.getR_time());
 			TMINUTE_textField.setText(timeToString);
-		
-		// Password 수정
+
+			// Password 수정
 		} else if (obj == Upate_button) {
-			if(check_id) {
-			String id = ID_JTectField.getText();
-			String pw = Psword_textField.getText();
-			
-			mc.memCtrl.changePW(id, pw);
-			}else {
+			if (check_id) {
+				String id = ID_JTectField.getText();
+				String pw = Psword_textField.getText();
+
+				mc.memCtrl.changePW(id, pw);
+			} else {
 				JOptionPane.showMessageDialog(null, " 검색을 먼저하세요. ");
-				
+
 			}
 		}
 

@@ -8,20 +8,14 @@ import java.net.Socket;
 
 import Main.MainClass;
 import Singleton.Singleton;
-<<<<<<< HEAD
 import View.ChatView;
-=======
->>>>>>> KH_MiniProject/hyunwoo
 import View.ControlView;
 
 public class serverBackGround extends Thread {
 	private Singleton single = Singleton.getInstance();
 	private Socket socket;
 	private boolean userLogin;
-<<<<<<< HEAD
 	private int num = 0;
-=======
->>>>>>> KH_MiniProject/hyunwoo
 
 	public serverBackGround(Socket socket) {
 		this.socket = socket;
@@ -47,9 +41,29 @@ public class serverBackGround extends Thread {
 					pw.flush();
 				} else if (msg.equals("SERBER_JOIN_TO_ADMIN_FROM_USER")) {
 					userLogin = true;
-<<<<<<< HEAD
+				} else if (msg.equals("SERBER_OUT_FROM_ADMIN")) {
+					Socket tempSock[] = single.serCtrl.getSockList();
+					String tempSeat[] = single.serCtrl.getSeatList();
+					String tempId[] = single.serCtrl.getLoginId();
+					ChatView tempChat[] = single.serCtrl.getChatList();
+					for (int i = 0; i < tempSock.length; i++) {
+						if (tempSock[i] == socket) {
+							tempSock[i] = null;
+							tempSeat[i] = "0";
+							tempId[i] = null;
+							tempChat[i] = null;
+							single.serCtrl.setSeatList(tempSeat);
+							single.serCtrl.setSockList(tempSock);
+							single.serCtrl.setLoginId(tempId);
+							single.serCtrl.setChatList(tempChat);
+							break;
+						}
+					}
+					socket.close();
+					MainClass.mainView.dispose();
+					MainClass.mainView = new ControlView();
+					MainClass.mainView.setVisible(true);
 				} else if (msg.equals("GET_THE_MESSAGE_FROM_USER")) {
-					System.out.println("ADMIN"+msg);
 					Socket temp[] = single.serCtrl.getSockList();
 					ChatView temp1[] = single.serCtrl.getChatList();
 					for (int i = 0; i < temp.length; i++) {
@@ -62,8 +76,6 @@ public class serverBackGround extends Thread {
 							}
 						}
 					}
-=======
->>>>>>> KH_MiniProject/hyunwoo
 				} else if (userLogin) {
 					int temp = single.serCtrl.randomSeatNum(socket); // temp = Seat index Number
 					String tempIdList[] = single.serCtrl.getLoginId();
@@ -73,13 +85,9 @@ public class serverBackGround extends Thread {
 					MainClass.mainView = new ControlView();
 					MainClass.mainView.setVisible(true);
 				} else {
-<<<<<<< HEAD
-					System.out.println("ADMIN"+msg);
+					System.out.println("ADMIN" + msg);
 					ChatView temp1[] = single.serCtrl.getChatList();
-					temp1[num].contentArea.append(msg+"\n");
-=======
-					// ChatView.contentArea.append(msg);
->>>>>>> KH_MiniProject/hyunwoo
+					temp1[num].contentArea.append(msg + "\n");
 				}
 				Thread.sleep(100);
 			}
@@ -88,26 +96,17 @@ public class serverBackGround extends Thread {
 				Socket tempSock[] = single.serCtrl.getSockList();
 				String tempSeat[] = single.serCtrl.getSeatList();
 				String tempId[] = single.serCtrl.getLoginId();
-<<<<<<< HEAD
 				ChatView tempChat[] = single.serCtrl.getChatList();
-=======
->>>>>>> KH_MiniProject/hyunwoo
 				for (int i = 0; i < tempSock.length; i++) {
 					if (tempSock[i] == socket) {
 						tempSock[i] = null;
 						tempSeat[i] = "0";
 						tempId[i] = null;
-<<<<<<< HEAD
 						tempChat[i] = null;
 						single.serCtrl.setSeatList(tempSeat);
 						single.serCtrl.setSockList(tempSock);
 						single.serCtrl.setLoginId(tempId);
 						single.serCtrl.setChatList(tempChat);
-=======
-						single.serCtrl.setSeatList(tempSeat);
-						single.serCtrl.setSockList(tempSock);
-						single.serCtrl.setLoginId(tempId);
->>>>>>> KH_MiniProject/hyunwoo
 						break;
 					}
 				}
@@ -120,7 +119,6 @@ public class serverBackGround extends Thread {
 		}
 	}
 
-<<<<<<< HEAD
 	// Send command sign
 	public void commandSign(Socket sock) {
 		PrintWriter pw;
@@ -133,8 +131,6 @@ public class serverBackGround extends Thread {
 		}
 	}
 
-=======
->>>>>>> KH_MiniProject/hyunwoo
 	// Send Message
 	public void sendMsg(Socket sock, String msg) {
 		PrintWriter pw;
