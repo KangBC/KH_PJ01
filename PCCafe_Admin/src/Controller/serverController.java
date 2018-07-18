@@ -2,7 +2,6 @@ package Controller;
 
 import java.awt.EventQueue;
 import java.net.Socket;
-import java.util.ArrayList;
 
 import View.ChatView;
 
@@ -97,10 +96,5 @@ public class serverController {
 				}
 			}
 		});
-	}
-	
-	// ShowView
-	public void showView(int num) {
-		chatList[num].setVisible(true);
 	}
 }

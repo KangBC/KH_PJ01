@@ -1,5 +1,7 @@
 package Controller;
 
+import java.awt.EventQueue;
+
 import javax.swing.JOptionPane;
 
 import Dto.MemberDto;
@@ -12,39 +14,47 @@ import View.OrderView;
 import View.SignUpView;
 
 public class MemberController {
-	
+
 	private MemeberServiece memSvc = new MemeberServiece();
-	
+
 	private ChatView chatView = null;
 	OrderView orderView = null;
-	
+
 	public void tictoc(MemberDto dto) {
 		memSvc.updateRTime(dto);
 		Singleton.getInstance().dto.setR_time(memSvc.getRTime(dto));
 	}
-	
+
 	public void draw_login() {
-		new LoginView();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					LoginView frame = new LoginView();
+					frame.setUndecorated(true);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	public void draw_Signup() {
 		new SignUpView();
 	}
-	
-	
-	
+
 	public void draw_orderView() {
-		if(orderView == null) {
+		if (orderView == null) {
 			orderView = new OrderView();
-		}else {
+		} else {
 			orderView.dispose();
 			orderView = new OrderView();
 		}
 	}
-	
+
 	public boolean login(String id, String pw) {
 		MemberDto dto = memSvc.login(id, pw);
-		if(dto != null) {
+		if (dto != null) {
 			Singleton.getInstance().dto = dto;
 			new ControlView();
 			return true;
@@ -52,17 +62,17 @@ public class MemberController {
 		JOptionPane.showMessageDialog(null, "ID와 비밀번호를 확인해 주세요");
 		return false;
 	}
-	
+
 	public boolean signUp(MemberDto dto) {
-		if(memSvc.signUp(dto)) {
+		if (memSvc.signUp(dto)) {
 			new LoginView();
 			return true;
-		}else {
+		} else {
 			JOptionPane.showMessageDialog(null, "회원가입에 실패하였습니다.");
 			return false;
 		}
 	}
-	
+
 	public boolean checkId(String id) {
 		return memSvc.checkId(id);
 	}

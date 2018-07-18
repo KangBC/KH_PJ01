@@ -41,8 +41,29 @@ public class serverBackGround extends Thread {
 					pw.flush();
 				} else if (msg.equals("SERBER_JOIN_TO_ADMIN_FROM_USER")) {
 					userLogin = true;
+				} else if (msg.equals("SERBER_OUT_FROM_ADMIN")) {
+					Socket tempSock[] = single.serCtrl.getSockList();
+					String tempSeat[] = single.serCtrl.getSeatList();
+					String tempId[] = single.serCtrl.getLoginId();
+					ChatView tempChat[] = single.serCtrl.getChatList();
+					for (int i = 0; i < tempSock.length; i++) {
+						if (tempSock[i] == socket) {
+							tempSock[i] = null;
+							tempSeat[i] = "0";
+							tempId[i] = null;
+							tempChat[i] = null;
+							single.serCtrl.setSeatList(tempSeat);
+							single.serCtrl.setSockList(tempSock);
+							single.serCtrl.setLoginId(tempId);
+							single.serCtrl.setChatList(tempChat);
+							break;
+						}
+					}
+					socket.close();
+					MainClass.mainView.dispose();
+					MainClass.mainView = new ControlView();
+					MainClass.mainView.setVisible(true);
 				} else if (msg.equals("GET_THE_MESSAGE_FROM_USER")) {
-					System.out.println("ADMIN"+msg);
 					Socket temp[] = single.serCtrl.getSockList();
 					ChatView temp1[] = single.serCtrl.getChatList();
 					for (int i = 0; i < temp.length; i++) {
@@ -64,9 +85,9 @@ public class serverBackGround extends Thread {
 					MainClass.mainView = new ControlView();
 					MainClass.mainView.setVisible(true);
 				} else {
-					System.out.println("ADMIN"+msg);
+					System.out.println("ADMIN" + msg);
 					ChatView temp1[] = single.serCtrl.getChatList();
-					temp1[num].contentArea.append(msg+"\n");
+					temp1[num].contentArea.append(msg + "\n");
 				}
 				Thread.sleep(100);
 			}

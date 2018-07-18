@@ -83,10 +83,9 @@ public class ChatView extends JFrame implements ActionListener {
 		bt_send.setBounds(385, 547, 71, 27);
 		contentPane.add(bt_send);
 
-		setResizable(false);
 		setContentPane(contentPane);
 		setBounds(720, 220, 480, 640);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		bt_exit.addActionListener(this);
 		bt_send.addActionListener(this);
