@@ -74,14 +74,7 @@ public class LoginView extends JFrame implements ActionListener, KeyListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
-		JButton btn = (JButton)e.getSource();
-		
-		if(btn == loginBtn) {
-			if(memCtrl.login(idField.getText(), pwField.getText())) {
-					this.dispose();
-			}else {
-=======
+
 		JButton btn = (JButton) e.getSource();
 
 		if (btn == loginBtn) {
@@ -90,7 +83,6 @@ public class LoginView extends JFrame implements ActionListener, KeyListener {
 				sgt.serCtrl.sendMsg(idField.getText());
 				this.dispose();
 			} else {
->>>>>>> 86ecf272e9df3e0a48e23b0a6bc47e042d5b7b1f
 				pwField.setText("");
 			}
 		} else if (btn == signupBtn) {

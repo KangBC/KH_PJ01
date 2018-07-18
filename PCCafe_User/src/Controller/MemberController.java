@@ -8,6 +8,7 @@ import Singleton.Singleton;
 import View.ChatView;
 import View.ControlView;
 import View.LoginView;
+import View.OrderView;
 import View.SignUpView;
 
 public class MemberController {
@@ -15,7 +16,7 @@ public class MemberController {
 	private MemeberServiece memSvc = new MemeberServiece();
 
 	private ChatView chatView = null;
-
+	private OrderView orderView = null;
 	public ControlView ctrlView = null;
 
 	public void tictoc(MemberDto dto) {
