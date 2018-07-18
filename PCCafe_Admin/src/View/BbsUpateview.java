@@ -110,7 +110,6 @@ public class BbsUpateview extends JFrame{
 				}
 				
 				// 수정부분 db
-				Singleton sc = Singleton.getInstance();
 				sc.bbsCtrl.bbsUpdateAf(dto.getPostNum(), 
 							titleTextfield.getText(), 
 							contentArea.getText());
@@ -119,13 +118,10 @@ public class BbsUpateview extends JFrame{
 		});
 		
 		bbsBtn.addActionListener(new ActionListener() {			
-			@Override
 			public void actionPerformed(ActionEvent e) {					
-				Singleton sc = Singleton.getInstance();
-				sc.bbsCtrl.drawBbsList();
+				sc.bbsCtrl.repaintBbsList();;
 				dispose();
 			}
-		});		
-		
+		});	
 	}
 }

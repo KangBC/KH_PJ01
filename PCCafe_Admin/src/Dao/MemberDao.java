@@ -27,12 +27,8 @@ public class MemberDao {
 	}
 
 	// 회원검색
-	// 회원이름으로 검색 하기위해 String으로 받음.
-	// 기존 public MemberDto getDto(int seq) {
 	public MemberDto getDto(String member_id) {
 		dto = null;
-		// 기존 sql = " SELECT MEMBER_ID, MEMBER_MINUTE FROM PC_MEMBER WHERE SEQ_MEMBER =
-		// " + seq;
 		sql = " SELECT MEMBER_NAME, MEMBER_MINUTE FROM PC_MEMBER WHERE MEMBER_ID = " + "'" + member_id + "'";
 		try {
 			System.out.println("getDto member_id(4) : " + member_id);

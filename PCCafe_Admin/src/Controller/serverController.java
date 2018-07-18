@@ -13,7 +13,6 @@ public class serverController {
 	private Socket sockList[] = new Socket[10];
 	// Id List
 	private String loginId[] = new String[10];
-
 	private ChatView chatList[] = new ChatView[10];
 
 	private final int SERVER_PORT = 9000;

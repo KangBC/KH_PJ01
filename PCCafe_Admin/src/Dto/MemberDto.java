@@ -39,4 +39,3 @@ public class MemberDto {
 		this.r_time = r_time;
 	}
 }
-

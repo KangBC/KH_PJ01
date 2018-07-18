@@ -36,7 +36,6 @@ public class MemberController {
 			public void run() {
 				try {
 					ManageMemView frame = new ManageMemView();
-					frame.setUndecorated(true);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

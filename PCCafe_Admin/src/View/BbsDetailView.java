@@ -132,17 +132,16 @@ public class BbsDetailView extends JFrame {
 		}*/
 		
 		deleteBtn.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {					
-				sc.bbsCtrl.bbsDelete(dto.getPostNum());				
+				sc.bbsCtrl.bbsDelete(dto.getPostNum());		
+				sc.bbsCtrl.repaintBbsList();
 				dispose();
 			}
 		});
 		
 		bbsBtn.addActionListener(new ActionListener() {			
-			@Override
 			public void actionPerformed(ActionEvent e) {	
-				sc.bbsCtrl.drawBbsList();
+				sc.bbsCtrl.repaintBbsList();;
 				dispose();
 			}
 		});

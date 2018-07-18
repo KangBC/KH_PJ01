@@ -31,7 +31,7 @@ public class BbsDao {
 	// 뿌려줄 때 사용할 list를 얻어옴.
 	public List<BbsDto> getList() {
 		dtoList = new ArrayList<>();
-		sql = " SELECT SEQ_BBS, M.MEMBER_ID, BBS_DEL, BBS_ADMIN, BBS_TITLE, BBS_CONTENT, BBS_COUNT, BBS_DATE "
+		sql = " SELECT SEQ_BBS, M.MEMBER_ID, BBS_DEL, BBS_ADMIN, BBS_TITLE, BBS_CONTENT, BBS_COUNT, TO_CHAR(BBS_DATE, 'YYYY/MM/DD HH:MI') "
 				+ " FROM BBS B, PC_MEMBER M " + " WHERE B.SEQ_MEMBER = M.SEQ_MEMBER AND BBS_DEL = 0" + " ORDER BY BBS_ADMIN DESC, BBS_DATE DESC ";
 
 		try {

@@ -5,24 +5,19 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 
 import javax.swing.JOptionPane;
 
 import Main.MainClass;
-import View.ChatView;
-import View.ControlView;
 
 public class serverController extends Thread {
 	private final int PORT_NUMBER = 9000;
-	private Socket socket;
-	private ChatView chat;
 
 	// Connect Server
 	public void connectServer() {
 		try {
-			socket = new Socket("127.0.0.1", PORT_NUMBER);
+			MainClass.setSock(new Socket("127.0.0.1", PORT_NUMBER));
 			new serverController().start();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
@@ -42,26 +37,22 @@ public class serverController extends Thread {
 		MainClass.chatview.setVisible(false);
 	}
 
-	@Override
 	public void run() {
 		super.run();
 		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			PrintWriter pw = new PrintWriter(socket.getOutputStream(), true);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(MainClass.getSock().getInputStream()));
+			PrintWriter pw = new PrintWriter(MainClass.getSock().getOutputStream(), true);
 			String msg;
 			while (true) {
 				msg = reader.readLine();
+				System.out.println(msg);
 				if (msg.equals("GET_THE_MESSAGE_FROM_ADMIN")) {
-					System.out.println("USER" + msg);
 					MainClass.chatview.setVisible(true);
 				} else {
-					System.out.println("USER" + msg);
-					MainClass.chatview.chatArea.append(msg + "\n");
+					MainClass.chatview.chatArea.append("손님 : "+msg + "\n");
 				}
 			}
-		} catch (SocketException e1) {
-
-		} catch (IOException e) {
+		} catch (Exception e) {
 
 		}
 	}
@@ -70,10 +61,10 @@ public class serverController extends Thread {
 	public void logOutSign() {
 		PrintWriter pw;
 		try {
-			pw = new PrintWriter(socket.getOutputStream(), true);
+			pw = new PrintWriter(MainClass.getSock().getOutputStream(), true);
 			pw.println("SERBER_OUT_FROM_ADMIN");
 			pw.flush();
-			socket.close();
+			MainClass.getSock().close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -83,7 +74,7 @@ public class serverController extends Thread {
 	public void sendLoginSign() {
 		PrintWriter pw;
 		try {
-			pw = new PrintWriter(socket.getOutputStream(), true);
+			pw = new PrintWriter(MainClass.getSock().getOutputStream(), true);
 			pw.println("SERBER_JOIN_TO_ADMIN_FROM_USER");
 			pw.flush();
 		} catch (IOException e) {
@@ -95,7 +86,7 @@ public class serverController extends Thread {
 	public void commandSign() {
 		PrintWriter pw;
 		try {
-			pw = new PrintWriter(socket.getOutputStream(), true);
+			pw = new PrintWriter(MainClass.getSock().getOutputStream(), true);
 			pw.println("GET_THE_MESSAGE_FROM_USER");
 			pw.flush();
 		} catch (IOException e) {
@@ -107,7 +98,7 @@ public class serverController extends Thread {
 	public void sendMsg(String msg) {
 		PrintWriter pw;
 		try {
-			pw = new PrintWriter(socket.getOutputStream(), true);
+			pw = new PrintWriter(MainClass.getSock().getOutputStream(), true);
 			pw.println(msg);
 			pw.flush();
 		} catch (IOException e) {

@@ -82,7 +82,6 @@ public class BbsAddView extends JFrame implements ActionListener {
 		backBtn.addActionListener(this);
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton btn = (JButton)e.getSource();
 		
@@ -91,15 +90,15 @@ public class BbsAddView extends JFrame implements ActionListener {
 			String content = contentArea.getText();
 
 			// BbsAddView 가 TITLE,CONTENT 가 공백일때
-			BbsDto dto = new BbsDto(1, 0, title, content);
 			if (title.equals("") == true || content.equals("") == true) {
 				JOptionPane.showMessageDialog(null, "제목,내용을 입력확인해주세요");
 			} else {
+				BbsDto dto = new BbsDto(1, 0, title, content);
 				sc.bbsCtrl.bbsWriteAf(dto);
 			}
 			dispose();
 		}else if(btn == backBtn) {
-			sc.bbsCtrl.drawBbsList();
+			sc.bbsCtrl.repaintBbsList();
 			dispose();
 		}
 	}

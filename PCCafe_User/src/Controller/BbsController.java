@@ -22,21 +22,27 @@ public class BbsController {
 	BbsServiece bbsService = new BbsServiece();
 
 	// DB에 저장된 게시글 목록을 전부 가져온다.
+	public List<BbsDto> getBbsList() {
+		return bbsService.getBbsList();
+	}
+	
+	public void repaintBbsList() {
+		bbsLV.repaintBBS();
+	}
 	public void drawBbsList() {
 		List<BbsDto> list = bbsService.getBbsList();
 		if (bbsLV == null) {
 			bbsLV = new BbsListView(list);
 		} else {
-			bbsLV.dispose();
+			bbsLV = null;
 			bbsLV = new BbsListView(list);
 		}
 	}
 
 	// DB에 해당 게시글이 있는지 검색
 	public void getBbsFindList(String column, String contain) {
-
 		List<BbsDto> list = bbsService.getFindList(column.trim(), contain);
-		System.out.println("List<BbsDto> list");
+
 		if (list.size() == 0 || contain.trim().equals("")) {
 			JOptionPane.showMessageDialog(null, "데이터를 찾을 수 없습니다");
 			List<BbsDto> _list = bbsService.getBbsList();
@@ -50,6 +56,7 @@ public class BbsController {
 		bbsService.readCount(seq);
 		BbsDto dto = bbsService.getBBS(seq);
 
+		repaintBbsList();
 		if (bbsDV == null) {
 			bbsDV = new BbsDetailView(dto);
 		} else {
@@ -108,4 +115,4 @@ public class BbsController {
 
 	// ControlView 공간
 
-	}
+}

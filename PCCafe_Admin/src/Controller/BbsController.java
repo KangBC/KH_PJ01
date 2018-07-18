@@ -26,20 +26,23 @@ public class BbsController {
 		return bbsService.getBbsList();
 	}
 	
+	public void repaintBbsList() {
+		bbsLV.repaintBBS();
+	}
 	public void drawBbsList() {
 		List<BbsDto> list = bbsService.getBbsList();
 		if (bbsLV == null) {
 			bbsLV = new BbsListView(list);
 		} else {
-			bbsLV.repaintBBS();
+			bbsLV.dispose();
+			bbsLV = new BbsListView(list);
 		}
 	}
 
 	// DB에 해당 게시글이 있는지 검색
 	public void getBbsFindList(String column, String contain) {
-
 		List<BbsDto> list = bbsService.getFindList(column.trim(), contain);
-		System.out.println("List<BbsDto> list");
+
 		if (list.size() == 0 || contain.trim().equals("")) {
 			JOptionPane.showMessageDialog(null, "데이터를 찾을 수 없습니다");
 			List<BbsDto> _list = bbsService.getBbsList();
@@ -53,7 +56,7 @@ public class BbsController {
 		bbsService.readCount(seq);
 		BbsDto dto = bbsService.getBBS(seq);
 
-		bbsLV.repaintBBS();
+		repaintBbsList();
 		if (bbsDV == null) {
 			bbsDV = new BbsDetailView(dto);
 		} else {
@@ -72,7 +75,7 @@ public class BbsController {
 		boolean b = bbsService.writeBbs(dto);
 		if (b) {
 			JOptionPane.showMessageDialog(null, "성공적으로 추가되었습니다");
-			drawBbsList();
+			repaintBbsList();
 		} else {
 			JOptionPane.showMessageDialog(null, "추가되지 못했습니다");
 			bbsWrite();
@@ -84,7 +87,7 @@ public class BbsController {
 		boolean b = bbsService.bbsDelete(seq);
 		if (b) {
 			JOptionPane.showMessageDialog(null, "성공적으로 삭제되었습니다");
-			drawBbsList();
+			repaintBbsList();
 		} else {
 			JOptionPane.showMessageDialog(null, "삭제하지 못했습니다");
 			bbsDetail(seq);
@@ -102,7 +105,7 @@ public class BbsController {
 		boolean b = bbsService.bbsUpdate(seq, title, content);
 		if (b) {
 			JOptionPane.showMessageDialog(null, "성공적으로 수정되었습니다");
-			drawBbsList();
+			repaintBbsList();
 		} else {
 			JOptionPane.showMessageDialog(null, "수정되지 못했습니다");
 			BbsDto dto = bbsService.getBBS(seq);
@@ -119,6 +122,5 @@ public class BbsController {
 
 	// OrderView
 	public void order() {
-		OrderView frame = new OrderView(bbsService.getBbsList());
 	}
 }

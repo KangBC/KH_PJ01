@@ -37,7 +37,7 @@ public class ControlView extends JFrame implements ActionListener {
 	private StuffController stuffCtrl = sgt.stuffCtrl;
 	private BbsController bbsCtrl = sgt.bbsCtrl;
 
-	private JPanel contentPane, panel_2;
+	private JPanel contentPane;
 	private JButton MesBtn, BbsBtn, oderBtn, logoutBtn, bt_AD;
 	private JLabel time_Label, use_Label;
 	private ImageIcon icon;
@@ -52,6 +52,8 @@ public class ControlView extends JFrame implements ActionListener {
 	public ControlView() {
 		dto = Singleton.getInstance().dto;
 		tictoc();
+		
+		icon = new ImageIcon("back.png");
 
 		setBounds(1470, 0, 450, 500);
 		contentPane = new JPanel();

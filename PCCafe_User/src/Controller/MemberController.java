@@ -44,7 +44,6 @@ public class MemberController {
 		new SignUpView();
 	}
 
-
 	public void draw_Chat() {
 		if(chatView == null) {
 			chatView = new ChatView();
@@ -52,7 +51,6 @@ public class MemberController {
 			chatView.setVisible(true);
 		}
 	}
-
 
 	public void draw_orderView() {
 		if (orderView == null) {
@@ -65,7 +63,6 @@ public class MemberController {
 
 	public boolean login(String id, String pw) {
 		MemberDto dto = memSvc.login(id, pw);
-
 
 		if(dto != null) {
 			if(dto.getR_time() >= 1) {

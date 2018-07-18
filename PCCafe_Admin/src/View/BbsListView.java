@@ -63,7 +63,7 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 		contentPane.setLayout(null);
 
 		JLabel loginLabel = new JLabel("게시판");
-		loginLabel.setBounds(10, 10, 120, 15);
+		loginLabel.setBounds(30, 10, 120, 15);
 		getContentPane().add(loginLabel);
 
 		// List size
@@ -108,79 +108,70 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
-
-		// List 내용 가운데 정렬
+		
 		jTable.getColumn("번호").setCellRenderer(celAlignCenter);
-		jTable.getColumn("제목").setCellRenderer(celAlignCenter);
 		jTable.getColumn("작성자").setCellRenderer(celAlignCenter);
 		jTable.getColumn("조회수").setCellRenderer(celAlignCenter);
 		jTable.getColumn("날짜").setCellRenderer(celAlignCenter);
 
 		// List 전체틀 및 색상
 		jScrPane = new JScrollPane(jTable);
-		jScrPane.setBounds(0, 40, 1700, 400);
+		jScrPane.setBounds(20, 40, 1180, 500);
 		jScrPane.getViewport().setBackground(Color.white); // List 색상
 		getContentPane().add(jScrPane);
 
 		// 글쓰기
 		writeBtn = new JButton("글쓰기"); 
-		writeBtn.setBounds(50, 500, 200, 100); 
-		writeBtn.setFont(new Font("굴림", Font.PLAIN, 30));
+		writeBtn.setBounds(20, 560, 100, 40); 
+		writeBtn.setFont(new Font("굴림", Font.PLAIN, 20));
 		getContentPane().add(writeBtn);
 		writeBtn.addActionListener(this);
-
-		// 검색
-		selectField = new JTextField();
-		selectField.setBounds(550, 500, 800, 100);
-		getContentPane().add(selectField);
-
-		selectBtn = new JButton(icon);
-		selectBtn.setBounds(1400, 500, 200, 100);
-		selectBtn.setBorder(new LineBorder(new Color(140,158,255)));
-		selectBtn.setContentAreaFilled(false);
-		selectBtn.setFocusable(false);
-		getContentPane().add(selectBtn); 
-		getContentPane().setBackground(new Color(238,238,238));
-		selectBtn.addActionListener(this);
 
 		// Choice(AWT) -> JComboBox(swing)
 		String[] selects = new String[] { "제목", "작성자" };
 		choiceList = new JComboBox<>(selects);
-		choiceList.setBounds(350, 500, 150, 100);
-		choiceList.setFont(new Font("굴림", Font.PLAIN, 30));
+		choiceList.setBackground(Color.WHITE);
+		choiceList.setBounds(300, 560, 150, 40);
+		choiceList.setFont(new Font("굴림", Font.PLAIN, 20));
 		add(choiceList);
+
+		selectField = new JTextField();
+		selectField.setBounds(470, 560, 600, 40);
+		getContentPane().add(selectField);
+
+		selectBtn = new JButton(icon);
+		selectBtn.setBackground(Color.white);
+		selectBtn.setBounds(1100, 560, 100, 40);
+		selectBtn.setBorder(new LineBorder(new Color(140,158,255)));
+		selectBtn.setContentAreaFilled(false);
+		selectBtn.setFocusable(false);
+		selectBtn.addActionListener(this);
+
+		getContentPane().add(selectBtn); 
+		getContentPane().setBackground(new Color(238,238,238));
 		
 		setVisible(true);
-		setBounds(90, 200, 1700, 700); //전체틀
+		setBounds(300, 200, 1240, 670); //전체틀
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE); 
 
 	}
 
-	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	// 게시글 마우스 클릭
 	public void mouseReleased(MouseEvent e) {
 
@@ -218,14 +209,12 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 	}
 	
 	public void repaintBBS() {
+		int n = 1;
 		list = sc.bbsCtrl.getBbsList();
 
-		int len = list.size();
-		int n = 1;
+		rowData = new Object[list.size()][5];
 
-		rowData = new Object[len][5];
-
-		for (int i = 0; i < len; i++) {
+		for (int i = 0; i < list.size(); i++) {
 			BbsDto dto = list.get(i);
 			rowData[i][0] = n;
 			rowData[i][1] = dto.getTitle();
@@ -233,7 +222,6 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 			rowData[i][3] = dto.getReadCount();
 			rowData[i][4] = dto.getCreatedDate();
 			n++;
-
 		}
 
 		model = new DefaultTableModel(columnNames, 0);
@@ -241,17 +229,17 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 		model.setDataVector(rowData, columnNames);
 
 		jTable = new JTable(model) {
-			// 테이블 text 수정방지
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
+
 		jTable.setPreferredScrollableViewportSize(new Dimension(400, 200));
+		jTable.setRowHeight(25);
+		jTable.setBackground(Color.white);
+		jTable.setFont(new Font("굴림", Font.BOLD, 20));
 
 		jTable.addMouseListener(this);
-		jTable.setRowHeight(25);//////////// 테이블 폭 간격 설정
-		jTable.setBackground(Color.white);/////////////////  테이블 색상
-		jTable.setFont(new Font("굴림", Font.BOLD, 20));/////////////// 테이블 글씨
 
 		jTable.getColumnModel().getColumn(0).setMaxWidth(100);
 		jTable.getColumnModel().getColumn(1).setMaxWidth(3000);
@@ -261,10 +249,8 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
-
-		// List 내용 가운데 정렬
+		
 		jTable.getColumn("번호").setCellRenderer(celAlignCenter);
-		jTable.getColumn("제목").setCellRenderer(celAlignCenter);
 		jTable.getColumn("작성자").setCellRenderer(celAlignCenter);
 		jTable.getColumn("조회수").setCellRenderer(celAlignCenter);
 		jTable.getColumn("날짜").setCellRenderer(celAlignCenter);

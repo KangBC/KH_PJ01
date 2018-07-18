@@ -21,7 +21,6 @@ public class serverBackGround extends Thread {
 		this.socket = socket;
 	}
 
-	@Override
 	public void run() {
 		super.run();
 		try {
@@ -85,7 +84,6 @@ public class serverBackGround extends Thread {
 					MainClass.mainView = new ControlView();
 					MainClass.mainView.setVisible(true);
 				} else {
-					System.out.println("ADMIN" + msg);
 					ChatView temp1[] = single.serCtrl.getChatList();
 					temp1[num].contentArea.append(msg + "\n");
 				}

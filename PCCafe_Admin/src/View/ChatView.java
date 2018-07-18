@@ -58,6 +58,7 @@ public class ChatView extends JFrame implements ActionListener {
 
 		contentArea = new JTextArea();
 		contentArea.setText("[알림] 필요한 용무가 있으시면 언제든 연락해주세요!" + "\n");
+		contentArea.setFont(new Font("Georgia", Font.BOLD, 18));
 		contentArea.setEditable(false);
 		contentArea.setLineWrap(true);
 
@@ -91,7 +92,6 @@ public class ChatView extends JFrame implements ActionListener {
 		bt_send.addActionListener(this);
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		serverBackGround serBack = new serverBackGround(socket);
