@@ -31,7 +31,7 @@ public class ManageMemView extends JFrame implements ActionListener {
 	MemberDto dto = new MemberDto();
 
 	Singleton mc = Singleton.getInstance();
-
+	boolean check_id = false; //아이디 검색을 누르고, 아이디가 있는지 없는지 체크
 	public ManageMemView() {
 
 		super("회원정보");
@@ -115,16 +115,31 @@ public class ManageMemView extends JFrame implements ActionListener {
 
 			// 필드 텍스트값을 searchUser에 인자로 넣고 해당 결과를 dto에 담음.
 			dto = mc.memCtrl.getSearchUser(selectedItem);
+			// 증상 : 이름 검색을 안누르고 Password 바꾸면 설정이됨.
+			//임시로 작업함.
+			//dto == null 회원 정보 없음
+			if(dto == null) {
+				check_id = false;
+			//dto != null 회원 정보 있음
+			}else {
+				check_id = true;
+			}
+			
 			System.out.println("selectedItem(5) : " + dto.getR_time());
 			String timeToString = Integer.toString(dto.getR_time());
 			TMINUTE_textField.setText(timeToString);
 		
 		// Password 수정
 		} else if (obj == Upate_button) {
+			if(check_id) {
 			String id = ID_JTectField.getText();
 			String pw = Psword_textField.getText();
 			
 			mc.memCtrl.changePW(id, pw);
+			}else {
+				JOptionPane.showMessageDialog(null, " 검색을 먼저하세요. ");
+				
+			}
 		}
 
 	}

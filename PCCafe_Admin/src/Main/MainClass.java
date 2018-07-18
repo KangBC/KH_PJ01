@@ -1,22 +1,28 @@
 package Main;
 
-import javax.swing.JFrame;
-import javax.swing.UIManager;
+import java.net.ServerSocket;
+import java.net.Socket;
 
-import DB.DBConnection;
+import Dao.serverBackGround;
 import Singleton.Singleton;
 import View.ControlView;
 
 public class MainClass {
+	public static ControlView mainView;
+
 	public static void main(String[] args) throws Exception {
-
-		//DB
-		DBConnection.makeConnection();
-		
 		// Single
-		Singleton sc = Singleton.getInstance();
+		Singleton single = Singleton.getInstance();
 
-		ControlView frame = new ControlView();
-		frame.setVisible(true);
+		// MainView
+		mainView = new ControlView();
+		mainView.setVisible(true);
+
+		// Server On
+		ServerSocket serSock = new ServerSocket(single.serCtrl.getSERVER_PORT());
+		while (true) {
+			Socket socket = serSock.accept();
+			new serverBackGround(socket).start();
+		}
 	}
 }

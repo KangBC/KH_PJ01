@@ -33,7 +33,7 @@ public class BbsDetailView extends JFrame {
 		writerLabel.setBounds(10, 10, 60, 15);
 		add(writerLabel);
 				
-		idTextfield = new JTextField(dto.getUserNum());
+		idTextfield = new JTextField(); // 유저 iD 넣어야함.
 		idTextfield.setBounds(120, 10, 200, 20);
 		idTextfield.setEditable(false);		
 		add(idTextfield);
@@ -91,9 +91,9 @@ public class BbsDetailView extends JFrame {
 		updateBtn.setBounds(150, 480, 100, 20);
 		add(updateBtn);
 		
-		// MemberController가없어서 안됨. 일단 주석처리
-		// 수정버튼의 비활성화(같은 id일 경우만)
-		/*if(!dto.getUserNum().equals(sc.memCtrl.getLoginId())){ // MemberController가없어서 안됨.
+	/*	MemberController가없어서 안됨. 일단 주석처리
+		수정버튼의 비활성화(같은 id일 경우만)
+		if(!dto.getUserNum().equals(sc.memCtrl.getLoginId())){ // MemberController가없어서 안됨.
 			updateBtn.setEnabled(false);
 		}*/
 		
@@ -112,8 +112,9 @@ public class BbsDetailView extends JFrame {
 		deleteBtn.setBounds(290, 480, 100, 20);
 		add(deleteBtn);
 		
+		// MemberController가없어서 안됨.
 	/*	// 삭제버튼의 비활성화(같은 id일 경우만)		
-		if(!dto.getUserNum().equals(sc.memCtrl.getLoginId())){ // MemberController가없어서 안됨.
+		if(!dto.getUserNum().equals(sc.memCtrl.getLoginId())){ 
 			deleteBtn.setEnabled(false);
 		}*/
 		

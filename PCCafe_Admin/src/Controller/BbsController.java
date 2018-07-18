@@ -1,6 +1,6 @@
 package Controller;
 
-import java.awt.EventQueue;
+import java.net.Socket;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -12,12 +12,11 @@ import View.BbsDetailView;
 import View.BbsListView;
 import View.BbsUpateview;
 import View.ChatView;
-import View.OrderListView사용안함;
 import View.OrderView;
-import View.UserDetailView;
 
 public class BbsController {
 
+	private static final Socket Socket = null;
 	BbsListView bbsLV = null;
 	BbsDetailView bbsDV = null;
 	BbsDaoServiece bbsService = new BbsDaoServiece();
@@ -59,7 +58,7 @@ public class BbsController {
 		}
 	}
 
-	// 게시글  글쓰기 view
+	// 게시글 글쓰기 view
 	public void bbsWrite() {
 		new BbsAddView();
 	}
@@ -88,8 +87,7 @@ public class BbsController {
 		}
 	}
 
-	
-   //게시글 view
+	// 게시글 view
 	public void bbsUpdate(int seq) {
 		BbsDto dto = bbsService.getBBS(seq);
 		new BbsUpateview(dto);
@@ -108,56 +106,15 @@ public class BbsController {
 		}
 	}
 
-	
-	
 	// ControlView 공간
-	// UserDetailView
-	public void UserDetai() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UserDetailView frame = new UserDetailView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	// chatview
 	public void chat() {
-
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ChatView frame = new ChatView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		ChatView frame = new ChatView(Socket);
 	}
 
 	// OrderView
 	public void order() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					OrderView frame = new OrderView(bbsService.getBbsList());
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		OrderView frame = new OrderView(bbsService.getBbsList());
 	}
 }
-
-/*
- * // OrderListView public void orderList() { EventQueue.invokeLater(new
- * Runnable() { public void run() { try { OrderListView frame = new
- * OrderListView(); frame.setVisible(true); } catch (Exception e) {
- * e.printStackTrace(); } } }); } }
- */

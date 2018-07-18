@@ -46,10 +46,11 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 	List<BbsDto> list;
 
 	public BbsListView(List<BbsDto> list) {
+		
 		super("게시판");
 
 		this.list = list;
-		
+
 		this.setLayout(null);
 
 		contentPane = new JPanel();
@@ -74,10 +75,11 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 			BbsDto dto = list.get(i);
 			rowData[i][0] = n;
 			rowData[i][1] = dto.getTitle();
-			rowData[i][2] = dto.getUserNum();
+			rowData[i][2] = dto.getDel(); //  user_id 작성자로 바꿔야함
 			rowData[i][3] = dto.getReadCount();
 			rowData[i][4] = dto.getCreatedDate();
 			n++;
+
 		}
 
 		model = new DefaultTableModel(columnNames, 0);
@@ -96,15 +98,15 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 		jTable.setFont(new Font(null, 0, 18)); // 글씨크기
 
 		jTable.getColumnModel().getColumn(0).setMaxWidth(100);
-		jTable.getColumnModel().getColumn(1).setMaxWidth(700);
-		jTable.getColumnModel().getColumn(2).setMaxWidth(400);
-		jTable.getColumnModel().getColumn(3).setMaxWidth(700);
-		jTable.getColumnModel().getColumn(4).setMaxWidth(700);
+		jTable.getColumnModel().getColumn(1).setMaxWidth(3000);
+		jTable.getColumnModel().getColumn(2).setMaxWidth(200);
+		jTable.getColumnModel().getColumn(3).setMaxWidth(100);
+		jTable.getColumnModel().getColumn(4).setMaxWidth(1000);
 
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
 
-		//List 내용 가운데 정렬
+		// List 내용 가운데 정렬
 		jTable.getColumn("번호").setCellRenderer(celAlignCenter);
 		jTable.getColumn("제목").setCellRenderer(celAlignCenter);
 		jTable.getColumn("작성자").setCellRenderer(celAlignCenter);
@@ -115,8 +117,6 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 		jScrPane = new JScrollPane(jTable);
 		jScrPane.setBounds(0, 40, 1500, 400);
 		getContentPane().add(jScrPane);
-
-		
 
 		// 글쓰기
 		writeBtn = new JButton("글쓰기");
@@ -144,10 +144,10 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 		choiceList.setFont(new Font("굴림", Font.PLAIN, 30));
 		add(choiceList);
 
-		setBounds(100, 100, 1500, 700);
 		setVisible(true);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		
+		setBounds(100, 100, 1500, 700);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE); 
+
 	}
 
 	@Override
@@ -198,11 +198,13 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 			if (selectedItem.equals("제목")) {
 				sc.bbsCtrl.getBbsFindList("BBS_TITLE", selectField.getText());
 
-			/*} else if (selectedItem.equals("내용")) {
-				sc.bbsCtrl.getBbsFindList("BBS_CONTENT", selectField.getText());
-*/
+				/*
+				 * } else if (selectedItem.equals("내용")) {
+				 * sc.bbsCtrl.getBbsFindList("BBS_CONTENT", selectField.getText());
+				 */
+				
 			} else if (selectedItem.equals("작성자")) {
-				sc.bbsCtrl.getBbsFindList("seq_mem", selectField.getText());
+				sc.bbsCtrl.getBbsFindList("MEMBER_ID", selectField.getText());
 			}
 
 			this.dispose();

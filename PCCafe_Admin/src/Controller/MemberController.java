@@ -1,16 +1,11 @@
 package Controller;
 
 import java.awt.EventQueue;
-import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import Dto.BbsDto;
 import Dto.MemberDto;
 import Serviece.MemeberServiece;
-import View.BbsListView;
-import View.BbsUpateview;
-import View.ChatView;
 import View.ManageMemView;
 
 public class MemberController {
@@ -22,7 +17,7 @@ public class MemberController {
 
 		MemberDto dto = memServiece.getMem(member_id);
 		if (dto == null)
-			JOptionPane.showMessageDialog(null, "유저없음");
+			JOptionPane.showMessageDialog(null, "유저가 없습니다.");
 		return dto;
 	}
 
@@ -41,6 +36,7 @@ public class MemberController {
 			public void run() {
 				try {
 					ManageMemView frame = new ManageMemView();
+					frame.setUndecorated(true);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

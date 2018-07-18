@@ -33,7 +33,7 @@ public class BbsAddView extends JFrame implements ActionListener {
 		writerLabel.setBounds(10, 10, 120, 15);
 		add(writerLabel);
 
-		writerText = new JTextField();
+		writerText = new JTextField("관리자"); // 변하지않는값
 		writerText.setBounds(120, 10, 200, 20);
 		writerText.setEditable(false);
 		add(writerText);
@@ -70,6 +70,7 @@ public class BbsAddView extends JFrame implements ActionListener {
 		add(backBtn);
 
 		btn.addActionListener(new ActionListener() {
+
 			// 글올리기
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -102,11 +103,10 @@ public class BbsAddView extends JFrame implements ActionListener {
 		});
 	}
 
-	//삭제하면오휴남
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

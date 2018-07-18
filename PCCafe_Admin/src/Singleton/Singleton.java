@@ -2,23 +2,22 @@ package Singleton;
 
 import Controller.BbsController;
 import Controller.MemberController;
-import Controller.ChatController;
+import Controller.serverController;
 
 public class Singleton {
-	
-	private static Singleton single = new Singleton();
-	
-	public MemberController memCtrl;
-	public BbsController bbsCtrl;
-	//public chatController chatCtrl;
-	
-	private Singleton() {
-		memCtrl = new MemberController();
-		bbsCtrl = new BbsController();
-		//chatCtrl = new chatController();
-	}
-	
-	public static Singleton getInstance() {
-		return single;
-	}
+
+   private static Singleton single = new Singleton();
+   public MemberController memCtrl;
+   public BbsController bbsCtrl;
+   public serverController serCtrl;
+
+   private Singleton() {
+      memCtrl = new MemberController();
+      bbsCtrl = new BbsController();
+      serCtrl = new serverController();
+   }
+
+   public static Singleton getInstance() {
+      return single;
+   }
 }

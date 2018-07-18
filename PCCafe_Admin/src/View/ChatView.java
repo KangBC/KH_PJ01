@@ -1,86 +1,106 @@
 package View;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.Socket;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import Dao.serverBackGround;
+
 public class ChatView extends JFrame implements ActionListener {
 
-	private JPanel contentPane;
-	public JLabel lblNewLabel_1;
-	public JTextField textField;
-	private JButton btnNewButton;
+   private JButton bt_exit, bt_send;
+   private Socket socket;
+   private JTextField tf_msg;
+   public static JTextArea contentArea;
 
-	// public Socket socket;
-	// public boolean isFirst = true; // 맨 처음으로 서버로 전송하는 경우
-	// wc;
+   public ChatView(Socket socket) {
+      this.socket = socket;
+      ImageIcon icon = new ImageIcon("black.png");
+      JPanel contentPane = new JPanel() {
+         public void paintComponent(Graphics g) {
+            g.drawImage(icon.getImage(), 0, 0, null);
+            setOpaque(false);
+            super.paintComponent(g);
+         }
+      };
+      contentPane.setLayout(null);
+      contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-	public ChatView() {
+      bt_exit = new JButton(new ImageIcon("exit.png"));
+      bt_exit.setBounds(413, 1, 60, 46);
+      bt_exit.setOpaque(false);
+      bt_exit.setContentAreaFilled(false);
+      bt_exit.setBorder(null);
+      contentPane.add(bt_exit);
 
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+      JLabel title = new JLabel();
+      title.setText("Chat SYSTEM");
+      title.setForeground(Color.WHITE);
+      title.setFont(new Font("Arial Black", Font.PLAIN, 30));
+      title.setHorizontalAlignment(SwingConstants.CENTER);
+      title.setBounds(114, 0, 246, 52);
+      contentPane.add(title);
 
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(null);
+      contentArea = new JTextArea();
+      contentArea.setText("[알림] 필요한 용무가 있으시면 언제든 연락해주세요!" + "\n");
+      contentArea.setEditable(false);
+      contentArea.setLineWrap(true);
 
-		textField = new JTextField();
-		textField.setBounds(118, 527, 286, 24);
-		panel.add(textField);
-		textField.setColumns(10);
+      JScrollPane scrPane = new JScrollPane(contentArea);
+      scrPane.setPreferredSize(new Dimension(200, 120));
+      scrPane.setBounds(0, 49, 474, 473);
+      contentPane.add(scrPane);
 
-		JLabel lblNewLabel = new JLabel("사용자에게:");
-		lblNewLabel.setBounds(36, 530, 90, 18);
-		panel.add(lblNewLabel);
+      JLabel label = new JLabel("Msg");
+      label.setForeground(Color.WHITE);
+      label.setHorizontalAlignment(SwingConstants.CENTER);
+      label.setFont(new Font("Georgia", Font.BOLD, 15));
+      label.setBounds(10, 545, 73, 30);
+      contentPane.add(label);
 
-		// enter
-		btnNewButton = new JButton("전송");
-		btnNewButton.setBounds(418, 526, 105, 27);
-		panel.add(btnNewButton);
-		btnNewButton.addActionListener(this);
+      tf_msg = new JTextField();
+      tf_msg.setColumns(10);
+      tf_msg.setBounds(83, 547, 288, 27);
+      contentPane.add(tf_msg);
 
-		lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel_1.setBounds(0, 0, 568, 488);
-		panel.add(lblNewLabel_1);
+      bt_send = new JButton("Send");
+      bt_send.setFont(new Font("Georgia", Font.BOLD, 13));
+      bt_send.setBounds(385, 547, 71, 27);
+      contentPane.add(bt_send);
 
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 596, 700);// 전체틀
+      setResizable(false);
+      setContentPane(contentPane);
+      setBounds(720, 220, 480, 640);
+      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		/*
-		 * //서버 this.socket = socket; wc = new WriteClass(this); //new Id(wc, this); //
-		 * ????????????????아이디 입력란 뜨고 그후 다시 취소후 헤야 이름이 부여됨 wc.sendMsg(); // 서버로 처음 접속
-		 * isFirst = false;
-		 */
+      bt_exit.addActionListener(this);
+      bt_send.addActionListener(this);
+   }
 
-	}
-
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		Object obj = e.getSource();
-		if (obj == btnNewButton) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					// ChatView frame = new ChatView(socket);
-					dispose(); // 현재 창을 닫음
-				}
-
-			});
-		}
-	}
+   @Override
+   public void actionPerformed(ActionEvent e) {
+      Object obj = e.getSource();
+      if (obj == bt_exit) {
+         this.dispose();
+      } else if (obj == bt_send) {
+         new serverBackGround(socket).sendMsg(socket, tf_msg.getText());
+         contentArea.append(tf_msg.getText() + "\n");
+         tf_msg.setText("");
+      }
+   }
 }

@@ -44,5 +44,6 @@ public class BbsDaoServiece {
 	public boolean bbsUpdate(int seq, String title, String content) {		
 		return dao.updatePost(seq, title, content);		
 	}
+	
 
 }
