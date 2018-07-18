@@ -17,8 +17,5 @@ public class MainClass {
 
 		// ChatView
 		chatview.setVisible(false);
-		
-		// Connect Server
-		sgt.serCtrl.connectServer();
 	}
 }

@@ -23,7 +23,7 @@ public class serverController extends Thread {
 	public void connectServer() {
 		try {
 			socket = new Socket("127.0.0.1", PORT_NUMBER);
-			start();
+			new serverController().start();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -56,12 +56,24 @@ public class serverController extends Thread {
 					MainClass.chatview.setVisible(true);
 				} else {
 					System.out.println("USER" + msg);
-					MainClass.chatview.chatArea.append(msg+"\n");
+					MainClass.chatview.chatArea.append(msg + "\n");
 				}
 			}
 		} catch (SocketException e1) {
-			JOptionPane.showMessageDialog(null, "서버가 종료되었습니다");
-			System.exit(0);
+
+		} catch (IOException e) {
+
+		}
+	}
+
+	// Send Logout Sign
+	public void logOutSign() {
+		PrintWriter pw;
+		try {
+			pw = new PrintWriter(socket.getOutputStream(), true);
+			pw.println("SERBER_OUT_FROM_ADMIN");
+			pw.flush();
+			socket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

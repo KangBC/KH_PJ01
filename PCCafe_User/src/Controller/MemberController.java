@@ -1,5 +1,7 @@
 package Controller;
 
+import java.awt.EventQueue;
+
 import javax.swing.JOptionPane;
 
 import Dto.MemberDto;
@@ -25,7 +27,17 @@ public class MemberController {
 	}
 
 	public void draw_login() {
-		new LoginView();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					LoginView frame = new LoginView();
+					frame.setUndecorated(true);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	public void draw_Signup() {
@@ -41,10 +53,11 @@ public class MemberController {
 		}
 	}
 
+
 	public void draw_orderView() {
-		if(orderView == null) {
+		if (orderView == null) {
 			orderView = new OrderView();
-		}else {
+		} else {
 			orderView.dispose();
 			orderView = new OrderView();
 		}
@@ -52,6 +65,8 @@ public class MemberController {
 
 	public boolean login(String id, String pw) {
 		MemberDto dto = memSvc.login(id, pw);
+
+
 		if(dto != null) {
 			if(dto.getR_time() >= 1) {
 				Singleton.getInstance().dto = dto;
@@ -66,10 +81,10 @@ public class MemberController {
 	}
 
 	public boolean signUp(MemberDto dto) {
-		if(memSvc.signUp(dto)) {
+		if (memSvc.signUp(dto)) {
 			new LoginView();
 			return true;
-		}else {
+		} else {
 			JOptionPane.showMessageDialog(null, "회원가입에 실패하였습니다.");
 			return false;
 		}
