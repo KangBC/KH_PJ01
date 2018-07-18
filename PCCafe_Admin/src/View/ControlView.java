@@ -7,6 +7,8 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -35,8 +37,11 @@ public class ControlView extends JFrame implements ActionListener {
 	private ArrayList<JLabel> timeList;
 
 	private int selectSeat = -1;
+	
+	private Timer tm;
 
 	public ControlView() {
+		tictoc();
 		buttonList = new ArrayList<>();
 		panelList = new ArrayList<>();
 		idList = new ArrayList<>();
@@ -256,7 +261,8 @@ public class ControlView extends JFrame implements ActionListener {
 				idList.get(i).setForeground(Color.WHITE);
 				idList.get(i).setHorizontalAlignment(SwingConstants.CENTER);
 				// TIME
-				timeList.get(i).setText("TIME : ");
+				String time = single.memCtrl.getRTime(idTemp[i]) / 60 + " : " +single.memCtrl.getRTime(idTemp[i]) % 60;
+				timeList.get(i).setText("TIME : " + time);
 				timeList.get(i).setHorizontalAlignment(SwingConstants.CENTER);
 				timeList.get(i).setForeground(Color.WHITE);
 				timeList.get(i).setFont(new Font("굴림", Font.BOLD, 18));
@@ -409,7 +415,6 @@ public class ControlView extends JFrame implements ActionListener {
 		setBounds(0, 0, 1920, 1080);// 전체 화면 조절
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 
@@ -457,4 +462,21 @@ public class ControlView extends JFrame implements ActionListener {
 			single.serCtrl.chat_ON(selectSeat);
 		}
 	}
+	
+	public void tictoc() {
+	      tm = new Timer(true);
+	      TimerTask tmt = new TimerTask() {
+	         public void run() {
+	        	 for (int i = 0; i < single.serCtrl.getSeatList().length; i++) {
+	     			String temp[] = single.serCtrl.getSeatList();
+	     			String idTemp[] = single.serCtrl.getLoginId();
+	     			if (temp[i].equals("1")) {
+	     				String time = single.memCtrl.getRTime(idTemp[i]) / 60 + " : " +single.memCtrl.getRTime(idTemp[i]) % 60;
+	    				timeList.get(i).setText("TIME : " + time);
+	     			}
+	        	 }
+	         }
+	      };
+	      tm.scheduleAtFixedRate(tmt, 60000, 60000);   
+	   }
 }

@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,101 +22,87 @@ public class BbsAddView extends JFrame implements ActionListener {
 	JTextField writerText;
 	JTextField titleText;
 	JTextArea contentArea;
-	JButton btn;
+	JButton writeBtn;
 	JButton backBtn;
 
 	Singleton sc = Singleton.getInstance();
 
 	public BbsAddView() {
 		super("글쓰기");
-		getContentPane().setLayout(null);
+		setLayout(null);
 
 		JLabel writerLabel = new JLabel("작성자:");
-		writerLabel.setBounds(10, 10, 120, 15);
-		getContentPane().add(writerLabel);
+		writerLabel.setBounds(10, 10, 50, 20);
+		add(writerLabel);
 
-		writerText = new JTextField("관리자");
-		writerText.setBounds(120, 10, 200, 20);
+		writerText = new JTextField(sc.dto.getId());
+		writerText.setBounds(70, 10, 200, 20);
 		writerText.setEditable(false);
-		getContentPane().add(writerText);
-
-		JLabel titleLabel = new JLabel("제목:");
-		titleLabel.setBounds(10, 40, 120, 32);
-		getContentPane().add(titleLabel);
+		add(writerText);
+		
+		JLabel titleLabel = new JLabel("제목    :");
+		titleLabel.setBounds(10, 40, 50, 20);
+		add(titleLabel);
 
 		titleText = new JTextField();
-		titleText.setBounds(120, 40, 350, 32);
-		getContentPane().add(titleText);
+		titleText.setBounds(70, 42, 350, 20);
+		add(titleText);
 
-		JLabel contentLabel = new JLabel("내용:");
-		contentLabel.setBounds(10, 90, 120, 15);
-		getContentPane().add(contentLabel);
+		JLabel contentLabel = new JLabel("내용    :");
+		contentLabel.setBounds(10, 70, 50, 20);
+		add(contentLabel);
 
 		contentArea = new JTextArea();
 		contentArea.setLineWrap(true);
 
 		JScrollPane scrPane = new JScrollPane(contentArea);
-		scrPane.setBounds(10, 117, 460, 419);
+		scrPane.setBounds(10, 100, 460, 400);
 		scrPane.setPreferredSize(new Dimension(200, 120));
-		getContentPane().add(scrPane);
+		add(scrPane);
 
-		btn = new JButton("글올리기");
-		btn.setBorderPainted(true);
-		btn.setContentAreaFilled(false);
-		btn.setFocusable(false);
-		btn.setForeground(Color.black);
-		btn.setBounds(370, 559, 100, 40);
-		getContentPane().add(btn);
+		writeBtn = new JButton("글올리기");
+		writeBtn.setBorderPainted(true);
+		writeBtn.setContentAreaFilled(false);
+		writeBtn.setFocusable(false);
+		writeBtn.setForeground(Color.black);
+		writeBtn.setBounds(370, 520, 100, 40);
+		add(writeBtn);
 
 		backBtn = new JButton("목록");
 		backBtn.setBorderPainted(true);
 		backBtn.setContentAreaFilled(false);
 		backBtn.setFocusable(false);
 		backBtn.setForeground(Color.black);
-		backBtn.setBounds(14, 559, 100, 40);
-		getContentPane().add(backBtn);
+		backBtn.setBounds(14, 520, 100, 40);
+		add(backBtn);
 		
-		setBounds(550, 200, 500, 700);
+		setBounds(550, 200, 500, 630);
 		setVisible(true);
 
-		btn.addActionListener(new ActionListener() {
-
-			// 글올리기
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("btn.addActionListener");
-
-				// String id = sc.memCtrl.getLoginId();
-				String id = "관리자";
-				String title = titleText.getText();
-				String content = contentArea.getText();
-
-				// BbsAddView 가 TITLE,CONTENT 가 공백일때
-				BbsDto dto = new BbsDto(0, 0, title, content);
-				if (title.equals("") == true || content.equals("") == true) {
-					JOptionPane.showMessageDialog(null, "제목,내용을 입력확인해주세요");
-				} else {
-					sc.bbsCtrl.bbsWriteAf(dto);
-				}
-				dispose();
-			}
-
-		});
-
-		// 목록
-		backBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				sc.bbsCtrl.drawBbsList();
-				dispose();
-			}
-		});
+		writeBtn.addActionListener(this);
+		backBtn.addActionListener(this);
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		JButton btn = (JButton)e.getSource();
+		
+		if(btn == writeBtn) {
+			String title = titleText.getText();
+			String content = contentArea.getText();
 
+			if (title.equals("") == true || content.equals("") == true) {
+				JOptionPane.showMessageDialog(null, "제목,내용을 입력확인해주세요");
+			} else {
+				BbsDto dto = new BbsDto(sc.memCtrl.getMemSeq(writerText.getText()), 0 , title, content);
+				
+				sc.bbsCtrl.bbsWriteAf(dto);
+			}
+			dispose();
+		}else if(btn == backBtn) {
+			sc.bbsCtrl.repaintBbsList();
+			dispose();
+		}
 	}
 
 }
+

@@ -26,6 +26,9 @@ public class MemberController {
 		Singleton.getInstance().dto.setR_time(memSvc.getRTime(dto));
 	}
 
+	public int getMemSeq(String id) {
+		return memSvc.getMemSeq(id);
+	}
 	public void draw_login() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

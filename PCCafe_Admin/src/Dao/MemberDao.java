@@ -71,4 +71,26 @@ public class MemberDao {
 
 		return count > 0 ? true : false;
 	}
+	
+	public int getRTime(String id) {			
+		int r_time = 0;
+		
+		sql = "SELECT MEMBER_MINUTE FROM PC_MEMBER WHERE MEMBER_ID = '" + id + "'";
+		
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				r_time = rs.getInt(1);
+				System.out.println(r_time + "");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		finally { DBClose.close(psmt, conn, rs); }
+		return r_time;
+	}
 }

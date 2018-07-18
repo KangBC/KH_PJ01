@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -32,42 +33,45 @@ public class BbsUpateview extends JFrame{
 		getContentPane().setLayout(null);
 		
 		JLabel writerLabel = new JLabel("작성자:");
-		writerLabel.setBounds(10, 10, 60, 15);
+		writerLabel.setBounds(10, 10, 50, 15);
 		getContentPane().add(writerLabel);
 				
 		idTextfield = new JTextField(dto.getUserID());
-		idTextfield.setBounds(120, 10, 200, 20);
+		idTextfield.setBounds(70, 8, 200, 20);
+		idTextfield.setBorder(BorderFactory.createEmptyBorder());
 		idTextfield.setEditable(false);		
 		getContentPane().add(idTextfield);
 		
 		JLabel writedLabel = new JLabel("작성일:");
-		writedLabel.setBounds(10, 40, 60, 15);
+		writedLabel.setBounds(10, 40, 50, 15);
 		getContentPane().add(writedLabel);
 		
 		wdateTextfield = new JTextField(dto.getCreatedDate());
-		wdateTextfield.setBounds(120, 40, 200, 20);
+		wdateTextfield.setBounds(70, 38, 200, 20);
+		wdateTextfield.setBorder(BorderFactory.createEmptyBorder());
 		wdateTextfield.setEditable(false);		
 		getContentPane().add(wdateTextfield);
 		
 		JLabel readLabel = new JLabel("조회수:");
-		readLabel.setBounds(10, 70, 60, 15);
+		readLabel.setBounds(10, 70, 50, 15);
 		getContentPane().add(readLabel);
 		
 		readCountTextfield = new JTextField(dto.getReadCount() + "");
-		readCountTextfield.setBounds(120, 70, 200, 20);
+		readCountTextfield.setBounds(70, 68, 200, 20);
 		readCountTextfield.setEditable(false);		
+		readCountTextfield.setBorder(BorderFactory.createEmptyBorder());
 		getContentPane().add(readCountTextfield);
 		
-		JLabel titleLabel = new JLabel("제목:");
-		titleLabel.setBounds(10, 100, 60, 15);
+		JLabel titleLabel = new JLabel("제목    :");
+		titleLabel.setBounds(10, 100, 50, 15);
 		getContentPane().add(titleLabel);
 		
 		titleTextfield = new JTextField(dto.getTitle());
-		titleTextfield.setBounds(120, 100, 300, 20);			
+		titleTextfield.setBounds(70, 98, 300, 20);			
 		getContentPane().add(titleTextfield);
 		
-		JLabel contentLabel = new JLabel("내용:");
-		contentLabel.setBounds(10, 130, 60, 15);
+		JLabel contentLabel = new JLabel("내용    :");
+		contentLabel.setBounds(10, 130, 50, 15);
 		getContentPane().add(contentLabel);
 				
 		contentArea = new JTextArea(dto.getContent());		
@@ -109,8 +113,6 @@ public class BbsUpateview extends JFrame{
 					return;
 				}
 				
-				// 수정부분 db
-				Singleton sc = Singleton.getInstance();
 				sc.bbsCtrl.bbsUpdateAf(dto.getPostNum(), 
 							titleTextfield.getText(), 
 							contentArea.getText());
@@ -119,13 +121,10 @@ public class BbsUpateview extends JFrame{
 		});
 		
 		bbsBtn.addActionListener(new ActionListener() {			
-			@Override
 			public void actionPerformed(ActionEvent e) {					
-				Singleton sc = Singleton.getInstance();
-				sc.bbsCtrl.drawBbsList();
+				sc.bbsCtrl.repaintBbsList();;
 				dispose();
 			}
-		});		
-		
+		});	
 	}
 }

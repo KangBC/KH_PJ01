@@ -18,4 +18,7 @@ public class MemeberServiece {
 		return dao.changePw(id, pw);
 	}
 
+	public int getRTime(String id) {
+		return dao.getRTime(id);
+	}
 }

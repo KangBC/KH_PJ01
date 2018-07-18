@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,47 +29,51 @@ public class BbsDetailView extends JFrame {
 	public BbsDetailView(BbsDto dto) {
 		super("내용 보기");		
 		
-		getContentPane().setLayout(null);
+		setLayout(null);
 		
 		JLabel writerLabel = new JLabel("작성자:");
-		writerLabel.setBounds(10, 10, 60, 15);
-		getContentPane().add(writerLabel);
+		writerLabel.setBounds(10, 10, 50, 15);
+		add(writerLabel);
 				
 		idTextfield = new JTextField(dto.getUserID()); 
-		idTextfield.setBounds(120, 10, 200, 20);
+		idTextfield.setBounds(70, 8, 200, 20);
+		idTextfield.setBorder(BorderFactory.createEmptyBorder());
 		idTextfield.setEditable(false);		
-		getContentPane().add(idTextfield);
+		add(idTextfield);
 		
 		JLabel writedLabel = new JLabel("작성일:");
-		writedLabel.setBounds(10, 40, 60, 15);
-		getContentPane().add(writedLabel);
+		writedLabel.setBounds(10, 40, 50, 15);
+		add(writedLabel);
 		
 		wdateTextfield = new JTextField(dto.getCreatedDate());
-		wdateTextfield.setBounds(120, 40, 200, 20);
+		wdateTextfield.setBounds(70, 38, 200, 20);
 		wdateTextfield.setEditable(false);		
-		getContentPane().add(wdateTextfield);
+		wdateTextfield.setBorder(BorderFactory.createEmptyBorder());
+		add(wdateTextfield);
 		
 		JLabel readLabel = new JLabel("조회수:");
-		readLabel.setBounds(10, 70, 60, 15);
-		getContentPane().add(readLabel);
+		readLabel.setBounds(10, 70, 50, 15);
+		add(readLabel);
 		
 		readCountTextfield = new JTextField(dto.getReadCount() + "");
-		readCountTextfield.setBounds(120, 70, 200, 20);
+		readCountTextfield.setBounds(70, 68, 200, 20);
 		readCountTextfield.setEditable(false);		
-		getContentPane().add(readCountTextfield);
+		readCountTextfield.setBorder(BorderFactory.createEmptyBorder());
+		add(readCountTextfield);
 		
-		JLabel titleLabel = new JLabel("제목:");
-		titleLabel.setBounds(10, 100, 60, 15);
-		getContentPane().add(titleLabel);
+		JLabel titleLabel = new JLabel("제목    :");
+		titleLabel.setBounds(10, 100, 50, 15);
+		add(titleLabel);
 		
 		titleTextfield = new JTextField(dto.getTitle());
-		titleTextfield.setBounds(120, 100, 300, 20);
-		titleTextfield.setEditable(false);		
-		getContentPane().add(titleTextfield);
+		titleTextfield.setBounds(70, 98, 300, 20);
+		titleTextfield.setEditable(false);	
+		titleTextfield.setBorder(BorderFactory.createEmptyBorder());
+		add(titleTextfield);
 		
-		JLabel contentLabel = new JLabel("내용:");
-		contentLabel.setBounds(10, 130, 60, 15);
-		getContentPane().add(contentLabel);
+		JLabel contentLabel = new JLabel("내용    :");
+		contentLabel.setBounds(10, 130, 50, 15);
+		add(contentLabel);
 				
 		contentArea = new JTextArea(dto.getContent());
 		contentArea.setEditable(false);
@@ -77,7 +82,7 @@ public class BbsDetailView extends JFrame {
 		JScrollPane scrPane = new JScrollPane(contentArea);
 		scrPane.setPreferredSize(new Dimension(200, 120));
 		scrPane.setBounds(10, 160, 460, 364);
-		getContentPane().add(scrPane);		
+		add(scrPane);		
 		
 		//Button
 		JButton bbsBtn = new JButton("게시판목록");
@@ -86,10 +91,13 @@ public class BbsDetailView extends JFrame {
 		bbsBtn.setFocusable(false);
 		bbsBtn.setForeground(Color.black);
 		bbsBtn.setBounds(10, 554, 100, 40);		
-		getContentPane().add(bbsBtn);
-		
-		setBounds(550, 200, 500, 700);		
-		setVisible(true);
+		bbsBtn.addActionListener(new ActionListener() {			
+			public void actionPerformed(ActionEvent e) {	
+				sc.bbsCtrl.repaintBbsList();;
+				dispose();
+			}
+		});
+		add(bbsBtn);
 		
 		// updatebutton
 		JButton updateBtn = null;		
@@ -98,15 +106,7 @@ public class BbsDetailView extends JFrame {
 		updateBtn.setContentAreaFilled(false);
 		updateBtn.setFocusable(false);
 		updateBtn.setForeground(Color.black);
-		updateBtn.setBounds(183, 554, 100, 40);
-		getContentPane().add(updateBtn);
-		
-	/*	MemberController가없어서 안됨. 일단 주석처리
-		수정버튼의 비활성화(같은 id일 경우만)
-		if(!dto.getUserNum().equals(sc.memCtrl.getLoginId())){ // MemberController가없어서 안됨.
-			updateBtn.setEnabled(false);
-		}*/
-		
+		updateBtn.setBounds(250, 554, 100, 40);
 		updateBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
 				Singleton sc = Singleton.getInstance();
@@ -114,6 +114,7 @@ public class BbsDetailView extends JFrame {
 				dispose();
 			}
 		});
+		add(updateBtn);
 		
 		// deletebutton
 		JButton deleteBtn = null;		
@@ -123,29 +124,23 @@ public class BbsDetailView extends JFrame {
 		deleteBtn.setFocusable(false);
 		deleteBtn.setForeground(Color.black);
 		deleteBtn.setBounds(370, 554, 100, 40);
-		getContentPane().add(deleteBtn);
-		
-		// MemberController가없어서 안됨.
-	/*	// 삭제버튼의 비활성화(같은 id일 경우만)		
-		if(!dto.getUserNum().equals(sc.memCtrl.getLoginId())){ 
-			deleteBtn.setEnabled(false);
-		}*/
-		
 		deleteBtn.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {					
-				sc.bbsCtrl.bbsDelete(dto.getPostNum());				
+				sc.bbsCtrl.bbsDelete(dto.getPostNum());		
+				sc.bbsCtrl.repaintBbsList();
 				dispose();
 			}
 		});
+		add(deleteBtn);
 		
-		bbsBtn.addActionListener(new ActionListener() {			
-			@Override
-			public void actionPerformed(ActionEvent e) {	
-				sc.bbsCtrl.drawBbsList();
-				dispose();
-			}
-		});
+		if(!dto.getUserID().equals(sc.dto.getId())){ 
+			updateBtn.setEnabled(false);
+			deleteBtn.setEnabled(false);
+		}
+		
+		setBounds(550, 200, 500, 700);		
+		setVisible(true);
 	}
 
 }
+

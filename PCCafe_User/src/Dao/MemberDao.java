@@ -27,6 +27,25 @@ public class MemberDao {
 		this.dto = dto;
 	}
 	// 중복확인
+	
+	public int getMemSeq(String id) {
+		sql = "SELECT SEQ_MEMBER FROM PC_MEMBER WHERE MEMBER_ID = '" + id + "'";
+		
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {DBClose.close(psmt, conn, rs);}
+		return -1;
+		
+	}
 	public boolean checkId(String id) {
 		int count = 0;
 		sql = "SELECT MEMBER_ID FROM PC_MEMBER WHERE MEMBER_ID = '" + id + "'";
@@ -42,6 +61,7 @@ public class MemberDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		finally {DBClose.close(psmt, conn, rs);}
 		return true;
 	}
 	

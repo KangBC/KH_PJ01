@@ -43,4 +43,8 @@ public class MemberController {
 			}
 		});
 	}
+	
+	public int getRTime(String id) {
+		return memServiece.getRTime(id);
+	}
 }

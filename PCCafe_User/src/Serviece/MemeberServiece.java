@@ -18,7 +18,9 @@ public class MemeberServiece {
 	public boolean checkId(String id) {
 		return memDao.checkId(id);
 	}
-	
+	public int getMemSeq(String id) {
+		return memDao.getMemSeq(id);
+	}
 	public void updateRTime(MemberDto dto) {
 		memDao.updateRTime(dto);
 	}

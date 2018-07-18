@@ -34,7 +34,7 @@ public class BbsController {
 		if (bbsLV == null) {
 			bbsLV = new BbsListView(list);
 		} else {
-			bbsLV = null;
+			bbsLV.dispose();;
 			bbsLV = new BbsListView(list);
 		}
 	}
@@ -54,6 +54,7 @@ public class BbsController {
 
 	public void bbsDetail(int seq) {
 		bbsService.readCount(seq);
+		repaintBbsList();
 		BbsDto dto = bbsService.getBBS(seq);
 
 		repaintBbsList();
@@ -75,7 +76,7 @@ public class BbsController {
 		boolean b = bbsService.writeBbs(dto);
 		if (b) {
 			JOptionPane.showMessageDialog(null, "성공적으로 추가되었습니다");
-			drawBbsList();
+			repaintBbsList();
 		} else {
 			JOptionPane.showMessageDialog(null, "추가되지 못했습니다");
 			bbsWrite();
@@ -87,7 +88,7 @@ public class BbsController {
 		boolean b = bbsService.bbsDelete(seq);
 		if (b) {
 			JOptionPane.showMessageDialog(null, "성공적으로 삭제되었습니다");
-			drawBbsList();
+			repaintBbsList();
 		} else {
 			JOptionPane.showMessageDialog(null, "삭제하지 못했습니다");
 			bbsDetail(seq);
@@ -105,7 +106,7 @@ public class BbsController {
 		boolean b = bbsService.bbsUpdate(seq, title, content);
 		if (b) {
 			JOptionPane.showMessageDialog(null, "성공적으로 수정되었습니다");
-			drawBbsList();
+			repaintBbsList();
 		} else {
 			JOptionPane.showMessageDialog(null, "수정되지 못했습니다");
 			BbsDto dto = bbsService.getBBS(seq);
