@@ -124,8 +124,10 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 		writeBtn = new JButton("글쓰기"); 
 		writeBtn.setBounds(20, 560, 100, 40); 
 		writeBtn.setFont(new Font("굴림", Font.PLAIN, 20));
-		getContentPane().add(writeBtn);
+		writeBtn.setBorderPainted(true);// 버튼테두리
+		writeBtn.setContentAreaFilled(false);
 		writeBtn.addActionListener(this);
+		getContentPane().add(writeBtn);
 
 		// Choice(AWT) -> JComboBox(swing)
 		String[] selects = new String[] { "제목", "작성자" };

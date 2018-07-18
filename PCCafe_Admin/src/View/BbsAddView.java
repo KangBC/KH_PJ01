@@ -1,11 +1,13 @@
 package View;
 
+import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -24,58 +26,63 @@ public class BbsAddView extends JFrame implements ActionListener {
 	JButton writeBtn;
 	JButton backBtn;
 
+	JComboBox<String> notice;
 	Singleton sc = Singleton.getInstance();
 
 	public BbsAddView() {
 		super("글쓰기");
-		getContentPane().setLayout(null);
+		setLayout(null);
 
 		JLabel writerLabel = new JLabel("작성자:");
-		writerLabel.setBounds(10, 10, 120, 15);
-		getContentPane().add(writerLabel);
+		writerLabel.setBounds(10, 10, 50, 20);
+		add(writerLabel);
 
-		writerText = new JTextField("관리자");
-		writerText.setBounds(120, 10, 200, 20);
+		writerText = new JTextField("ADMIN");
+		writerText.setBounds(70, 10, 200, 20);
 		writerText.setEditable(false);
-		getContentPane().add(writerText);
+		add(writerText);
+		
+		notice = new JComboBox<>(new String[] { "일반글", "공지사항" });
+		notice.setBounds(290, 10, 80, 20);
+		add(notice);
 
-		JLabel titleLabel = new JLabel("제목:");
-		titleLabel.setBounds(10, 40, 120, 32);
-		getContentPane().add(titleLabel);
+		JLabel titleLabel = new JLabel("제목    :");
+		titleLabel.setBounds(10, 40, 50, 20);
+		add(titleLabel);
 
 		titleText = new JTextField();
-		titleText.setBounds(120, 40, 350, 32);
-		getContentPane().add(titleText);
+		titleText.setBounds(70, 42, 350, 20);
+		add(titleText);
 
-		JLabel contentLabel = new JLabel("내용:");
-		contentLabel.setBounds(10, 90, 120, 15);
-		getContentPane().add(contentLabel);
+		JLabel contentLabel = new JLabel("내용    :");
+		contentLabel.setBounds(10, 70, 50, 20);
+		add(contentLabel);
 
 		contentArea = new JTextArea();
 		contentArea.setLineWrap(true);
 
 		JScrollPane scrPane = new JScrollPane(contentArea);
-		scrPane.setBounds(10, 117, 460, 419);
+		scrPane.setBounds(10, 100, 460, 400);
 		scrPane.setPreferredSize(new Dimension(200, 120));
-		getContentPane().add(scrPane);
+		add(scrPane);
 
 		writeBtn = new JButton("글올리기");
 		writeBtn.setBorderPainted(true);
 		writeBtn.setContentAreaFilled(false);
 		writeBtn.setFocusable(false);
 		writeBtn.setForeground(Color.black);
-		writeBtn.setBounds(370, 559, 100, 40);
-		getContentPane().add(writeBtn);
+		writeBtn.setBounds(370, 520, 100, 40);
+		add(writeBtn);
 
 		backBtn = new JButton("목록");
 		backBtn.setBorderPainted(true);
 		backBtn.setContentAreaFilled(false);
 		backBtn.setFocusable(false);
 		backBtn.setForeground(Color.black);
-		backBtn.setBounds(14, 559, 100, 40);
-		getContentPane().add(backBtn);
+		backBtn.setBounds(14, 520, 100, 40);
+		add(backBtn);
 		
-		setBounds(550, 200, 500, 700);
+		setBounds(550, 200, 500, 630);
 		setVisible(true);
 
 		writeBtn.addActionListener(this);
@@ -89,11 +96,15 @@ public class BbsAddView extends JFrame implements ActionListener {
 			String title = titleText.getText();
 			String content = contentArea.getText();
 
-			// BbsAddView 가 TITLE,CONTENT 가 공백일때
 			if (title.equals("") == true || content.equals("") == true) {
 				JOptionPane.showMessageDialog(null, "제목,내용을 입력확인해주세요");
 			} else {
-				BbsDto dto = new BbsDto(1, 0, title, content);
+				BbsDto dto = null;
+				if(notice.getSelectedItem().toString().equals("공지사항")) {
+					dto = new BbsDto(1, 1, title, content);
+				}else {
+					dto = new BbsDto(1, 0, title, content);
+				}
 				sc.bbsCtrl.bbsWriteAf(dto);
 			}
 			dispose();
