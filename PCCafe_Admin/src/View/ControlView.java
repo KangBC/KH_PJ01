@@ -41,8 +41,7 @@ public class ControlView extends JFrame implements ActionListener {
 		panelList = new ArrayList<>();
 		idList = new ArrayList<>();
 		timeList = new ArrayList<>();
-		
-		
+
 		ImageIcon icon = new ImageIcon("backGround.jpg");
 		JPanel contentPane = new JPanel() {
 			public void paintComponent(Graphics g) {
@@ -194,6 +193,7 @@ public class ControlView extends JFrame implements ActionListener {
 
 		bt_1.setBounds(0, 0, 212, 168);
 		bt_2.setBounds(0, 0, 212, 168);
+		bt_3.setBounds(0, 0, 212, 168);
 		bt_4.setBounds(0, 0, 212, 168);
 		bt_5.setBounds(0, 0, 212, 168);
 		bt_6.setBounds(0, 0, 212, 168);
@@ -240,7 +240,7 @@ public class ControlView extends JFrame implements ActionListener {
 			String temp[] = single.serCtrl.getSeatList();
 			String idTemp[] = single.serCtrl.getLoginId();
 			if (temp[i].equals("1")) {
-				
+
 				// Panel
 				panelList.get(i).setBackground(Color.RED); // user
 				panelList.get(i).setLayout(null);
@@ -394,6 +394,7 @@ public class ControlView extends JFrame implements ActionListener {
 		pl_10.add(lb_pc_10);
 
 		bt_1.addActionListener(this);
+		bt_1.addActionListener(this); 
 		bt_2.addActionListener(this);
 		bt_3.addActionListener(this);
 		bt_4.addActionListener(this);
@@ -426,44 +427,34 @@ public class ControlView extends JFrame implements ActionListener {
 
 		} else if (obj == bt_1) {
 			selectSeat = 0;
-			single.serCtrl.chatView(selectSeat);
-			System.out.println("test" + selectSeat);
+			single.serCtrl.chat_ON(selectSeat);
 		} else if (obj == bt_2) {
 			selectSeat = 1;
-			single.serCtrl.chatView(selectSeat);
-			System.out.println("test" + selectSeat);
+			single.serCtrl.chat_ON(selectSeat);
 		} else if (obj == bt_3) {
 			selectSeat = 2;
-			single.serCtrl.chatView(selectSeat);
-			System.out.println("test" + selectSeat);
+			single.serCtrl.chat_ON(selectSeat);
 		} else if (obj == bt_4) {
 			selectSeat = 3;
-			single.serCtrl.chatView(selectSeat);
-			System.out.println("test" + selectSeat);
+			single.serCtrl.chat_ON(selectSeat);
 		} else if (obj == bt_5) {
 			selectSeat = 4;
-			single.serCtrl.chatView(selectSeat);
-			System.out.println("test" + selectSeat);
+			single.serCtrl.chat_ON(selectSeat);
 		} else if (obj == bt_6) {
 			selectSeat = 5;
-			single.serCtrl.chatView(selectSeat);
-			System.out.println("test" + selectSeat);
+			single.serCtrl.chat_ON(selectSeat);
 		} else if (obj == bt_7) {
 			selectSeat = 6;
-			single.serCtrl.chatView(selectSeat);
-			System.out.println("test" + selectSeat);
+			single.serCtrl.chat_ON(selectSeat);
 		} else if (obj == bt_8) {
 			selectSeat = 7;
-			single.serCtrl.chatView(selectSeat);
-			System.out.println("test" + selectSeat);
+			single.serCtrl.chat_ON(selectSeat);
 		} else if (obj == bt_9) {
 			selectSeat = 8;
-			single.serCtrl.chatView(selectSeat);
-			System.out.println("test" + selectSeat);
+			single.serCtrl.chat_ON(selectSeat);
 		} else if (obj == bt_10) {
 			selectSeat = 9;
-			single.serCtrl.chatView(selectSeat);
-			System.out.println("test" + selectSeat);
+			single.serCtrl.chat_ON(selectSeat);
 		}
 	}
 }

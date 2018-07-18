@@ -87,6 +87,8 @@ public class serverController {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					// test
+					System.out.println(temp[seatNum].toString());
 					ChatView frame = new ChatView(temp[seatNum]);
 					frame.setUndecorated(true);
 					frame.setVisible(true);
@@ -96,5 +98,14 @@ public class serverController {
 				}
 			}
 		});
+	}
+
+	// ChatViewON
+	public void chat_ON(int seatNum) {
+		if (chatList[seatNum] == null) {
+			chatView(seatNum);
+		} else {
+			chatList[seatNum].setVisible(true);
+		}
 	}
 }

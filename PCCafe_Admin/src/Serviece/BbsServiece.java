@@ -6,7 +6,7 @@ import Dao.BbsDao;
 import Dto.BbsDto;
 
 
-public class BbsDaoServiece {
+public class BbsServiece {
 
 	BbsDao dao = new BbsDao();
 	

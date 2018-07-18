@@ -6,7 +6,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import Dto.BbsDto;
-import Serviece.BbsDaoServiece;
+import Serviece.BbsServiece;
 import View.BbsAddView;
 import View.BbsDetailView;
 import View.BbsListView;
@@ -19,7 +19,7 @@ public class BbsController {
 	private static final Socket Socket = null;
 	BbsListView bbsLV = null;
 	BbsDetailView bbsDV = null;
-	BbsDaoServiece bbsService = new BbsDaoServiece();
+	BbsServiece bbsService = new BbsServiece();
 
 	// DB에 저장된 게시글 목록을 전부 가져온다.
 	public void drawBbsList() {

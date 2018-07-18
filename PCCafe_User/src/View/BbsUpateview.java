@@ -92,7 +92,7 @@ public class BbsUpateview extends JFrame{
 		// updatebutton
 		JButton updateBtn = null;		
 		updateBtn = new JButton("수정완료");
-		updateBtn.setBorderPainted(true);// 버튼테두리
+		updateBtn.setBorderPainted(true);
 		updateBtn.setContentAreaFilled(false);
 		updateBtn.setFocusable(false);
 		updateBtn.setForeground(Color.black);

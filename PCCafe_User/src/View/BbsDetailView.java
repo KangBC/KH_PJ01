@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -16,8 +15,8 @@ import javax.swing.JTextField;
 import Dto.BbsDto;
 import Singleton.Singleton;
 
-public class BbsUpateview extends JFrame{
-		
+public class BbsDetailView extends JFrame {
+
 	JTextField idTextfield;
 	JTextField wdateTextfield;
 	JTextField readCountTextfield;
@@ -26,16 +25,16 @@ public class BbsUpateview extends JFrame{
 	
 	Singleton sc = Singleton.getInstance();
 	
-	public BbsUpateview(BbsDto dto) {
-		super("수정");	
-				
+	public BbsDetailView(BbsDto dto) {
+		super("내용 보기");		
+		
 		getContentPane().setLayout(null);
 		
 		JLabel writerLabel = new JLabel("작성자:");
 		writerLabel.setBounds(10, 10, 60, 15);
 		getContentPane().add(writerLabel);
 				
-		idTextfield = new JTextField(dto.getUserNum());
+		idTextfield = new JTextField(); // 유저 iD 넣어야함.
 		idTextfield.setBounds(120, 10, 200, 20);
 		idTextfield.setEditable(false);		
 		getContentPane().add(idTextfield);
@@ -63,70 +62,91 @@ public class BbsUpateview extends JFrame{
 		getContentPane().add(titleLabel);
 		
 		titleTextfield = new JTextField(dto.getTitle());
-		titleTextfield.setBounds(120, 100, 300, 20);			
+		titleTextfield.setBounds(120, 100, 300, 20);
+		titleTextfield.setEditable(false);		
 		getContentPane().add(titleTextfield);
 		
 		JLabel contentLabel = new JLabel("내용:");
 		contentLabel.setBounds(10, 130, 60, 15);
 		getContentPane().add(contentLabel);
 				
-		contentArea = new JTextArea(dto.getContent());		
+		contentArea = new JTextArea(dto.getContent());
+		contentArea.setEditable(false);
 		contentArea.setLineWrap(true);	
 			
 		JScrollPane scrPane = new JScrollPane(contentArea);
 		scrPane.setPreferredSize(new Dimension(200, 120));
-		scrPane.setBounds(10, 160, 460, 386);
+		scrPane.setBounds(10, 160, 460, 364);
 		getContentPane().add(scrPane);		
 		
+		//Button
 		JButton bbsBtn = new JButton("게시판목록");
 		bbsBtn.setBorderPainted(true);
 		bbsBtn.setContentAreaFilled(false);
 		bbsBtn.setFocusable(false);
 		bbsBtn.setForeground(Color.black);
-		bbsBtn.setBounds(10, 570, 100, 40);		
+		bbsBtn.setBounds(10, 554, 100, 40);		
 		getContentPane().add(bbsBtn);
 		
+		setBounds(550, 200, 500, 700);		
 		setVisible(true);
-		setBounds(550, 200, 500, 700);
 		
 		// updatebutton
 		JButton updateBtn = null;		
-		updateBtn = new JButton("수정완료");
-		updateBtn.setBorderPainted(true);// 버튼테두리
+		updateBtn = new JButton("수정");
+		updateBtn.setBorderPainted(true);
 		updateBtn.setContentAreaFilled(false);
 		updateBtn.setFocusable(false);
 		updateBtn.setForeground(Color.black);
-		updateBtn.setBounds(370, 570, 100, 40);
+		updateBtn.setBounds(183, 554, 100, 40);
 		getContentPane().add(updateBtn);
-		updateBtn.addActionListener(new ActionListener() {
 		
+	/*	MemberController가없어서 안됨. 일단 주석처리
+		수정버튼의 비활성화(같은 id일 경우만)
+		if(!dto.getUserNum().equals(sc.memCtrl.getLoginId())){ // MemberController가없어서 안됨.
+			updateBtn.setEnabled(false);
+		}*/
+		
+		updateBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {	
+				Singleton sc = Singleton.getInstance();
+				sc.bbsCtrl.bbsUpdate(dto.getPostNum());
+				dispose();
+			}
+		});
+		
+		// deletebutton
+		JButton deleteBtn = null;		
+		deleteBtn = new JButton("삭제");
+		deleteBtn.setBorderPainted(true);
+		deleteBtn.setContentAreaFilled(false);
+		deleteBtn.setFocusable(false);
+		deleteBtn.setForeground(Color.black);
+		deleteBtn.setBounds(370, 554, 100, 40);
+		getContentPane().add(deleteBtn);
+		
+		// MemberController가없어서 안됨.
+	/*	// 삭제버튼의 비활성화(같은 id일 경우만)		
+		if(!dto.getUserNum().equals(sc.memCtrl.getLoginId())){ 
+			deleteBtn.setEnabled(false);
+		}*/
+		
+		deleteBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {					
-				String title = titleTextfield.getText();
-				String content = contentArea.getText();
-				
-				if(title.equals("") || content.equals("")) {
-					JOptionPane.showMessageDialog(null, "빈칸을 모두 작성해 주십시오");
-					return;
-				}
-				
-				// 수정부분 db
-				Singleton sc = Singleton.getInstance();
-				sc.bbsCtrl.bbsUpdateAf(dto.getPostNum(), 
-							titleTextfield.getText(), 
-							contentArea.getText());
-				dispose();			
+				sc.bbsCtrl.bbsDelete(dto.getPostNum());				
+				dispose();
 			}
 		});
 		
 		bbsBtn.addActionListener(new ActionListener() {			
 			@Override
-			public void actionPerformed(ActionEvent e) {					
-				Singleton sc = Singleton.getInstance();
+			public void actionPerformed(ActionEvent e) {	
 				sc.bbsCtrl.drawBbsList();
 				dispose();
 			}
-		});		
-		
+		});
 	}
+
 }
