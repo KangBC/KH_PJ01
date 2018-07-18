@@ -2,26 +2,26 @@ package View;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import Singleton.Singleton;
-import javax.swing.JLabel;
-import java.awt.Font;
 
 public class ControlView extends JFrame implements ActionListener {
 	private Singleton single = Singleton.getInstance();
 
 	private JPanel contentPane;
-	private JButton bt_1, bt_2, bt_3, bt_4, bt_5, bt_6, bt_7, bt_8, bt_9, bt_10, bt_stuff, bt_order, bt_member, bt_bbs;
-	private JPanel pl_line;
+	private JButton bt_1, bt_2, bt_3, bt_4, bt_5, bt_6, bt_7, bt_8, bt_9, bt_10, bt_order, bt_member, bt_bbs;
 	private JLabel lb_pc_1, lb_pc_2, lb_pc_3, lb_pc_4, lb_pc_5, lb_pc_6, lb_pc_7, lb_pc_8, lb_pc_9, lb_pc_10;
 	private JLabel lb_ID_1, lb_ID_2, lb_ID_3, lb_ID_4, lb_ID_5, lb_ID_6, lb_ID_7, lb_ID_8, lb_ID_9, lb_ID_10;
 	private JLabel lb_TIME_1, lb_TIME_2, lb_TIME_3, lb_TIME_4, lb_TIME_5, lb_TIME_6, lb_TIME_7, lb_TIME_8, lb_TIME_9,
@@ -41,41 +41,39 @@ public class ControlView extends JFrame implements ActionListener {
 		idList = new ArrayList<>();
 		timeList = new ArrayList<>();
 
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(0, 0, 1920, 1080));
+		contentPane = new JPanel();// 밑 도화지
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setBounds(0, 0, 1920, 1080);
+		setResizable(false); // 크기변경 불가
+		setUndecorated(true); // 툴바제거
+		setVisible(true); // 보여주기
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.BLACK);
-		panel.setBounds(0, 0, 1920, 1080);
+		panel.setBounds(-5, 0, 1920, 1087);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		bt_stuff = new JButton("재고관리");
-		bt_stuff.setBounds(1558, 46, 270, 300);
-		panel.add(bt_stuff);
-		bt_stuff.addActionListener(this);
-
 		bt_order = new JButton("주문확인");
-		bt_order.setBounds(1088, 47, 270, 300);
+		bt_order.setFont(new Font("굴림", Font.PLAIN, 18));
+		bt_order.setBounds(964, 41, 260, 80);
 		panel.add(bt_order);
 		bt_order.addActionListener(this);
 
 		bt_member = new JButton("회원정보");
-		bt_member.setBounds(1088, 440, 270, 300);
+		bt_member.setFont(new Font("굴림", Font.PLAIN, 18));
+		bt_member.setBounds(1269, 41, 260, 80);
 		panel.add(bt_member);
 		bt_member.addActionListener(this);
 
 		bt_bbs = new JButton("게시판");
-		bt_bbs.setBounds(1558, 440, 270, 300);
+		bt_bbs.setFont(new Font("굴림", Font.PLAIN, 18));
+		bt_bbs.setBounds(1579, 41, 260, 80);
 		panel.add(bt_bbs);
 		bt_bbs.addActionListener(this);
-
-		pl_line = new JPanel();
-		pl_line.setBackground(Color.PINK);
-		pl_line.setBounds(920, 0, 4, 1029);
-		panel.add(pl_line);
 
 		// 선언부
 		JPanel pl_1 = new JPanel();
@@ -168,16 +166,16 @@ public class ControlView extends JFrame implements ActionListener {
 		timeList.add(lb_TIME_10);
 
 		// 위치잡아주기
-		pl_1.setBounds(48, 46, 212, 168);
-		pl_2.setBounds(344, 46, 212, 168);
-		pl_3.setBounds(631, 46, 212, 168);
-		pl_4.setBounds(48, 293, 212, 168);
-		pl_5.setBounds(344, 293, 212, 168);
-		pl_6.setBounds(631, 293, 212, 168);
-		pl_7.setBounds(48, 534, 212, 168);
-		pl_8.setBounds(344, 534, 212, 168);
-		pl_9.setBounds(631, 534, 212, 168);
-		pl_10.setBounds(631, 785, 212, 168);
+		pl_1.setBounds(197, 228, 425, 170);
+		pl_2.setBounds(681, 228, 425, 170);
+		pl_3.setBounds(1158, 228, 425, 170);
+		pl_4.setBounds(97, 477, 425, 170);
+		pl_5.setBounds(536, 477, 425, 170);
+		pl_6.setBounds(975, 477, 425, 170);
+		pl_7.setBounds(1414, 477, 425, 170);
+		pl_8.setBounds(197, 707, 425, 170);
+		pl_9.setBounds(681, 707, 425, 170);
+		pl_10.setBounds(1158, 707, 425, 170);
 
 		bt_1.setBounds(0, 0, 212, 168);
 		bt_2.setBounds(0, 0, 212, 168);
@@ -396,31 +394,19 @@ public class ControlView extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// 주문확인(ok)
 		Object obj = e.getSource();
-		if (obj == bt_order) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					OrderView frame = new OrderView();
-					frame.setVisible(true);
-				}
-			});
-			// 회원정보 (ok)
-		} else if (obj == bt_member) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					ManageMemView frame = new ManageMemView();
-					frame.setVisible(true);
-				}
-			});
-			// 게시판(ok)
+
+		// 회원정보view
+		if (obj == bt_member) {
+			single.memCtrl.manager();
+
+			// 게시판 List
 		} else if (obj == bt_bbs) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					Singleton single = Singleton.getInstance();
-					single.bbsCtrl.getBbsList();
-				}
-			});
+			single.bbsCtrl.drawBbsList();
+
+			// 주문 OrderView
+		} else if (obj == bt_order) {
+			single.bbsCtrl.order();
 
 		} else if (obj == bt_1) {
 			selectSeat = 0;

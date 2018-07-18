@@ -18,7 +18,13 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import Controller.BbsController;
 import Controller.MemberController;
+<<<<<<< HEAD
+=======
+import Controller.StuffController;
+import Dao.MemberDao;
+>>>>>>> Hyeonseok
 import Dto.MemberDto;
 import Singleton.Singleton;
 
@@ -32,6 +38,7 @@ public class ControlView extends JFrame implements ActionListener {
 	private MemberDto dto;
 	private Singleton sgt = Singleton.getInstance();
 	private MemberController memCtrl = sgt.memCtrl;
+<<<<<<< HEAD
 
 	private JPanel contentPane, panel_2;
 	private JButton MesBtn, BbsBtn, oderBtn, logoutBtn, bt_AD;
@@ -44,6 +51,21 @@ public class ControlView extends JFrame implements ActionListener {
 	int x = 0;
 	String[] list = { "AD_4.png", "AD_5.png", "AD_6.png" };
 
+=======
+	private BbsController bbsCtrl = sgt.bbsCtrl;
+	private StuffController stuffCtrl = sgt.stuffCtrl;
+	
+	private JPanel contentPane;
+	
+	private JButton MesBtn;
+	private JButton BbsBtn;
+	private JButton oderBtn;
+	private JButton logoutBtn;
+	
+	private JLabel time_Label;
+	private JLabel use_Label;
+	
+>>>>>>> Hyeonseok
 	public ControlView() {
 		dto = Singleton.getInstance().dto;
 		tictoc();
@@ -93,11 +115,17 @@ public class ControlView extends JFrame implements ActionListener {
 		name_Label.setHorizontalAlignment(SwingConstants.CENTER);
 		name_Label.setBounds(122, 7, 119, 36);
 		panel_1.add(name_Label);
+<<<<<<< HEAD
 
 		time_Label = new JLabel((sgt.dto.getR_time() / 60) + " : " + (sgt.dto.getR_time() % 60));
 		time_Label.setFont(new Font("굴림", Font.BOLD, 18));
 		time_Label.setHorizontalAlignment(SwingConstants.CENTER);
 		time_Label.setBounds(130, 49, 93, 20);
+=======
+		
+		time_Label = new JLabel((dto.getR_time()/60) +" : " + (dto.getR_time()%60));
+		time_Label.setBounds(103, 34, 61, 16);
+>>>>>>> Hyeonseok
 		panel_1.add(time_Label);
 
 		use_Label = new JLabel("0원");
@@ -174,6 +202,7 @@ public class ControlView extends JFrame implements ActionListener {
 			this.dispose();
 		} else if (btn == MesBtn) {
 			sgt.serCtrl.Chat_ON();
+<<<<<<< HEAD
 		} else if (btn == BbsBtn) {
 			// memCtrl.draw_bbsList();
 		} else if (btn == oderBtn) {
@@ -207,4 +236,30 @@ public class ControlView extends JFrame implements ActionListener {
 	      };
 	      tm.scheduleAtFixedRate(tmt, 60000, 60000);   
 	   }
+=======
+		}else if(btn == BbsBtn) {
+			//bbsCtrl.draw_bbsList();
+		}else if(btn == oderBtn) {
+			stuffCtrl.draw_orderView();
+		}
+	}
+	
+	public void tictoc() {
+		Timer tm = new Timer(true);
+		TimerTask tmt = new TimerTask() {
+			public void run() {
+				memCtrl.tictoc(sgt.dto);
+				String time = (sgt.dto.getR_time() / 60) +" : " + (sgt.dto.getR_time() % 60);
+				time_Label.setText(time);
+				
+				if(sgt.dto.getR_time() == 0) {
+					memCtrl.ctrlView.dispose();
+					memCtrl.draw_login();
+					sgt.dto = null;
+				}
+			}
+		};
+		tm.scheduleAtFixedRate(tmt, 60000, 60000);	
+	}
+>>>>>>> Hyeonseok
 }

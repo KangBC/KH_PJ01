@@ -113,6 +113,7 @@ public class MemberDao {
 		return r_time;
 	}
 	
+	// timer를 위한 메서드임. POS에서는 다른 쿼리 써야함.
 	// 남은 시간을 업데이트 하기 위한 메서드. 
 	public boolean updateRTime(MemberDto dto) {			
 		int count = 0;

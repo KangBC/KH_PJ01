@@ -18,7 +18,12 @@ public class MemberController {
 	private MemeberServiece memSvc = new MemeberServiece();
 
 	private ChatView chatView = null;
+<<<<<<< HEAD
 	OrderView orderView = null;
+=======
+	private OrderView orderView = null;
+	public ControlView ctrlView = null;
+>>>>>>> Hyeonseok
 
 	public void tictoc(MemberDto dto) {
 		memSvc.updateRTime(dto);
@@ -43,6 +48,18 @@ public class MemberController {
 		new SignUpView();
 	}
 
+<<<<<<< HEAD
+=======
+
+	public void draw_Chat() {
+		if(chatView == null) {
+			chatView = new ChatView();
+		}else {
+			chatView.setVisible(true);
+		}
+	}
+
+>>>>>>> Hyeonseok
 	public void draw_orderView() {
 		if (orderView == null) {
 			orderView = new OrderView();
@@ -54,10 +71,21 @@ public class MemberController {
 
 	public boolean login(String id, String pw) {
 		MemberDto dto = memSvc.login(id, pw);
+<<<<<<< HEAD
 		if (dto != null) {
 			Singleton.getInstance().dto = dto;
 			new ControlView();
 			return true;
+=======
+		if(dto != null) {
+			if(dto.getR_time() >= 1) {
+				Singleton.getInstance().dto = dto;
+				ctrlView = new ControlView();
+				return true;
+			}
+			JOptionPane.showMessageDialog(null, "남은 시간이 없습니다.");
+			return false;
+>>>>>>> Hyeonseok
 		}
 		JOptionPane.showMessageDialog(null, "ID와 비밀번호를 확인해 주세요");
 		return false;

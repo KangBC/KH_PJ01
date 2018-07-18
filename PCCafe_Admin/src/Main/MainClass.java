@@ -9,7 +9,7 @@ import View.ControlView;
 
 public class MainClass {
 	public static ControlView mainView;
-	
+
 	public static void main(String[] args) throws Exception {
 		// Single
 		Singleton single = Singleton.getInstance();

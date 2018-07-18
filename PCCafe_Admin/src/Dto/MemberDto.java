@@ -6,11 +6,12 @@ public class MemberDto {
 	private String pass;		// 회원 password
 	private int r_time;  		// remaining time : 남은 시간
 	
-	public MemberDto() {
 	
+	public MemberDto() {
+		r_time = -1;
 	}
 	
-	public MemberDto(String id, String pass) {
+	public MemberDto(String id, String pass, String name, String phone) {
 		super();
 		this.id = id;
 		this.pass = pass;
