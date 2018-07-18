@@ -82,7 +82,11 @@ public class BbsDetailView extends JFrame {
 		bbsBtn.setBounds(10, 554, 100, 40);		
 		getContentPane().add(bbsBtn);
 		
+<<<<<<< HEAD
 		setBounds(500, 250, 500, 671);
+=======
+		setBounds(550, 200, 500, 700);		
+>>>>>>> KH_MiniProject/hyunwoo
 		setVisible(true);
 		
 		// updatebutton

@@ -94,8 +94,14 @@ public class ManageMemView extends JFrame implements ActionListener {
 		success.setBounds(175, 493, 176, 85);
 		panel.add(success);
 		success.addActionListener(this);
+<<<<<<< HEAD
 
 		setBounds(500, 250, 617, 673);
+=======
+		
+		setVisible(true);
+		setBounds(670, 220, 620, 700);
+>>>>>>> KH_MiniProject/hyunwoo
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 	}

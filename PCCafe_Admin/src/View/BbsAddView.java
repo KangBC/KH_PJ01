@@ -66,7 +66,11 @@ public class BbsAddView extends JFrame implements ActionListener {
 		backBtn.setBounds(14, 559, 100, 40);
 		getContentPane().add(backBtn);
 		
+<<<<<<< HEAD
 		setBounds(500, 250, 500, 673);
+=======
+		setBounds(550, 200, 500, 700);
+>>>>>>> KH_MiniProject/hyunwoo
 		setVisible(true);
 
 		btn.addActionListener(new ActionListener() {

@@ -81,8 +81,12 @@ public class BbsUpateview extends JFrame{
 		bbsBtn.setBounds(10, 570, 100, 40);		
 		getContentPane().add(bbsBtn);
 		
+<<<<<<< HEAD
 		setBounds(500, 250, 500, 673);
+=======
+>>>>>>> KH_MiniProject/hyunwoo
 		setVisible(true);
+		setBounds(550, 200, 500, 700);
 		
 		// updatebutton
 		JButton updateBtn = null;		
