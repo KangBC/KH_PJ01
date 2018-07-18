@@ -3,10 +3,12 @@ package View;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,7 +22,6 @@ import Singleton.Singleton;
 public class ControlView extends JFrame implements ActionListener {
 	private Singleton single = Singleton.getInstance();
 
-	private JPanel contentPane;
 	private JButton bt_1, bt_2, bt_3, bt_4, bt_5, bt_6, bt_7, bt_8, bt_9, bt_10, bt_order, bt_member, bt_bbs;
 	private JLabel lb_pc_1, lb_pc_2, lb_pc_3, lb_pc_4, lb_pc_5, lb_pc_6, lb_pc_7, lb_pc_8, lb_pc_9, lb_pc_10;
 	private JLabel lb_ID_1, lb_ID_2, lb_ID_3, lb_ID_4, lb_ID_5, lb_ID_6, lb_ID_7, lb_ID_8, lb_ID_9, lb_ID_10;
@@ -40,8 +41,17 @@ public class ControlView extends JFrame implements ActionListener {
 		panelList = new ArrayList<>();
 		idList = new ArrayList<>();
 		timeList = new ArrayList<>();
-
-		contentPane = new JPanel();// 밑 도화지
+		
+		
+		ImageIcon icon = new ImageIcon("backGround.jpg");
+		JPanel contentPane = new JPanel() {
+			public void paintComponent(Graphics g) {
+				g.drawImage(icon.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
+		contentPane.setLayout(null);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setBounds(0, 0, 1920, 1080);
@@ -49,30 +59,35 @@ public class ControlView extends JFrame implements ActionListener {
 		setUndecorated(true); // 툴바제거
 		setVisible(true); // 보여주기
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
-
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.BLACK);
-		panel.setBounds(0, 0, 1920, 1080);
-		contentPane.add(panel);
-		panel.setLayout(null);
 
 		bt_order = new JButton("주문확인");
+		bt_order.setBorderPainted(true);
+		bt_order.setContentAreaFilled(false);
+		bt_order.setFocusable(false);
+		bt_order.setForeground(Color.WHITE);
 		bt_order.setFont(new Font("굴림", Font.PLAIN, 18));
-		bt_order.setBounds(98, 41, 425, 77);
-		panel.add(bt_order);
+		bt_order.setBounds(1287, 41, 160, 50);
+		contentPane.add(bt_order);
 		bt_order.addActionListener(this);
 
 		bt_member = new JButton("회원정보");
+		bt_member.setBorderPainted(true);
+		bt_member.setContentAreaFilled(false);
+		bt_member.setFocusable(false);
+		bt_member.setForeground(Color.WHITE);
 		bt_member.setFont(new Font("굴림", Font.PLAIN, 18));
-		bt_member.setBounds(671, 41, 500, 77);
-		panel.add(bt_member);
+		bt_member.setBounds(1481, 41, 160, 50);
+		contentPane.add(bt_member);
 		bt_member.addActionListener(this);
 
 		bt_bbs = new JButton("게시판");
+		bt_bbs.setBorderPainted(true);
+		bt_bbs.setContentAreaFilled(false);
+		bt_bbs.setFocusable(false);
+		bt_bbs.setForeground(Color.WHITE);
 		bt_bbs.setFont(new Font("굴림", Font.PLAIN, 18));
-		bt_bbs.setBounds(1351, 41, 425, 77);
-		panel.add(bt_bbs);
+		bt_bbs.setBounds(1677, 41, 160, 50);
+		contentPane.add(bt_bbs);
 		bt_bbs.addActionListener(this);
 
 		// 선언부
@@ -166,16 +181,16 @@ public class ControlView extends JFrame implements ActionListener {
 		timeList.add(lb_TIME_10);
 
 		// 위치잡아주기
-		pl_1.setBounds(183, 260, 425, 170);
-		pl_2.setBounds(701, 260, 425, 170);
-		pl_3.setBounds(1256, 260, 425, 170);
-		pl_4.setBounds(14, 555, 425, 170);
-		pl_5.setBounds(490, 555, 425, 170);
-		pl_6.setBounds(980, 555, 425, 170);
-		pl_7.setBounds(1459, 555, 425, 170);
-		pl_8.setBounds(143, 856, 425, 170);
-		pl_9.setBounds(663, 856, 425, 170);
-		pl_10.setBounds(1182, 856, 425, 170);
+		pl_1.setBounds(255, 225, 425, 170);
+		pl_2.setBounds(739, 225, 425, 170);
+		pl_3.setBounds(1216, 225, 425, 170);
+		pl_4.setBounds(97, 469, 380, 170);
+		pl_5.setBounds(536, 469, 380, 170);
+		pl_6.setBounds(968, 469, 380, 170);
+		pl_7.setBounds(1401, 469, 380, 170);
+		pl_8.setBounds(255, 704, 425, 170);
+		pl_9.setBounds(739, 704, 425, 170);
+		pl_10.setBounds(1216, 704, 425, 170);
 
 		bt_1.setBounds(0, 0, 212, 168);
 		bt_2.setBounds(0, 0, 212, 168);
@@ -210,25 +225,26 @@ public class ControlView extends JFrame implements ActionListener {
 		lb_TIME_10.setBounds(36, 107, 147, 31);
 
 		// 바탕패널에 추가
-		panel.add(pl_1);
-		panel.add(pl_2);
-		panel.add(pl_3);
-		panel.add(pl_4);
-		panel.add(pl_5);
-		panel.add(pl_6);
-		panel.add(pl_7);
-		panel.add(pl_8);
-		panel.add(pl_9);
-		panel.add(pl_10);
+		contentPane.add(pl_1);
+		contentPane.add(pl_2);
+		contentPane.add(pl_3);
+		contentPane.add(pl_4);
+		contentPane.add(pl_5);
+		contentPane.add(pl_6);
+		contentPane.add(pl_7);
+		contentPane.add(pl_8);
+		contentPane.add(pl_9);
+		contentPane.add(pl_10);
 
 		for (int i = 0; i < single.serCtrl.getSeatList().length; i++) {
 			String temp[] = single.serCtrl.getSeatList();
 			String idTemp[] = single.serCtrl.getLoginId();
 			if (temp[i].equals("1")) {
+				
 				// Panel
-				panelList.get(i).setBackground(Color.RED);
+				panelList.get(i).setBackground(Color.RED); // user
 				panelList.get(i).setLayout(null);
-				panel.add(panelList.get(i));
+				contentPane.add(panelList.get(i));
 				// Button
 				buttonList.get(i).setEnabled(true);
 				buttonList.get(i).setOpaque(false);
@@ -246,9 +262,9 @@ public class ControlView extends JFrame implements ActionListener {
 				timeList.get(i).setFont(new Font("굴림", Font.BOLD, 18));
 			} else {
 				// Panel
-				panelList.get(i).setBackground(Color.BLUE);
+				panelList.get(i).setBackground(new Color(158, 158, 158)); // admin(RGP)
 				panelList.get(i).setLayout(null);
-				panel.add(panelList.get(i));
+				contentPane.add(panelList.get(i));
 				// Button
 				buttonList.get(i).setEnabled(false);
 				buttonList.get(i).setOpaque(false);
@@ -411,33 +427,43 @@ public class ControlView extends JFrame implements ActionListener {
 		} else if (obj == bt_1) {
 			selectSeat = 0;
 			single.serCtrl.chatView(selectSeat);
+			System.out.println("test" + selectSeat);
 		} else if (obj == bt_2) {
 			selectSeat = 1;
 			single.serCtrl.chatView(selectSeat);
+			System.out.println("test" + selectSeat);
 		} else if (obj == bt_3) {
 			selectSeat = 2;
 			single.serCtrl.chatView(selectSeat);
+			System.out.println("test" + selectSeat);
 		} else if (obj == bt_4) {
 			selectSeat = 3;
 			single.serCtrl.chatView(selectSeat);
+			System.out.println("test" + selectSeat);
 		} else if (obj == bt_5) {
 			selectSeat = 4;
 			single.serCtrl.chatView(selectSeat);
+			System.out.println("test" + selectSeat);
 		} else if (obj == bt_6) {
 			selectSeat = 5;
 			single.serCtrl.chatView(selectSeat);
+			System.out.println("test" + selectSeat);
 		} else if (obj == bt_7) {
 			selectSeat = 6;
 			single.serCtrl.chatView(selectSeat);
+			System.out.println("test" + selectSeat);
 		} else if (obj == bt_8) {
 			selectSeat = 7;
 			single.serCtrl.chatView(selectSeat);
+			System.out.println("test" + selectSeat);
 		} else if (obj == bt_9) {
 			selectSeat = 8;
 			single.serCtrl.chatView(selectSeat);
+			System.out.println("test" + selectSeat);
 		} else if (obj == bt_10) {
 			selectSeat = 9;
 			single.serCtrl.chatView(selectSeat);
+			System.out.println("test" + selectSeat);
 		}
 	}
 }

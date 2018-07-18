@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -18,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -46,8 +48,10 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 	List<BbsDto> list;
 
 	public BbsListView(List<BbsDto> list) {
-		
 		super("게시판");
+		
+		ImageIcon icon = new ImageIcon("Search.png");
+		
 
 		this.list = list;
 
@@ -95,7 +99,9 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 		jTable.setPreferredScrollableViewportSize(new Dimension(400, 200));
 
 		jTable.addMouseListener(this);
-		jTable.setFont(new Font(null, 0, 18)); // 글씨크기
+		jTable.setRowHeight(25);//////////// 테이블 폭 간격 설정
+		jTable.setBackground(Color.white);/////////////////  테이블 색상
+		jTable.setFont(new Font("굴림", Font.BOLD, 20));/////////////// 테이블 글씨
 
 		jTable.getColumnModel().getColumn(0).setMaxWidth(100);
 		jTable.getColumnModel().getColumn(1).setMaxWidth(3000);
@@ -113,39 +119,44 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 		jTable.getColumn("조회수").setCellRenderer(celAlignCenter);
 		jTable.getColumn("날짜").setCellRenderer(celAlignCenter);
 
-		// List 전체틀
+		// List 전체틀 및 색상
 		jScrPane = new JScrollPane(jTable);
-		jScrPane.setBounds(0, 40, 1500, 400);
+		jScrPane.setBounds(0, 40, 1700, 400);
 		getContentPane().add(jScrPane);
+		jScrPane.getViewport().setBackground(Color.white); // List 색상
+
+		
 
 		// 글쓰기
-		writeBtn = new JButton("글쓰기");
-		writeBtn.setBounds(10, 500, 150, 100);
+		writeBtn = new JButton("글쓰기"); 
+		writeBtn.setBounds(50, 500, 200, 100); 
 		writeBtn.setFont(new Font("굴림", Font.PLAIN, 30));
 		getContentPane().add(writeBtn);
 		writeBtn.addActionListener(this);
 
 		// 검색
 		selectField = new JTextField();
-		selectField.setBounds(482, 500, 800, 99);
+		selectField.setBounds(550, 500, 800, 100);
 		getContentPane().add(selectField);
 
-		selectBtn = new JButton("검색");
-		selectBtn.setBounds(1299, 500, 150, 101);
-		selectBtn.setFont(new Font("굴림", Font.PLAIN, 30));
+		selectBtn = new JButton(icon);
+		selectBtn.setBounds(1400, 500, 200, 100);
+		selectBtn.setBorderPainted(true);
+		selectBtn.setContentAreaFilled(false);
+		selectBtn.setFocusable(false);
+		getContentPane().add(selectBtn); 
+		getContentPane().setBackground(new Color(238,238,238));
 		selectBtn.addActionListener(this);
-		getContentPane().add(selectBtn);
-		getContentPane().setBackground(Color.GRAY);
 
 		// Choice(AWT) -> JComboBox(swing)
 		String[] selects = new String[] { "제목", "작성자" };
 		choiceList = new JComboBox<>(selects);
-		choiceList.setBounds(180, 500, 290, 100);
+		choiceList.setBounds(350, 500, 150, 100);
 		choiceList.setFont(new Font("굴림", Font.PLAIN, 30));
 		add(choiceList);
-
+		
 		setVisible(true);
-		setBounds(100, 100, 1500, 700);
+		setBounds(90, 200, 1700, 700); //전체틀
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE); 
 
 	}
