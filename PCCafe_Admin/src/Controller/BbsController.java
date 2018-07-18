@@ -22,13 +22,16 @@ public class BbsController {
 	BbsServiece bbsService = new BbsServiece();
 
 	// DB에 저장된 게시글 목록을 전부 가져온다.
+	public List<BbsDto> getBbsList() {
+		return bbsService.getBbsList();
+	}
+	
 	public void drawBbsList() {
 		List<BbsDto> list = bbsService.getBbsList();
 		if (bbsLV == null) {
 			bbsLV = new BbsListView(list);
 		} else {
-			bbsLV.dispose();
-			bbsLV = new BbsListView(list);
+			bbsLV.repaintBBS();
 		}
 	}
 

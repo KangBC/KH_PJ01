@@ -21,7 +21,7 @@ public class BbsAddView extends JFrame implements ActionListener {
 	JTextField writerText;
 	JTextField titleText;
 	JTextArea contentArea;
-	JButton btn;
+	JButton writeBtn;
 	JButton backBtn;
 
 	Singleton sc = Singleton.getInstance();
@@ -59,13 +59,13 @@ public class BbsAddView extends JFrame implements ActionListener {
 		scrPane.setPreferredSize(new Dimension(200, 120));
 		getContentPane().add(scrPane);
 
-		btn = new JButton("글올리기");
-		btn.setBorderPainted(true);
-		btn.setContentAreaFilled(false);
-		btn.setFocusable(false);
-		btn.setForeground(Color.black);
-		btn.setBounds(370, 559, 100, 40);
-		getContentPane().add(btn);
+		writeBtn = new JButton("글올리기");
+		writeBtn.setBorderPainted(true);
+		writeBtn.setContentAreaFilled(false);
+		writeBtn.setFocusable(false);
+		writeBtn.setForeground(Color.black);
+		writeBtn.setBounds(370, 559, 100, 40);
+		getContentPane().add(writeBtn);
 
 		backBtn = new JButton("목록");
 		backBtn.setBorderPainted(true);
@@ -78,44 +78,30 @@ public class BbsAddView extends JFrame implements ActionListener {
 		setBounds(550, 200, 500, 700);
 		setVisible(true);
 
-		btn.addActionListener(new ActionListener() {
-
-			// 글올리기
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("btn.addActionListener");
-
-				// String id = sc.memCtrl.getLoginId();
-				String id = "관리자";
-				String title = titleText.getText();
-				String content = contentArea.getText();
-
-				// BbsAddView 가 TITLE,CONTENT 가 공백일때
-				BbsDto dto = new BbsDto(0, 0, title, content);
-				if (title.equals("") == true || content.equals("") == true) {
-					JOptionPane.showMessageDialog(null, "제목,내용을 입력확인해주세요");
-				} else {
-					sc.bbsCtrl.bbsWriteAf(dto);
-				}
-				dispose();
-			}
-
-		});
-
-		// 목록
-		backBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				sc.bbsCtrl.drawBbsList();
-				dispose();
-			}
-		});
+		writeBtn.addActionListener(this);
+		backBtn.addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		JButton btn = (JButton)e.getSource();
+		
+		if(btn == writeBtn) {
+			String title = titleText.getText();
+			String content = contentArea.getText();
 
+			// BbsAddView 가 TITLE,CONTENT 가 공백일때
+			BbsDto dto = new BbsDto(1, 0, title, content);
+			if (title.equals("") == true || content.equals("") == true) {
+				JOptionPane.showMessageDialog(null, "제목,내용을 입력확인해주세요");
+			} else {
+				sc.bbsCtrl.bbsWriteAf(dto);
+			}
+			dispose();
+		}else if(btn == backBtn) {
+			sc.bbsCtrl.drawBbsList();
+			dispose();
+		}
 	}
 
 }

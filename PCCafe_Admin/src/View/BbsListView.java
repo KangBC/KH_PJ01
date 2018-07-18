@@ -49,7 +49,6 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 		super("게시판");
 		
 		ImageIcon icon = new ImageIcon("Search.png");
-		
 
 		this.list = list;
 
@@ -77,7 +76,7 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 			BbsDto dto = list.get(i);
 			rowData[i][0] = n;
 			rowData[i][1] = dto.getTitle();
-			rowData[i][2] = dto.getUserID(); //  user_id 작성자로 바꿔야함
+			rowData[i][2] = dto.getUserID();
 			rowData[i][3] = dto.getReadCount();
 			rowData[i][4] = dto.getCreatedDate();
 			n++;
@@ -120,10 +119,8 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 		// List 전체틀 및 색상
 		jScrPane = new JScrollPane(jTable);
 		jScrPane.setBounds(0, 40, 1700, 400);
-		getContentPane().add(jScrPane);
 		jScrPane.getViewport().setBackground(Color.white); // List 색상
-
-		
+		getContentPane().add(jScrPane);
 
 		// 글쓰기
 		writeBtn = new JButton("글쓰기"); 
@@ -218,5 +215,61 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 
 			this.dispose();
 		}
+	}
+	
+	public void repaintBBS() {
+		list = sc.bbsCtrl.getBbsList();
+
+		int len = list.size();
+		int n = 1;
+
+		rowData = new Object[len][5];
+
+		for (int i = 0; i < len; i++) {
+			BbsDto dto = list.get(i);
+			rowData[i][0] = n;
+			rowData[i][1] = dto.getTitle();
+			rowData[i][2] = dto.getUserID();
+			rowData[i][3] = dto.getReadCount();
+			rowData[i][4] = dto.getCreatedDate();
+			n++;
+
+		}
+
+		model = new DefaultTableModel(columnNames, 0);
+
+		model.setDataVector(rowData, columnNames);
+
+		jTable = new JTable(model) {
+			// 테이블 text 수정방지
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		jTable.setPreferredScrollableViewportSize(new Dimension(400, 200));
+
+		jTable.addMouseListener(this);
+		jTable.setRowHeight(25);//////////// 테이블 폭 간격 설정
+		jTable.setBackground(Color.white);/////////////////  테이블 색상
+		jTable.setFont(new Font("굴림", Font.BOLD, 20));/////////////// 테이블 글씨
+
+		jTable.getColumnModel().getColumn(0).setMaxWidth(100);
+		jTable.getColumnModel().getColumn(1).setMaxWidth(3000);
+		jTable.getColumnModel().getColumn(2).setMaxWidth(200);
+		jTable.getColumnModel().getColumn(3).setMaxWidth(100);
+		jTable.getColumnModel().getColumn(4).setMaxWidth(1000);
+
+		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
+		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
+
+		// List 내용 가운데 정렬
+		jTable.getColumn("번호").setCellRenderer(celAlignCenter);
+		jTable.getColumn("제목").setCellRenderer(celAlignCenter);
+		jTable.getColumn("작성자").setCellRenderer(celAlignCenter);
+		jTable.getColumn("조회수").setCellRenderer(celAlignCenter);
+		jTable.getColumn("날짜").setCellRenderer(celAlignCenter);
+		
+		jScrPane.setViewportView(jTable);
+		jScrPane.getViewport().setBackground(Color.white);
 	}
 }
