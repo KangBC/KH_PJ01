@@ -211,7 +211,7 @@ public class OrderView extends JFrame implements ActionListener,MouseListener {
 			String str = "";
 			int pay = 0;
 			for(int i = 0; i< stuffObj.length; i++) {
-				str = str + nameS.get(i) + " " + countS.get(i) + " 개 : \n";
+				str = str + nameS.get(i) + " " + countS.get(i) + " 개 \n";
 				pay = pay + priceS.get(i);
 			}
 			str = str + "총액 : " + pay;
