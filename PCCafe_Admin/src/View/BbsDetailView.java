@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -78,20 +79,25 @@ public class BbsDetailView extends JFrame {
 		scrPane.setBounds(10, 160, 460, 364);
 		getContentPane().add(scrPane);		
 		
+		//Button
 		JButton bbsBtn = new JButton("게시판목록");
+		bbsBtn.setBorderPainted(true);
+		bbsBtn.setContentAreaFilled(false);
+		bbsBtn.setFocusable(false);
+		bbsBtn.setForeground(Color.black);
 		bbsBtn.setBounds(10, 554, 100, 40);		
 		getContentPane().add(bbsBtn);
 		
-<<<<<<< HEAD
-		setBounds(500, 250, 500, 671);
-=======
 		setBounds(550, 200, 500, 700);		
->>>>>>> KH_MiniProject/hyunwoo
 		setVisible(true);
 		
 		// updatebutton
 		JButton updateBtn = null;		
 		updateBtn = new JButton("수정");
+		updateBtn.setBorderPainted(true);
+		updateBtn.setContentAreaFilled(false);
+		updateBtn.setFocusable(false);
+		updateBtn.setForeground(Color.black);
 		updateBtn.setBounds(183, 554, 100, 40);
 		getContentPane().add(updateBtn);
 		
@@ -113,6 +119,10 @@ public class BbsDetailView extends JFrame {
 		// deletebutton
 		JButton deleteBtn = null;		
 		deleteBtn = new JButton("삭제");
+		deleteBtn.setBorderPainted(true);
+		deleteBtn.setContentAreaFilled(false);
+		deleteBtn.setFocusable(false);
+		deleteBtn.setForeground(Color.black);
 		deleteBtn.setBounds(370, 554, 100, 40);
 		getContentPane().add(deleteBtn);
 		

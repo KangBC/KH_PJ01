@@ -59,30 +59,15 @@ public class ControlView extends JFrame implements ActionListener {
 		setUndecorated(true); // 툴바제거
 		setVisible(true); // 보여주기
 		setContentPane(contentPane);
-<<<<<<< HEAD
-		contentPane.setLayout(null);
-
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.BLACK);
-		panel.setBounds(-5, 0, 1920, 1087);
-		contentPane.add(panel);
-		panel.setLayout(null);
-=======
->>>>>>> KH_MiniProject/hyunwoo
 
 		bt_order = new JButton("주문확인");
 		bt_order.setBorderPainted(true);
 		bt_order.setContentAreaFilled(false);
 		bt_order.setFocusable(false);
 		bt_order.setForeground(Color.WHITE);
-		bt_order.setFont(new Font("굴림", Font.PLAIN, 18));
-<<<<<<< HEAD
-		bt_order.setBounds(964, 41, 260, 80);
-		panel.add(bt_order);
-=======
+		bt_order.setFont(new Font("굴림", Font.PLAIN, 25));
 		bt_order.setBounds(1287, 41, 160, 50);
 		contentPane.add(bt_order);
->>>>>>> KH_MiniProject/hyunwoo
 		bt_order.addActionListener(this);
 
 		bt_member = new JButton("회원정보");
@@ -90,14 +75,9 @@ public class ControlView extends JFrame implements ActionListener {
 		bt_member.setContentAreaFilled(false);
 		bt_member.setFocusable(false);
 		bt_member.setForeground(Color.WHITE);
-		bt_member.setFont(new Font("굴림", Font.PLAIN, 18));
-<<<<<<< HEAD
-		bt_member.setBounds(1269, 41, 260, 80);
-		panel.add(bt_member);
-=======
+		bt_member.setFont(new Font("굴림", Font.PLAIN, 25));
 		bt_member.setBounds(1481, 41, 160, 50);
 		contentPane.add(bt_member);
->>>>>>> KH_MiniProject/hyunwoo
 		bt_member.addActionListener(this);
 
 		bt_bbs = new JButton("게시판");
@@ -105,14 +85,9 @@ public class ControlView extends JFrame implements ActionListener {
 		bt_bbs.setContentAreaFilled(false);
 		bt_bbs.setFocusable(false);
 		bt_bbs.setForeground(Color.WHITE);
-		bt_bbs.setFont(new Font("굴림", Font.PLAIN, 18));
-<<<<<<< HEAD
-		bt_bbs.setBounds(1579, 41, 260, 80);
-		panel.add(bt_bbs);
-=======
+		bt_bbs.setFont(new Font("굴림", Font.PLAIN, 25));
 		bt_bbs.setBounds(1677, 41, 160, 50);
 		contentPane.add(bt_bbs);
->>>>>>> KH_MiniProject/hyunwoo
 		bt_bbs.addActionListener(this);
 
 		// 선언부
@@ -206,18 +181,6 @@ public class ControlView extends JFrame implements ActionListener {
 		timeList.add(lb_TIME_10);
 
 		// 위치잡아주기
-<<<<<<< HEAD
-		pl_1.setBounds(197, 228, 425, 170);
-		pl_2.setBounds(681, 228, 425, 170);
-		pl_3.setBounds(1158, 228, 425, 170);
-		pl_4.setBounds(97, 477, 425, 170);
-		pl_5.setBounds(536, 477, 425, 170);
-		pl_6.setBounds(975, 477, 425, 170);
-		pl_7.setBounds(1414, 477, 425, 170);
-		pl_8.setBounds(197, 707, 425, 170);
-		pl_9.setBounds(681, 707, 425, 170);
-		pl_10.setBounds(1158, 707, 425, 170);
-=======
 		pl_1.setBounds(255, 225, 425, 170);
 		pl_2.setBounds(739, 225, 425, 170);
 		pl_3.setBounds(1216, 225, 425, 170);
@@ -228,7 +191,6 @@ public class ControlView extends JFrame implements ActionListener {
 		pl_8.setBounds(255, 704, 425, 170);
 		pl_9.setBounds(739, 704, 425, 170);
 		pl_10.setBounds(1216, 704, 425, 170);
->>>>>>> KH_MiniProject/hyunwoo
 
 		bt_1.setBounds(0, 0, 212, 168);
 		bt_2.setBounds(0, 0, 212, 168);

@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -78,19 +79,23 @@ public class BbsUpateview extends JFrame{
 		getContentPane().add(scrPane);		
 		
 		JButton bbsBtn = new JButton("게시판목록");
+		bbsBtn.setBorderPainted(true);
+		bbsBtn.setContentAreaFilled(false);
+		bbsBtn.setFocusable(false);
+		bbsBtn.setForeground(Color.black);
 		bbsBtn.setBounds(10, 570, 100, 40);		
 		getContentPane().add(bbsBtn);
 		
-<<<<<<< HEAD
-		setBounds(500, 250, 500, 673);
-=======
->>>>>>> KH_MiniProject/hyunwoo
 		setVisible(true);
 		setBounds(550, 200, 500, 700);
 		
 		// updatebutton
 		JButton updateBtn = null;		
 		updateBtn = new JButton("수정완료");
+		updateBtn.setBorderPainted(true);
+		updateBtn.setContentAreaFilled(false);
+		updateBtn.setFocusable(false);
+		updateBtn.setForeground(Color.black);
 		updateBtn.setBounds(370, 570, 100, 40);
 		getContentPane().add(updateBtn);
 		updateBtn.addActionListener(new ActionListener() {

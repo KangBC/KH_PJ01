@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -59,18 +60,22 @@ public class BbsAddView extends JFrame implements ActionListener {
 		getContentPane().add(scrPane);
 
 		btn = new JButton("글올리기");
+		btn.setBorderPainted(true);
+		btn.setContentAreaFilled(false);
+		btn.setFocusable(false);
+		btn.setForeground(Color.black);
 		btn.setBounds(370, 559, 100, 40);
 		getContentPane().add(btn);
 
 		backBtn = new JButton("목록");
+		backBtn.setBorderPainted(true);
+		backBtn.setContentAreaFilled(false);
+		backBtn.setFocusable(false);
+		backBtn.setForeground(Color.black);
 		backBtn.setBounds(14, 559, 100, 40);
 		getContentPane().add(backBtn);
 		
-<<<<<<< HEAD
-		setBounds(500, 250, 500, 673);
-=======
 		setBounds(550, 200, 500, 700);
->>>>>>> KH_MiniProject/hyunwoo
 		setVisible(true);
 
 		btn.addActionListener(new ActionListener() {

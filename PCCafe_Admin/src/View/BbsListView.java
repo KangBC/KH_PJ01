@@ -124,10 +124,7 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 		jScrPane.setBounds(0, 40, 1700, 400);
 		getContentPane().add(jScrPane);
 		jScrPane.getViewport().setBackground(Color.white); // List 색상
-<<<<<<< HEAD
-=======
 
->>>>>>> KH_MiniProject/hyunwoo
 		
 
 		// 글쓰기
@@ -144,17 +141,12 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 
 		selectBtn = new JButton(icon);
 		selectBtn.setBounds(1400, 500, 200, 100);
-		selectBtn.setBorderPainted(true);
+		selectBtn.setBorderPainted(false);
 		selectBtn.setContentAreaFilled(false);
 		selectBtn.setFocusable(false);
 		getContentPane().add(selectBtn); 
 		getContentPane().setBackground(new Color(238,238,238));
 		selectBtn.addActionListener(this);
-<<<<<<< HEAD
-		getContentPane().add(selectBtn); 
-		getContentPane().setBackground(Color.GRAY);//////////////// 색상
-=======
->>>>>>> KH_MiniProject/hyunwoo
 
 		// Choice(AWT) -> JComboBox(swing)
 		String[] selects = new String[] { "제목", "작성자" };
@@ -164,11 +156,7 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 		add(choiceList);
 		
 		setVisible(true);
-<<<<<<< HEAD
-		setBounds(225, 250, 1500, 700);
-=======
 		setBounds(90, 200, 1700, 700); //전체틀
->>>>>>> KH_MiniProject/hyunwoo
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE); 
 
 	}
