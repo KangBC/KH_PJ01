@@ -11,18 +11,18 @@ import View.LoginView;
 import View.SignUpView;
 
 public class MemberController {
-	
+
 	private MemeberServiece memSvc = new MemeberServiece();
-	
+
 	private ChatView chatView = null;
 
 	public ControlView ctrlView = null;
-	
+
 	public void tictoc(MemberDto dto) {
 		memSvc.updateRTime(dto);
 		Singleton.getInstance().dto.setR_time(memSvc.getRTime(dto));
 	}
-	
+
 	public void draw_login() {
 		new LoginView();
 	}
@@ -30,7 +30,8 @@ public class MemberController {
 	public void draw_Signup() {
 		new SignUpView();
 	}
-	
+
+
 	public void draw_Chat() {
 		if(chatView == null) {
 			chatView = new ChatView();
@@ -38,6 +39,16 @@ public class MemberController {
 			chatView.setVisible(true);
 		}
 	}
+
+	public void draw_orderView() {
+		if(orderView == null) {
+			orderView = new OrderView();
+		}else {
+			orderView.dispose();
+			orderView = new OrderView();
+		}
+	}
+
 	public boolean login(String id, String pw) {
 		MemberDto dto = memSvc.login(id, pw);
 		if(dto != null) {
@@ -52,7 +63,7 @@ public class MemberController {
 		JOptionPane.showMessageDialog(null, "ID와 비밀번호를 확인해 주세요");
 		return false;
 	}
-	
+
 	public boolean signUp(MemberDto dto) {
 		if(memSvc.signUp(dto)) {
 			new LoginView();
@@ -62,7 +73,7 @@ public class MemberController {
 			return false;
 		}
 	}
-	
+
 	public boolean checkId(String id) {
 		return memSvc.checkId(id);
 	}

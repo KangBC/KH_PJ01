@@ -2,16 +2,9 @@ package Controller;
 
 import java.awt.EventQueue;
 import java.net.Socket;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.ArrayList;
 
-import DB.DBClose;
-import DB.DBConnection;
-import Dto.MemberDto;
 import View.ChatView;
-import View.UserDetailView;
 
 public class serverController {
 
@@ -22,6 +15,8 @@ public class serverController {
 	// Id List
 	private String loginId[] = new String[10];
 
+	private ChatView chatList[] = new ChatView[10];
+
 	private final int SERVER_PORT = 9000;
 
 	// Constructor
@@ -31,6 +26,7 @@ public class serverController {
 			seatList[i] = "0";
 			sockList[i] = null;
 			loginId[i] = null;
+			chatList[i] = null;
 		}
 	}
 
@@ -63,6 +59,14 @@ public class serverController {
 		this.loginId = loginId;
 	}
 
+	public ChatView[] getChatList() {
+		return chatList;
+	}
+
+	public void setChatList(ChatView[] chatList) {
+		this.chatList = chatList;
+	}
+
 	// Set Random SeatNum
 	public int randomSeatNum(Socket socket) {
 		int temp;
@@ -78,50 +82,25 @@ public class serverController {
 		return temp;
 	}
 
-	// detail View
-	public void detailView(int seatNum) {
-		Connection conn = null;
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
-
-		String userId = loginId[seatNum];
-		System.out.println("id : " + userId);
-		String sql = " SELECT MEMBER_ID, MEMBER_MINUTE FROM PC_MEMBER WHERE MEMBER_ID = ?";
-		MemberDto dto = new MemberDto();
-		try {
-			conn = DBConnection.makeConnection();
-			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, userId);
-			rs = psmt.executeQuery();
-
-			if (rs.next()) {
-				String id = rs.getString(1);
-				int time = rs.getInt(2);
-				dto = new MemberDto(id, time);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			DBClose.close(psmt, conn, rs);
-		}
-
-		UserDetailView frame = new UserDetailView(seatNum, dto);
-		frame.setUndecorated(true);
-		frame.setVisible(true);
-	}
-
-	// ChatView
-	public void chatView(Socket socket) {
+	// chatView
+	public void chatView(int seatNum) {
+		Socket temp[] = sockList;
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ChatView frame = new ChatView(socket);
+					ChatView frame = new ChatView(temp[seatNum]);
 					frame.setUndecorated(true);
 					frame.setVisible(true);
+					chatList[seatNum] = frame;
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+	}
+	
+	// ShowView
+	public void showView(int num) {
+		chatList[num].setVisible(true);
 	}
 }
