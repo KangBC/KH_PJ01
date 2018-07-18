@@ -29,10 +29,11 @@ public class BbsDao {
 	}
 
 	// 뿌려줄 때 사용할 list를 얻어옴.
+	// TODO:
 	public List<BbsDto> getList() {
 		dtoList = new ArrayList<>();
-		sql = " SELECT SEQ_BBS, SEQ_MEMBER, BBS_DEL, BBS_ADMIN, BBS_TITLE, BBS_CONTENT, BBS_COUNT, BBS_DATE "
-				+ " FROM BBS " + " WHERE BBS_DEL = 0" + " ORDER BY BBS_DATE DESC ";
+		sql = " SELECT SEQ_BBS, M.MEMBER_ID, BBS_DEL, BBS_ADMIN, BBS_TITLE, BBS_CONTENT, BBS_COUNT, BBS_DATE "
+				+ " FROM BBS B, PC_MEMBER M " + " WHERE B.SEQ_MEMBER = M.SEQ_MEMBER AND BBS_DEL = 0" + " ORDER BY BBS_ADMIN, BBS_DATE DESC ";
 
 		try {
 			conn = DBConnection.makeConnection();
@@ -41,7 +42,7 @@ public class BbsDao {
 
 			while (rs.next()) {
 
-				dto = new BbsDto(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5),
+				dto = new BbsDto(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5),
 						rs.getString(6), rs.getInt(7), rs.getString(8));
 				dtoList.add(dto);
 			}
@@ -58,8 +59,8 @@ public class BbsDao {
 
 	// Detail이나 Update View를 위한 메서드
 	public BbsDto getPost(int seq) {
-		sql = " SELECT SEQ_BBS, SEQ_MEMBER, BBS_DEL, BBS_ADMIN, BBS_TITLE, BBS_CONTENT, BBS_COUNT, BBS_DATE "
-				+ " FROM BBS " + " WHERE BBS_DEL = 0 AND SEQ_BBS = " + seq;
+		sql = " SELECT SEQ_BBS, M.MEMBER_ID, BBS_DEL, BBS_ADMIN, BBS_TITLE, BBS_CONTENT, BBS_COUNT, BBS_DATE "
+				+ " FROM BBS B, PC_MEMBER M " + " WHERE B.SEQ_MEMBER = M.SEQ_MEMBER " + " AND BBS_DEL = 0 AND SEQ_BBS = " + seq;
 
 		try {
 			conn = DBConnection.makeConnection();
@@ -67,7 +68,7 @@ public class BbsDao {
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {
-				dto = new BbsDto(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5),
+				dto = new BbsDto(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5),
 						rs.getString(6), rs.getInt(7), rs.getString(8));
 
 			}
@@ -87,16 +88,16 @@ public class BbsDao {
 		int count = 0;
 
 		sql = " INSERT INTO BBS(SEQ_BBS, SEQ_MEMBER, BBS_DEL, BBS_ADMIN, BBS_TITLE, BBS_CONTENT, BBS_COUNT, BBS_DATE) "
-				+ " VALUES( SEQ_BBS.NEXTVAL, 1, 0 , ?, ?, ?, 0, SYSDATE) ";
+				+ " VALUES( SEQ_BBS.NEXTVAL, ?, 0 , ?, ?, ?, 0, SYSDATE) ";
 
 		try {
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
 
-			// psmt.setInt(1, dto.getUserNum());
-			psmt.setInt(1, dto.getNotice());
-			psmt.setString(2, dto.getTitle());
-			psmt.setString(3, dto.getContent());
+			psmt.setInt(1, dto.getUserNum());
+			psmt.setInt(2, dto.getNotice());
+			psmt.setString(3, dto.getTitle());
+			psmt.setString(4, dto.getContent());
 
 			count = psmt.executeUpdate();
 		} catch (SQLException e) {
@@ -114,7 +115,6 @@ public class BbsDao {
 	public boolean updatePost(int seq, String title, String content) {
 		int count = 0;
 
-		// 기존코드 sql = "UPDATE INTO BBS_ SET TITLE = ?, CONTENT = ? WHERE SEQ_BBS = ?";
 		sql = "UPDATE BBS SET BBS_TITLE = ?, BBS_CONTENT = ? WHERE SEQ_BBS = ?";
 
 		try {
@@ -141,9 +141,6 @@ public class BbsDao {
 	// 삭제한 글을 DB에서 처리하기 위한 메서드
 	public boolean deletePost(int seq) {
 		int count = 0;
-		// 빛찬이한테 확인 : 컬럼이름이 달라서 고침
-		// 기존코드 sql = "UPDATE BBS SET TITLE = '------삭제된 글입니다-----', CONTENT = '', DEL =
-		// 1 WHERE BBS_SEQ = " + seq;
 		sql = "UPDATE BBS SET BBS_TITLE = '------삭제된 글입니다-----', BBS_CONTENT = '', BBS_DEL = 1 WHERE SEQ_BBS = " + seq;
 
 		try {
@@ -182,8 +179,9 @@ public class BbsDao {
 	// 검색
 	public List<BbsDto> serchPost(String column, String contain) {
 		dtoList = new ArrayList<>();
-		sql = " SELECT SEQ_BBS, SEQ_MEMBER, BBS_DEL, BBS_ADMIN, BBS_TITLE, BBS_CONTENT, BBS_COUNT, BBS_DATE "
-				+ " FROM BBS " + " WHERE BBS_DEL = 0 AND " + column + " LIKE '%" + contain + "%'"
+		sql = " SELECT SEQ_BBS, M.MEMBER_ID, BBS_DEL, BBS_ADMIN, BBS_TITLE, BBS_CONTENT, BBS_COUNT, BBS_DATE "
+				+ " FROM BBS B, PC_MEMBER M" + " WHERE B.SEQ_MEMBER = M.SEQ_MEMBER AND " 
+				+ " BBS_DEL = 0 AND " + column + " LIKE '%" + contain + "%'"
 				+ " ORDER BY BBS_DATE DESC ";
 		try {
 			conn = DBConnection.makeConnection();
@@ -191,7 +189,7 @@ public class BbsDao {
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {
-				BbsDto dto = new BbsDto(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5),
+				BbsDto dto = new BbsDto(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5),
 						rs.getString(6), rs.getInt(7), rs.getString(8));
 				dtoList.add(dto);
 			}

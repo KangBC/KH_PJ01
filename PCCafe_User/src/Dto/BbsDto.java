@@ -5,13 +5,13 @@ public class BbsDto {
 	private int postNum;			// 게시글 번호
 	private int userNum;		 	// 작성자 회원번호
 	private int del;				// 게시글이 삭제되었는지 여부
-	private int notice;				// 공지글인지 아닌지 여부  	- ***********user의 글이므로 공지가 아님을 나타내줘야함.
+	private int notice;				// 공지글인지 아닌지 여부
 	private int readCount;			// 게시글 조회수
 	
 	private String title;			// 게시글 제목
 	private String content;			// 게시글 내용
 	private String createdDate;		// 게시글 작성일
-	
+	private String userID;
 	public BbsDto() {
 	}
 	
@@ -30,13 +30,13 @@ public class BbsDto {
 		this.content = content;
 	}
 
-	public BbsDto(int postNum, int userNum, int del, int notice, String title, String content, int readCount, String createdDate) {	// 게시글 가져올 때
+	public BbsDto(int postNum, String userName, int del, int notice, String title, String content, int readCount, String createdDate) {	// 게시글 가져올 때
 		super();
 		this.postNum = postNum;
 		this.del = del;
 		this.notice = notice;
 
-		this.userNum = userNum;
+		this.userID = userName;
 		this.title = title;
 		this.content = content;
 		this.readCount = readCount;
@@ -74,4 +74,9 @@ public class BbsDto {
 	public String getCreatedDate() {
 		return createdDate;
 	}
+	
+	public String getUserID() {
+		return userID;
+	}
+
 }

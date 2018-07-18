@@ -34,7 +34,7 @@ public class BbsDetailView extends JFrame {
 		writerLabel.setBounds(10, 10, 60, 15);
 		getContentPane().add(writerLabel);
 				
-		idTextfield = new JTextField(); // 유저 iD 넣어야함.
+		idTextfield = new JTextField(dto.getUserID()); 
 		idTextfield.setBounds(120, 10, 200, 20);
 		idTextfield.setEditable(false);		
 		getContentPane().add(idTextfield);
@@ -108,7 +108,6 @@ public class BbsDetailView extends JFrame {
 		}*/
 		
 		updateBtn.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {	
 				Singleton sc = Singleton.getInstance();
 				sc.bbsCtrl.bbsUpdate(dto.getPostNum());

@@ -35,7 +35,7 @@ public class BbsUpateview extends JFrame{
 		writerLabel.setBounds(10, 10, 60, 15);
 		getContentPane().add(writerLabel);
 				
-		idTextfield = new JTextField(dto.getUserNum());
+		idTextfield = new JTextField(dto.getUserID());
 		idTextfield.setBounds(120, 10, 200, 20);
 		idTextfield.setEditable(false);		
 		getContentPane().add(idTextfield);
@@ -92,7 +92,7 @@ public class BbsUpateview extends JFrame{
 		// updatebutton
 		JButton updateBtn = null;		
 		updateBtn = new JButton("수정완료");
-		updateBtn.setBorderPainted(true);
+		updateBtn.setBorderPainted(true);// 버튼테두리
 		updateBtn.setContentAreaFilled(false);
 		updateBtn.setFocusable(false);
 		updateBtn.setForeground(Color.black);
@@ -100,7 +100,6 @@ public class BbsUpateview extends JFrame{
 		getContentPane().add(updateBtn);
 		updateBtn.addActionListener(new ActionListener() {
 		
-			@Override
 			public void actionPerformed(ActionEvent e) {					
 				String title = titleTextfield.getText();
 				String content = contentArea.getText();

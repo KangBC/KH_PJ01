@@ -79,7 +79,7 @@ public class BbsListView extends JFrame implements ActionListener, MouseListener
 			BbsDto dto = list.get(i);
 			rowData[i][0] = n;
 			rowData[i][1] = dto.getTitle();
-			rowData[i][2] = dto.getDel(); //  user_id 작성자로 바꿔야함
+			rowData[i][2] = dto.getUserID(); //  user_id 작성자로 바꿔야함
 			rowData[i][3] = dto.getReadCount();
 			rowData[i][4] = dto.getCreatedDate();
 			n++;
