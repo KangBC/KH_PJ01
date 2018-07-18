@@ -9,7 +9,11 @@ import View.ControlView;
 
 public class MainClass {
 	public static ControlView mainView;
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> KH_MiniProject/hyunwoo
 	public static void main(String[] args) throws Exception {
 		// Single
 		Singleton single = Singleton.getInstance();

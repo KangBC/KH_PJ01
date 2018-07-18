@@ -3,23 +3,17 @@ package View;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
 
-import Dao.BbsDao;
 import Dto.BbsDto;
 import Singleton.Singleton;
-import View.BbsListView;
 
 public class BbsAddView extends JFrame implements ActionListener {
 
@@ -28,17 +22,29 @@ public class BbsAddView extends JFrame implements ActionListener {
 	JTextArea contentArea;
 	JButton btn;
 	JButton backBtn;
+<<<<<<< HEAD
 	
+=======
+
+	Singleton sc = Singleton.getInstance();
+
+>>>>>>> KH_MiniProject/hyunwoo
 	public BbsAddView() {
 		super("글쓰기");
 		setLayout(null);
 		
 		JLabel writerLabel = new JLabel("작성자:");
 		writerLabel.setBounds(10, 10, 120, 15);
+<<<<<<< HEAD
 		add(writerLabel);		
 		
 				
 		writerText = new JTextField();
+=======
+		add(writerLabel);
+
+		writerText = new JTextField("관리자"); // 변하지않는값
+>>>>>>> KH_MiniProject/hyunwoo
 		writerText.setBounds(120, 10, 200, 20);
 		writerText.setEditable(false);		
 		add(writerText);
@@ -73,10 +79,17 @@ public class BbsAddView extends JFrame implements ActionListener {
 		backBtn = new JButton("목록");
 		backBtn.setBounds(10, 420, 100, 20);		
 		add(backBtn);
+<<<<<<< HEAD
 		
 		
 		//글올리기
 		btn.addActionListener(new ActionListener() {			
+=======
+
+		btn.addActionListener(new ActionListener() {
+
+			// 글올리기
+>>>>>>> KH_MiniProject/hyunwoo
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Singleton sc = Singleton.getInstance();	
@@ -98,20 +111,26 @@ public class BbsAddView extends JFrame implements ActionListener {
 				sc.bbsCtrl.bbsWriteAf(dto);	
 				dispose();
 			}
+
 		});
 		
 		//목록
 		backBtn.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
 				Singleton sc = Singleton.getInstance();
 				sc.bbsCtrl.getBbsList();
+=======
+				sc.bbsCtrl.drawBbsList();
+>>>>>>> KH_MiniProject/hyunwoo
 				dispose();
 			}
 		});
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
 
 	}
 

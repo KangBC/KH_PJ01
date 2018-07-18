@@ -1,7 +1,11 @@
 package View;
 
 import java.awt.Color;
+<<<<<<< HEAD
 import java.awt.EventQueue;
+=======
+import java.awt.Dimension;
+>>>>>>> KH_MiniProject/hyunwoo
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -15,9 +19,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 public class OrderView extends JFrame implements ActionListener, MouseListener {
 
@@ -97,8 +103,11 @@ public class OrderView extends JFrame implements ActionListener, MouseListener {
 		contentPane.add(btnNewButton_1);
 		setVisible(true);
 
+<<<<<<< HEAD
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1920, 1080);// 전체
+=======
+>>>>>>> KH_MiniProject/hyunwoo
 	}
 
 	@Override
@@ -125,14 +134,24 @@ public class OrderView extends JFrame implements ActionListener, MouseListener {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
+=======
+	// 게시글 마우스 클릭 -- 나중에 확인?
+	public void mouseReleased(MouseEvent e) {
+		/*
+		 * int rowNum = jTable.getSelectedRow();
+		 * sc.bbsCtrl.bbsDetail(list.get(rowNum).getPostNum());
+		 */
+>>>>>>> KH_MiniProject/hyunwoo
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
+<<<<<<< HEAD
 		if (obj == writeBtn) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
@@ -143,5 +162,14 @@ public class OrderView extends JFrame implements ActionListener, MouseListener {
 
 			});
 		}
+=======
+		/*
+		 * DefaultTableModel tableModel = (DefaultTableModel) jTable.getModel();
+		 * 
+		 * // menu view 돌아가기 if (obj == writeBtn) { sc.bbsCtrl.bbsWrite();
+		 * 
+		 * this.dispose(); }
+		 */
+>>>>>>> KH_MiniProject/hyunwoo
 	}
 }

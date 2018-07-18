@@ -6,7 +6,7 @@ import Dao.BbsDao;
 import Dto.BbsDto;
 
 
-public class BbsDaoService {
+public class BbsDaoServiece {
 
 	BbsDao dao = new BbsDao();
 	
@@ -46,5 +46,6 @@ public class BbsDaoService {
 	public boolean bbsUpdate(int seq, String title, String content) {		
 		return dao.updatePost(seq, title, content);		
 	}
+	
 
 }

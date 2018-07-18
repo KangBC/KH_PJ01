@@ -33,7 +33,7 @@ public class BbsDetailView extends JFrame {
 		writerLabel.setBounds(10, 10, 60, 15);
 		add(writerLabel);
 				
-		idTextfield = new JTextField(dto.getUserNum());
+		idTextfield = new JTextField(); // 유저 iD 넣어야함.
 		idTextfield.setBounds(120, 10, 200, 20);
 		idTextfield.setEditable(false);		
 		add(idTextfield);
@@ -93,9 +93,16 @@ public class BbsDetailView extends JFrame {
 		updateBtn = new JButton("수정");
 		updateBtn.setBounds(150, 480, 100, 20);
 		add(updateBtn);
+<<<<<<< HEAD
 		/*
 		// 수정버튼의 비활성화(같은 id일 경우만)
 		if(!dto.getUserNum().equals(sc.memCtrl.getLoginId())){
+=======
+		
+	/*	MemberController가없어서 안됨. 일단 주석처리
+		수정버튼의 비활성화(같은 id일 경우만)
+		if(!dto.getUserNum().equals(sc.memCtrl.getLoginId())){ // MemberController가없어서 안됨.
+>>>>>>> KH_MiniProject/hyunwoo
 			updateBtn.setEnabled(false);
 		}
 		updateBtn.addActionListener(new ActionListener() {
@@ -113,8 +120,14 @@ public class BbsDetailView extends JFrame {
 		deleteBtn.setBounds(290, 480, 100, 20);
 		add(deleteBtn);
 		
+<<<<<<< HEAD
 		// 삭제버튼의 비활성화(같은 id일 경우만)		
 		if(!dto.getUserNum().equals(sc.memCtrl.getLoginId())){ // MemberController가없어서 안됨.
+=======
+		// MemberController가없어서 안됨.
+	/*	// 삭제버튼의 비활성화(같은 id일 경우만)		
+		if(!dto.getUserNum().equals(sc.memCtrl.getLoginId())){ 
+>>>>>>> KH_MiniProject/hyunwoo
 			deleteBtn.setEnabled(false);
 		}
 		deleteBtn.addActionListener(new ActionListener() {
@@ -131,8 +144,12 @@ public class BbsDetailView extends JFrame {
 		bbsBtn.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {	
+<<<<<<< HEAD
 				Singleton sc = Singleton.getInstance();
 				sc.bbsCtrl.getBbsList();
+=======
+				sc.bbsCtrl.drawBbsList();
+>>>>>>> KH_MiniProject/hyunwoo
 				dispose();
 			}
 		});

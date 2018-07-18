@@ -31,7 +31,7 @@ public class BbsDao {
 		this.dto = dto;
 	}
 
-	// 뿌려줄 때 사용할 list를 얻어옴. 
+	// 뿌려줄 때 사용할 list를 얻어옴.
 	public List<BbsDto> getList() {
 		dtoList = new ArrayList<>();
 		sql = " SELECT SEQ_BBS, SEQ_MEMBER, BBS_DEL, BBS_ADMIN, BBS_TITLE, BBS_CONTENT, BBS_COUNT, BBS_DATE "
@@ -44,10 +44,10 @@ public class BbsDao {
 
 			while (rs.next()) {
 
-				BbsDto dto = new BbsDto(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5),
+				dto = new BbsDto(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5),
 						rs.getString(6), rs.getInt(7), rs.getString(8));
 				dtoList.add(dto);
-			} 
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -68,6 +68,13 @@ public class BbsDao {
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
+<<<<<<< HEAD
+=======
+
+			while (rs.next()) {
+				dto = new BbsDto(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5),
+						rs.getString(6), rs.getInt(7), rs.getString(8));
+>>>>>>> KH_MiniProject/hyunwoo
 
 			dto = new BbsDto(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6),
 					rs.getInt(5), rs.getString(6));
@@ -83,6 +90,10 @@ public class BbsDao {
 		return dto;
 	}
 
+<<<<<<< HEAD
+=======
+	// 글쓰기
+>>>>>>> KH_MiniProject/hyunwoo
 	public boolean addPost(BbsDto dto) {
 		int count = 0;
 
@@ -93,11 +104,15 @@ public class BbsDao {
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
 
+<<<<<<< HEAD
 			psmt.setInt(1, dto.getUserNum());
+=======
+			// psmt.setInt(1, dto.getUserNum());
+>>>>>>> KH_MiniProject/hyunwoo
 			psmt.setInt(1, dto.getNotice());
 			psmt.setString(2, dto.getTitle());
 			psmt.setString(3, dto.getContent());
-			
+
 			count = psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -114,7 +129,12 @@ public class BbsDao {
 	public boolean updatePost(int seq, String title, String content) {
 		int count = 0;
 
+<<<<<<< HEAD
 		sql = "UPDATE INTO BBS SET TITLE = ?, CONTENT = ? WHERE SEQ_BBS = ?";
+=======
+		// 기존코드 sql = "UPDATE INTO BBS_ SET TITLE = ?, CONTENT = ? WHERE SEQ_BBS = ?";
+		sql = "UPDATE BBS SET BBS_TITLE = ?, BBS_CONTENT = ? WHERE SEQ_BBS = ?";
+>>>>>>> KH_MiniProject/hyunwoo
 
 		try {
 			conn = DBConnection.makeConnection();
@@ -140,8 +160,15 @@ public class BbsDao {
 	// 삭제한 글을 DB에서 처리하기 위한 메서드
 	public boolean deletePost(int seq) {
 		int count = 0;
+<<<<<<< HEAD
 
 		sql = "UPDATE BBS SET TITLE = '------삭제된 글입니다-----', CONTENT = '', DEL = 1 WHERE BBS_SEQ = " + seq;
+=======
+		// 빛찬이한테 확인 : 컬럼이름이 달라서 고침
+		// 기존코드 sql = "UPDATE BBS SET TITLE = '------삭제된 글입니다-----', CONTENT = '', DEL =
+		// 1 WHERE BBS_SEQ = " + seq;
+		sql = "UPDATE BBS SET BBS_TITLE = '------삭제된 글입니다-----', BBS_CONTENT = '', BBS_DEL = 1 WHERE SEQ_BBS = " + seq;
+>>>>>>> KH_MiniProject/hyunwoo
 
 		try {
 			conn = DBConnection.makeConnection();
@@ -175,4 +202,34 @@ public class BbsDao {
 			DBClose.close(psmt, conn, rs);
 		}
 	}
+<<<<<<< HEAD
+=======
+
+	// 검색
+	public List<BbsDto> serchPost(String column, String contain) {
+		dtoList = new ArrayList<>();
+		sql = " SELECT SEQ_BBS, SEQ_MEMBER, BBS_DEL, BBS_ADMIN, BBS_TITLE, BBS_CONTENT, BBS_COUNT, BBS_DATE "
+				+ " FROM BBS " + " WHERE BBS_DEL = 0 AND " + column + " LIKE '%" + contain + "%'"
+				+ " ORDER BY BBS_DATE DESC ";
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				BbsDto dto = new BbsDto(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5),
+						rs.getString(6), rs.getInt(7), rs.getString(8));
+				dtoList.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		finally {
+			DBClose.close(psmt, conn, rs);
+		}
+
+		return dtoList;
+	}
+>>>>>>> KH_MiniProject/hyunwoo
 }

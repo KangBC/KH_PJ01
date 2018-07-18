@@ -2,7 +2,10 @@ package Controller;
 
 import java.awt.EventQueue;
 import java.net.Socket;
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+>>>>>>> KH_MiniProject/hyunwoo
 
 import View.ChatView;
 
@@ -15,8 +18,11 @@ public class serverController {
 	// Id List
 	private String loginId[] = new String[10];
 
+<<<<<<< HEAD
 	private ChatView chatList[] = new ChatView[10];
 
+=======
+>>>>>>> KH_MiniProject/hyunwoo
 	private final int SERVER_PORT = 9000;
 
 	// Constructor
@@ -26,7 +32,10 @@ public class serverController {
 			seatList[i] = "0";
 			sockList[i] = null;
 			loginId[i] = null;
+<<<<<<< HEAD
 			chatList[i] = null;
+=======
+>>>>>>> KH_MiniProject/hyunwoo
 		}
 	}
 
@@ -59,6 +68,7 @@ public class serverController {
 		this.loginId = loginId;
 	}
 
+<<<<<<< HEAD
 	public ChatView[] getChatList() {
 		return chatList;
 	}
@@ -67,6 +77,8 @@ public class serverController {
 		this.chatList = chatList;
 	}
 
+=======
+>>>>>>> KH_MiniProject/hyunwoo
 	// Set Random SeatNum
 	public int randomSeatNum(Socket socket) {
 		int temp;
@@ -91,16 +103,22 @@ public class serverController {
 					ChatView frame = new ChatView(temp[seatNum]);
 					frame.setUndecorated(true);
 					frame.setVisible(true);
+<<<<<<< HEAD
 					chatList[seatNum] = frame;
+=======
+>>>>>>> KH_MiniProject/hyunwoo
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
+<<<<<<< HEAD
 	
 	// ShowView
 	public void showView(int num) {
 		chatList[num].setVisible(true);
 	}
+=======
+>>>>>>> KH_MiniProject/hyunwoo
 }
