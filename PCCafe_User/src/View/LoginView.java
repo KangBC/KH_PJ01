@@ -49,8 +49,14 @@ public class LoginView extends JFrame implements ActionListener, KeyListener {
 		contentPane.setLayout(null);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		JPanel pl_box = new JPanel();
-		pl_box.setBackground(Color.GRAY);
+		ImageIcon icon_1 = new ImageIcon("loginBack.png");
+		JPanel pl_box = new JPanel() {
+			public void paintComponent(Graphics g) {
+				g.drawImage(icon_1.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
 		pl_box.setBounds(1306, 697, 614, 371);
 		contentPane.add(pl_box);
 		pl_box.setLayout(null);

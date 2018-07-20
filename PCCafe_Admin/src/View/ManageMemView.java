@@ -37,68 +37,69 @@ public class ManageMemView extends JFrame implements ActionListener {
 
 	public ManageMemView() {
 
+
 		super("회원정보");
 		setAutoRequestFocus(false);
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(10, 10));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.CENTER);
+		panel.setBounds(19, 31, 480, 367);
+		contentPane.add(panel);
 		panel.setLayout(null);
 
 		JLabel ID_JLabel = new JLabel("ID :\r\n");
+		ID_JLabel.setBounds(6, 31, 126, 69);
 		ID_JLabel.setFont(new Font("굴림", Font.PLAIN, 20));
-		ID_JLabel.setBounds(14, 82, 126, 69);
 		panel.add(ID_JLabel);
 
 		ID_JTectField = new JTextField();
+		ID_JTectField.setBounds(124, 47, 203, 40);
 		ID_JTectField.setColumns(10);
-		ID_JTectField.setBounds(132, 98, 273, 40);
 		panel.add(ID_JTectField);
 
 		JLabel TMINUTE_label = new JLabel("이용시간 :");
+		TMINUTE_label.setBounds(6, 99, 126, 69);
 		TMINUTE_label.setFont(new Font("굴림", Font.PLAIN, 20));
-		TMINUTE_label.setBounds(14, 208, 126, 69);
 		panel.add(TMINUTE_label);
 
 		TMINUTE_textField = new JTextField();
+		TMINUTE_textField.setBounds(124, 115, 203, 40);
 		TMINUTE_textField.setColumns(10);
 		TMINUTE_textField.setEditable(false);
-		TMINUTE_textField.setBounds(132, 224, 273, 40);
 		panel.add(TMINUTE_textField);
 
 		JLabel Pssword_JLabel = new JLabel("PSSWORD :");
+		Pssword_JLabel.setBounds(6, 167, 126, 69);
 		Pssword_JLabel.setFont(new Font("굴림", Font.PLAIN, 20));
-		Pssword_JLabel.setBounds(14, 351, 126, 69);
 		panel.add(Pssword_JLabel);
 
 		Psword_textField = new JTextField();
-		Psword_textField.setBounds(132, 367, 273, 40);
+		Psword_textField.setBounds(124, 183, 203, 40);
 		panel.add(Psword_textField);
 		Psword_textField.setColumns(10);
 
 		Search_Button = new JButton("검색");
-		Search_Button.setBounds(433, 95, 138, 46);
+		Search_Button.setBounds(362, 47, 93, 46);
 		panel.add(Search_Button);
 		Search_Button.addActionListener(this);
 
 		Upate_button = new JButton("수정");
-		Upate_button.setBounds(433, 364, 138, 46);
+		Upate_button.setBounds(362, 183, 93, 46);
 		panel.add(Upate_button);
 		Upate_button.addActionListener(this);
 
 		success = new JButton("완료");
-		success.setBounds(175, 493, 176, 85);
+		success.setBounds(134, 252, 176, 85);
 		panel.add(success);
 		success.addActionListener(this);
 		
 		setVisible(true);
-		setBounds(670, 220, 620, 700);
+		setBounds(670, 220, 521, 445);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
 	}
 
 	public void actionPerformed(ActionEvent e) {

@@ -7,19 +7,16 @@ import View.ChatView;
 
 public class serverController {
 
-	// Seat List
-	private String seatList[] = new String[10]; // 00010 00100
-	// Port List
+	private String seatList[] = new String[10];
 	private Socket sockList[] = new Socket[10];
-	// Id List
 	private String loginId[] = new String[10];
 	private ChatView chatList[] = new ChatView[10];
 
+	private int orderListNum = 0;
 	private final int SERVER_PORT = 9000;
 
 	// Constructor
 	public serverController() {
-		// Initialize List
 		for (int i = 0; i < seatList.length; i++) {
 			seatList[i] = "0";
 			sockList[i] = null;
@@ -65,6 +62,14 @@ public class serverController {
 		this.chatList = chatList;
 	}
 
+	public int getOrderListNum() {
+		return orderListNum;
+	}
+
+	public void setOrderListNum(int orderListNum) {
+		this.orderListNum = orderListNum;
+	}
+
 	// Set Random SeatNum
 	public int randomSeatNum(Socket socket) {
 		int temp;
@@ -86,8 +91,6 @@ public class serverController {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					// test
-					System.out.println(temp[seatNum].toString());
 					ChatView frame = new ChatView(temp[seatNum]);
 					frame.setUndecorated(true);
 					frame.setVisible(true);

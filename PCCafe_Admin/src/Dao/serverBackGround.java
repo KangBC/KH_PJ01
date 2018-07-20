@@ -10,17 +10,20 @@ import Main.MainClass;
 import Singleton.Singleton;
 import View.ChatView;
 import View.ControlView;
+import View.orderCheckView;
 
 public class serverBackGround extends Thread {
 	private Singleton single = Singleton.getInstance();
 	private Socket socket;
 	private boolean userLogin;
+	private boolean userOrder;
 	private int num = 0;
 
 	public serverBackGround(Socket socket) {
 		this.socket = socket;
 	}
 
+	@Override
 	public void run() {
 		super.run();
 		try {
@@ -30,7 +33,6 @@ public class serverBackGround extends Thread {
 			while (true) {
 				msg = reader.readLine();
 				if (msg.equals("SERBER_JOIN_TO_ADMIN_FROM_POS")) {
-					// Demand seatData from POS
 					String temp[] = single.serCtrl.getSeatList();
 					msg = "";
 					for (int j = 0; j < temp.length; j++) {
@@ -40,6 +42,8 @@ public class serverBackGround extends Thread {
 					pw.flush();
 				} else if (msg.equals("SERBER_JOIN_TO_ADMIN_FROM_USER")) {
 					userLogin = true;
+				} else if (msg.equals("ORDER_TO_ADMIN_FROM_USER")) {
+					userOrder = true;
 				} else if (msg.equals("SERBER_OUT_FROM_ADMIN")) {
 					Socket tempSock[] = single.serCtrl.getSockList();
 					String tempSeat[] = single.serCtrl.getSeatList();
@@ -76,16 +80,24 @@ public class serverBackGround extends Thread {
 						}
 					}
 				} else if (userLogin) {
-					int temp = single.serCtrl.randomSeatNum(socket); // temp = Seat index Number
+					int temp = single.serCtrl.randomSeatNum(socket);
 					String tempIdList[] = single.serCtrl.getLoginId();
 					tempIdList[temp] = msg;
 					userLogin = false;
 					MainClass.mainView.dispose();
 					MainClass.mainView = new ControlView();
 					MainClass.mainView.setVisible(true);
+				} else if (userOrder) {
+					Socket temp[] = single.serCtrl.getSockList();
+					for (int i = 0; i < temp.length; i++) {
+						if (temp[i] == socket) {
+							new orderCheckView(msg, i);
+						}
+					}
+					userOrder = false;
 				} else {
 					ChatView temp1[] = single.serCtrl.getChatList();
-					temp1[num].contentArea.append(msg + "\n");
+					temp1[num].contentArea.append("손님 : " + msg + "\n");
 				}
 				Thread.sleep(100);
 			}

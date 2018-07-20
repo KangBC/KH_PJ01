@@ -71,7 +71,7 @@ public class ControlView extends JFrame implements ActionListener {
 		bt_order.setForeground(Color.WHITE);
 		bt_order.setFont(new Font("굴림", Font.PLAIN, 25));
 		bt_order.setBounds(1287, 41, 160, 50);
-		contentPane.add(bt_order);
+		//contentPane.add(bt_order);
 		bt_order.addActionListener(this);
 
 		bt_member = new JButton("회원정보");
@@ -400,7 +400,6 @@ public class ControlView extends JFrame implements ActionListener {
 		pl_10.add(lb_pc_10);
 
 		bt_1.addActionListener(this);
-		bt_1.addActionListener(this); 
 		bt_2.addActionListener(this);
 		bt_3.addActionListener(this);
 		bt_4.addActionListener(this);

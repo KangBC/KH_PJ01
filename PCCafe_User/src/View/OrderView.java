@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -20,6 +21,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import Singleton.Singleton;
 
 
 
@@ -48,7 +51,7 @@ public class OrderView extends JFrame implements ActionListener,MouseListener {
 		menuPanel = new JPanel[5];
 		btn_kind = new JButton[5];
 		
-		setBounds(100, 100, 900, 700);
+		setBounds(100, 100, 930, 740);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -211,10 +214,18 @@ public class OrderView extends JFrame implements ActionListener,MouseListener {
 			String str = "";
 			int pay = 0;
 			for(int i = 0; i< stuffObj.length; i++) {
-				str = str + nameS.get(i) + " " + countS.get(i) + " 개 \n";
+				str = str + nameS.get(i) + " " + countS.get(i) + " 개 -";
 				pay = pay + priceS.get(i);
 			}
 			str = str + "총액 : " + pay;
+			
+			// 송출
+			Singleton single = Singleton.getInstance();
+			single.serCtrl.orderSign();
+			single.serCtrl.order_menuSign(str);
+			JOptionPane.showMessageDialog(null, "성공적으로 주문되었습니다.");
+			// 주문끝 작업 --------------------------------
+	
 		}
 	}
 	
@@ -347,7 +358,7 @@ public class OrderView extends JFrame implements ActionListener,MouseListener {
 		
 		// 오감자
 		imageBtn = new JButton(new ImageIcon("과자/오감자.jpg"));
-		imageBtn.setName("오! 감자");
+		imageBtn.setName("오감자");
 		imageBtn.setBounds(6, 394, 180, 150);
 		imageBtn.addActionListener(this);
 		btnList.add(imageBtn);

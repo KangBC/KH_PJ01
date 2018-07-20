@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,6 +19,11 @@ import Dao.MemberDao;
 import Dto.MemberDto;
 import Singleton.Singleton;
 import java.awt.Font;
+import java.awt.Graphics;
+
+import javax.swing.SwingConstants;
+import java.awt.Color;
+import javax.swing.border.LineBorder;
 
 public class SignUpView extends JFrame implements ActionListener {
 
@@ -33,10 +39,14 @@ public class SignUpView extends JFrame implements ActionListener {
 	private JButton signupBtn;
 	private JButton cancleBtn;
 	private JButton idCheckBtn;
+	private ImageIcon icon;
 
 	private boolean idCheck;
+	private JPanel panel_2;
 
 	public SignUpView() {
+		
+		icon = new ImageIcon("back.png");
 
 		idCheck = false;
 
@@ -50,59 +60,83 @@ public class SignUpView extends JFrame implements ActionListener {
 		panel.setLayout(null);
 
 		JLabel idlabel = new JLabel("아이디");
-		idlabel.setBounds(76, 60, 61, 16);
+		idlabel.setBounds(73, 85, 61, 16);
 		panel.add(idlabel);
 
 		JLabel pwlabel = new JLabel("비밀번호");
-		pwlabel.setBounds(76, 88, 61, 16);
+		pwlabel.setBounds(73, 113, 61, 16);
 		panel.add(pwlabel);
 
 		JLabel namelabel = new JLabel("이름");
-		namelabel.setBounds(76, 116, 61, 16);
+		namelabel.setBounds(73, 141, 61, 16);
 		panel.add(namelabel);
 
 		JLabel Phonelabel = new JLabel("핸드폰");
-		Phonelabel.setBounds(76, 144, 61, 16);
+		Phonelabel.setBounds(73, 169, 61, 16);
 		panel.add(Phonelabel);
 
 		idField = new JTextField();
-		idField.setBounds(193, 55, 130, 26);
+		idField.setBounds(158, 85, 130, 26);
 		panel.add(idField);
 		idField.setColumns(10);
 
 		pwField = new JPasswordField();
-		pwField.setBounds(193, 83, 130, 26);
+		pwField.setBounds(158, 113, 130, 26);
 		panel.add(pwField);
 
 		nameField = new JTextField();
-		nameField.setBounds(193, 111, 130, 26);
+		nameField.setBounds(158, 141, 130, 26);
 		panel.add(nameField);
 		nameField.setColumns(10);
 
 		phField = new JTextField();
-		phField.setBounds(193, 139, 130, 26);
+		phField.setBounds(158, 169, 130, 26);
 		panel.add(phField);
 		phField.setColumns(10);
 
 		signupBtn = new JButton("회원가입");
-		signupBtn.setBounds(76, 222, 117, 29);
+		signupBtn.setBounds(58, 247, 117, 29);
 		signupBtn.addActionListener(this);
 		panel.add(signupBtn);
 
 		cancleBtn = new JButton("닫기");
-		cancleBtn.setBounds(265, 222, 117, 29);
+		cancleBtn.setBounds(239, 247, 117, 29);
 		cancleBtn.addActionListener(this);
 		panel.add(cancleBtn);
 
-		idCheckBtn = new JButton("확인");
+		idCheckBtn = new JButton("중복검사");
+		idCheckBtn.setBounds(300, 85, 90, 29);
 		idCheckBtn.setFont(new Font("굴림", Font.PLAIN, 12));
-		idCheckBtn.setBounds(359, 55, 61, 29);
 		idCheckBtn.addActionListener(this);
 		panel.add(idCheckBtn);
+		
+		JPanel panel_1 = new JPanel() {
+			public void paintComponent(Graphics g) {
+				g.drawImage(icon.getImage(),0,0,null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
+		panel_1.setBounds(6, 6, 428, 35);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		
+		JLabel signLabel = new JLabel("회원가입");
+		signLabel.setForeground(Color.WHITE);
+		signLabel.setBounds(6, 6, 90, 21);
+		panel_1.add(signLabel);
+		signLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		signLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		
+		panel_2 = new JPanel();
+		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_2.setBounds(6, 53, 428, 251);
+		panel.add(panel_2);
 
 		setUndecorated(true);
 		setVisible(true);
-		setBounds(710, 380, 500, 320);
+		setBounds(710, 380, 450, 320);
 	}
 
 	public boolean checkInputOnlyNumberAndAlphabet(String textInput) {
@@ -147,6 +181,7 @@ public class SignUpView extends JFrame implements ActionListener {
 			}
 
 			if (b) {
+				JOptionPane.showMessageDialog(null, "사용 가능한 ID입니다.");
 				idCheck = true;
 			}
 		} else if (btn == signupBtn) {
@@ -164,7 +199,6 @@ public class SignUpView extends JFrame implements ActionListener {
 				dto = new MemberDto(idField.getText(), pwField.getText(), nameField.getText(), phField.getText());
 
 				if (memctrl.signUp(dto)) {
-					memctrl.draw_login();
 					this.dispose();
 				}
 			}

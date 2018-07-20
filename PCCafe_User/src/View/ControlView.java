@@ -40,7 +40,7 @@ public class ControlView extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JButton MesBtn, BbsBtn, oderBtn, logoutBtn, bt_AD;
 	private JLabel time_Label, use_Label;
-	private ImageIcon icon;
+	private ImageIcon icon,icon1;
 
 	private Timer memTm;
 
@@ -54,6 +54,7 @@ public class ControlView extends JFrame implements ActionListener {
 		tictoc();
 		
 		icon = new ImageIcon("back.png");
+		icon1 = new ImageIcon("back2.png");
 
 		setBounds(1470, 0, 450, 500);
 		contentPane = new JPanel();
@@ -77,48 +78,60 @@ public class ControlView extends JFrame implements ActionListener {
 		logoutBtn.setBounds(336, 6, 88, 66);
 		panel.add(logoutBtn);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		JPanel panel_1 = new JPanel() {
+			public void paintComponent(Graphics g) {
+				g.drawImage(icon1.getImage(),0,0,null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
+		panel_1.setBorder(new LineBorder(Color.WHITE));
 		panel_1.setBounds(14, 6, 310, 190);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 
-		JLabel idLabel = new JLabel("이름 : ");
-		idLabel.setFont(new Font("굴림", Font.BOLD, 18));
-		idLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		idLabel.setBounds(53, 37, 61, 26);
+		JLabel idLabel = new JLabel("ID     : ");
+		idLabel.setForeground(Color.WHITE);
+		idLabel.setFont(new Font("Dialog", Font.BOLD, 16));
+		idLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		idLabel.setBounds(53, 56, 61, 20);
 		idLabel.setVerticalAlignment(SwingConstants.TOP);
 		panel_1.add(idLabel);
 
 		JLabel timeLabel = new JLabel("남은 시간 : ");
+		timeLabel.setForeground(Color.WHITE);
 		timeLabel.setFont(new Font("굴림", Font.BOLD, 16));
-		timeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		timeLabel.setBounds(42, 75, 102, 26);
+		timeLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		timeLabel.setBounds(53, 81, 102, 26);
 		panel_1.add(timeLabel);
 
 		JLabel useLabel = new JLabel("사용 요금 : ");
+		useLabel.setForeground(Color.WHITE);
 		useLabel.setFont(new Font("굴림", Font.BOLD, 16));
-		useLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		useLabel.setBounds(35, 107, 109, 26);
+		useLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		useLabel.setBounds(53, 107, 109, 26);
 		panel_1.add(useLabel);
 
-		JLabel name_Label = new JLabel("");
+		JLabel name_Label = new JLabel(dto.getId());
+		name_Label.setForeground(Color.WHITE);
 		name_Label.setFont(new Font("굴림", Font.BOLD, 18));
 		name_Label.setHorizontalAlignment(SwingConstants.CENTER);
-		name_Label.setBounds(140, 30, 119, 36);
+		name_Label.setBounds(140, 50, 101, 26);
 		panel_1.add(name_Label);
 
 
 		time_Label = new JLabel((sgt.dto.getR_time() / 60) + " : " + (sgt.dto.getR_time() % 60));
+		time_Label.setForeground(Color.WHITE);
 		time_Label.setFont(new Font("굴림", Font.BOLD, 18));
 		time_Label.setHorizontalAlignment(SwingConstants.CENTER);
-		time_Label.setBounds(148, 71, 93, 20);
+		time_Label.setBounds(140, 81, 101, 26);
 		panel_1.add(time_Label);
 
 		use_Label = new JLabel("0원");
+		use_Label.setForeground(Color.WHITE);
 		use_Label.setFont(new Font("굴림", Font.BOLD, 18));
 		use_Label.setHorizontalAlignment(SwingConstants.CENTER);
-		use_Label.setBounds(158, 106, 101, 26);
+		use_Label.setBounds(140, 106, 101, 26);
 		panel_1.add(use_Label);
 
 		MesBtn = new JButton("메세지");
@@ -163,6 +176,7 @@ public class ControlView extends JFrame implements ActionListener {
 		oderBtn.addActionListener(this);
 		BbsBtn.addActionListener(this);
 		MesBtn.addActionListener(this);
+		bt_AD.addActionListener(this);
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setUndecorated(true);

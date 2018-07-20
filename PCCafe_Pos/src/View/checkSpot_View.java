@@ -48,7 +48,7 @@ public class checkSpot_View extends JFrame implements ActionListener {
 
 		JPanel pl_text = new JPanel();
 		pl_text.setBackground(Color.WHITE);
-		pl_text.setBounds(14, 77, 1886, 75);
+		pl_text.setBounds(25, 77, 1885, 75);
 		contentPane.add(pl_text);
 		pl_text.setLayout(null);
 
@@ -58,11 +58,18 @@ public class checkSpot_View extends JFrame implements ActionListener {
 		lb_text.setBounds(512, 12, 799, 51);
 		pl_text.add(lb_text);
 
-		JPanel pl_map = new JPanel();
-		pl_map.setBackground(Color.WHITE);
+		ImageIcon icon_1 = new ImageIcon("MAP.png");
+		JPanel pl_map = new JPanel() {
+			public void paintComponent(Graphics g) {
+				g.drawImage(icon_1.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponent(g);
+
+			}
+		};
+		pl_map.setLayout(null);
 		pl_map.setBounds(24, 164, 1886, 854);
 		contentPane.add(pl_map);
-		pl_map.setLayout(null);
 
 		seat_1 = new JPanel();
 		seat_2 = new JPanel();

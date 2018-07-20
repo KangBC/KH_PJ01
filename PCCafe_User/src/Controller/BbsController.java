@@ -1,6 +1,5 @@
 package Controller;
 
-import java.net.Socket;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -11,12 +10,9 @@ import View.BbsAddView;
 import View.BbsDetailView;
 import View.BbsListView;
 import View.BbsUpateview;
-import View.ChatView;
-import View.OrderView;
 
 public class BbsController {
 
-	private static final Socket Socket = null;
 	BbsListView bbsLV = null;
 	BbsDetailView bbsDV = null;
 	BbsServiece bbsService = new BbsServiece();

@@ -5,11 +5,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 
 import javax.swing.JOptionPane;
 
 import Main.MainClass;
+import View.ChatView;
+import View.ControlView;
 
 public class serverController extends Thread {
 	private final int PORT_NUMBER = 9000;
@@ -37,6 +40,7 @@ public class serverController extends Thread {
 		MainClass.chatview.setVisible(false);
 	}
 
+	@Override
 	public void run() {
 		super.run();
 		try {
@@ -49,7 +53,7 @@ public class serverController extends Thread {
 				if (msg.equals("GET_THE_MESSAGE_FROM_ADMIN")) {
 					MainClass.chatview.setVisible(true);
 				} else {
-					MainClass.chatview.chatArea.append("손님 : "+msg + "\n");
+					MainClass.chatview.chatArea.append("관리자 : " + msg + "\n");
 				}
 			}
 		} catch (Exception e) {
@@ -106,4 +110,27 @@ public class serverController extends Thread {
 		}
 	}
 
+	// Order command sign
+	public void orderSign() {
+		PrintWriter pw;
+		try {
+			pw = new PrintWriter(MainClass.getSock().getOutputStream(), true);
+			pw.println("ORDER_TO_ADMIN_FROM_USER");
+			pw.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// Order_menu command sign
+	public void order_menuSign(String order) {
+		PrintWriter pw;
+		try {
+			pw = new PrintWriter(MainClass.getSock().getOutputStream(), true);
+			pw.println(order);
+			pw.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

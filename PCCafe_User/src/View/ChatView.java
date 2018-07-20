@@ -26,6 +26,7 @@ public class ChatView extends JFrame implements ActionListener {
 	public static JTextArea chatArea;
 	private Singleton single = Singleton.getInstance();
 	private JButton bt_exit, bt_send;
+	private Socket socket;
 	private JTextField tf_msg;
 
 	public ChatView() {
@@ -56,7 +57,6 @@ public class ChatView extends JFrame implements ActionListener {
 		contentPane.add(title);
 
 		chatArea = new JTextArea();
-		chatArea.setFont(new Font("Georgia", Font.BOLD, 18));
 		chatArea.setEditable(false);
 		chatArea.setLineWrap(true);
 
@@ -85,12 +85,13 @@ public class ChatView extends JFrame implements ActionListener {
 		setUndecorated(true);
 		setResizable(false);
 		setContentPane(contentPane);
-		setBounds(720, 220, 480, 600);
+		setBounds(720, 220, 480, 590);
 
 		bt_exit.addActionListener(this);
 		bt_send.addActionListener(this);
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if (obj == bt_send) {

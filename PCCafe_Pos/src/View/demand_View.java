@@ -176,6 +176,8 @@ public class demand_View extends JFrame implements ActionListener {
 		Object obj = e.getSource();
 		if (obj == btnNewButton) {
 			if (dao.inputTime(dao.getUserDto().getSeq(), dao.getChoTime() + dao.getUserDto().getTime())) {
+				dao.setChoPrice(0);
+				dao.setUserDto(null);
 				JOptionPane.showMessageDialog(null, "성공적으로 시간추가 되었습니다.");
 				dao.mainView();
 				this.dispose();
